@@ -2,36 +2,36 @@
 <div class="p-grid">
 
     <div class="p-col-12 p-ml-2">
-        <h3>Book details</h3>
+        <h3 translate>book-details.caption</h3>
     </div>
-
+   
     <div class="p-col-8">
         <div class="p-fluid">
             <form class="form" [formGroup]="bookForm" (ngSubmit)="submitForm()">
         
             <div class="p-field">
-                <label for="firstname" class="p-ml-2 ">ISBN:</label>   hehe
+                <label for="firstname" class="p-ml-2 " translate>book-details.isbn</label>
                 <div class="p-ml-2 ">
                     <input pInputText type="text" formControlName="isbn" >
                 </div>
             </div>
             
             <div class="p-field">
-                <label class="p-ml-2  ">Title:</label>
+                <label class="p-ml-2" translate>book-details.title</label>
                 <div class="p-ml-2 ">
                     <input pInputText type="text" formControlName="title">
                 </div>
             </div>
             
             <div class="p-field">
-                <label class="p-ml-2  ">Subtitle:</label>
+                <label class="p-ml-2" translate>book-details.subtitle</label>
                 <div class="p-ml-2 ">
                     <input pInputText type="text" formControlName="subtitle">
                 </div>
             </div>
             
             <div class="p-field">
-                <label class="p-ml-2">Rating:</label>
+                <label class="p-ml-2" translate>book-details.rating</label>
                 <div class="p-ml-2 ">
                     <input pInputText type="text" formControlName="rating">
                 </div>
@@ -40,35 +40,35 @@
 
             <div class="p-field"> 
                 <span class="p-ml-2 " style="border: 1px;">
-                    <label class="p-ml-2"><code>Local time:</code></label>
+                    <label class="p-ml-2"><code translate>book-details.local_time</code></label>
                    {{ bookForm.get("published")?.value | date:"longDate" }}, time:  {{ bookForm.get("published")?.value | date:"shortTime" }}
                 </span>
                 <span class="p-ml-2 ">
-                    <label class="p-ml-2"><code>UTC time (english):</code></label>
+                    <label class="p-ml-2"><code translate>book-details.UTC time (english)</code></label>
                     {{ bookForm.get("published")?.value | date: "longDate":"UTC":"en_EN"}}, time:  {{ bookForm.get("published")?.value | date:"shortTime":"UTC":"en_EN" }}
                  </span>
                  <span class="p-ml-2 ">
-                    <label class="p-ml-2"><code>Moscow time (russian):</code></label>
+                    <label class="p-ml-2"><code translate>book-details.Moscow time (russian)</code></label>
                     {{ bookForm.get("published")?.value | date: "longDate":"UTC":"ru_RU"}}, time:  {{ bookForm.get("published")?.value | date:"shortTime":"UTC":"ru_RU" }}
                 </span>
             </div>
 
             <div class="p-field" style="width: 150px;">
-                <label class="p-ml-2">Pulished date:</label>
+                <label class="p-ml-2" translate>book-details.pulished_date</label>
                  <div class="p-ml-2 "> <!--a style nélkül a dropdown alol áttunt a button -->
                    <p-calendar [style]="{'position': 'auto', 'overflow': 'visible', 'z-index': '999'}" formControlName="publishedDate" dateFormat="yy-m-d"></p-calendar>
                 </div>
             </div>
 
             <div class="p-field" style="width: 150px;">
-                <label class="p-ml-2">Pulished dateTime:</label>
+                <label class="p-ml-2" translate>book-details.pulished_dateTime</label>
                  <div class="p-ml-2 "> <!--a style nélkül a dropdown alol áttunt a button -->
                    <p-calendar showTime="true" [style]="{'position': 'auto', 'overflow': 'visible', 'z-index': '999'}" formControlName="published" dateFormat="yy-m-d"></p-calendar>
                 </div>
             </div>
 
             <div class="p-field">
-                <label class="p-ml-2">Country selection with autocomplete ( REST ) </label>
+                <label class="p-ml-2" translate>book-details.countruy_autoc</label>
                  <div class="p-ml-2 "> <!--a style nélkül a dropdown alol áttunt a button -->
                     <p-autoComplete formControlName="city" [suggestions]="searchResults" (completeMethod)="search($event)" [dropdown]="true"
                     ></p-autoComplete>
@@ -76,7 +76,7 @@
             </div>
           
             <div class="p-field">
-                <button pButton type="button" class="p-button-outlined p-ml-2"  [style.max-width.px]="180"  (click)="addAuthor()">Add new Author</button>
+                <button pButton type="button" class="p-button-outlined p-ml-2"  [style.max-width.px]="180"  (click)="addAuthor()" translate>book-details.add_new_author</button>
             </div>
             
             <br/>
@@ -85,7 +85,7 @@
             </div>           
    
             <div class="p-field">
-                <button pButton type="button" class="p-button-outlined p-ml-2"  [style.max-width.px]="180"  (click)="addSeller()">Add new Seller</button>
+                <button pButton type="button" class="p-button-outlined p-ml-2"  [style.max-width.px]="250"  (click)="addSeller()" translate>book-details.add_new_seller</button>
             </div>
 
             <div class="p-field p-ml-2">
@@ -93,20 +93,20 @@
                 <div *ngIf="sellers">
                     <!-- Fejléc -->
                     <div class="p-grid" >   <!--  nem biztos hogy a jsonban van ilyen property -->
-                        <div class="p-col">
-                            Name
+                        <div class="p-col" translate>
+                            book-details.name
                         </div>
-                        <div class="p-col">
-                            Address
+                        <div class="p-col" translate>
+                            book-details.address
                         </div>
-                        <div class="p-col">
-                            Quantity
+                        <div class="p-col" translate>
+                            book-details.quantity
                         </div>
-                        <div class="p-col">
-                            Age
+                        <div class="p-col" translate>
+                            book-details.age
                         </div>
-                        <div class="p-col">
-                            BirthYear
+                        <div class="p-col" translate>
+                            book-details.birthyear
                         </div>
                         <div class="p-col">
                             &nbsp;
@@ -135,10 +135,10 @@
                             <input pInputText formControlName="birthYear" >
                         </div>
                         <div class="p-col">
-                            <button type="button" class="p-button-outlined p-ml-2" pButton [style.max-width.px]="200" (click)="deleteSeller(i)">Delete Seller</button>
+                            <button type="button" class="p-button-outlined p-ml-2" pButton [style.max-width.px]="200" (click)="deleteSeller(i)" translate>book-details.delete_seller</button>
                         </div>   
                         <div class="p-col">
-                            <span class="invalid p-col-12" *ngIf="sellers[i]?.errors"> {{sellers[i]?.errors?.ageAndYear.message}}</span>
+                            <span class="invalid p-col-12" *ngIf="sellers[i]?.errors" translate> {{sellers[i]?.errors?.ageAndYear.message}}</span>
                         </div>  
                 </div>               
 
@@ -147,8 +147,8 @@
             </div>
             
             <div class="p-field">
-                <button pButton type="submit" class="p-mr-2"  [style.max-width.px]="180" [disabled]="bookForm.invalid" label="Submit"></button>
-                <button pButton type="button" class=""  [style.max-width.px]="180" routerLink="/book/list" label="Back"></button>
+                <button pButton type="submit" class="p-mr-2"  [style.max-width.px]="180" [disabled]="bookForm.invalid" translate>book-details.submit</button>
+                <button pButton type="button" class=""  [style.max-width.px]="180" routerLink="/book/list" translate>book-details.back</button>
             </div>
 
 

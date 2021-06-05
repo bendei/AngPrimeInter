@@ -6,7 +6,8 @@ import {BookRepository} from "../shared/book.repository";
 import { Book, BookSeller } from '../shared/book';
 import {BookValidator} from "../../validators/BookValidator";
 import { NGXLogger } from 'ngx-logger';
- 
+
+
 @Component({
   selector: 'app-book-details',
   templateUrl: './book-details.component.html',
@@ -22,9 +23,10 @@ export class BookDetailsComponent implements OnInit {
   searchText: string;
   searchResults: string[];
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private fb: FormBuilder, private bookRepo: BookRepository, private logger: NGXLogger) {
-    this.modes = Number(activeRoute.snapshot.paramMap.get("mode"));
-   }
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private fb: FormBuilder, private bookRepo: BookRepository, private logger: NGXLogger, 
+    ) {
+      this.modes = Number(activeRoute.snapshot.paramMap.get("mode"));
+    }
 
   ngOnInit(): void {
    this.initForm();  // meg kell hivni mert a template már renderelve lehet mire a REST response megjön és a [fromGroup] egy undefined objectre mutat
@@ -140,4 +142,6 @@ export class BookDetailsComponent implements OnInit {
     this.bookRepo.getCountries(event.query).subscribe(x => this.searchResults = x)
   }
     
+ 
+
 }

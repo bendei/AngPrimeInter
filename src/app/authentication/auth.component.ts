@@ -1,7 +1,8 @@
  import { Component, Injectable } from "@angular/core";
  import { NgForm} from "@angular/forms";
  import { Router } from "@angular/router";
-import { AuthService } from "./auth.service";
+ import { AuthService } from "./auth.service";
+ import {TranslateService} from '@ngx-translate/core'; 
 
  @Component({
      templateUrl: "auth.component.html"
@@ -13,7 +14,9 @@ import { AuthService } from "./auth.service";
     public errorMsg: string;
     public authenticated: boolean = false;
 
-    constructor(private router: Router, private authService: AuthService) {}
+    constructor(private router: Router, private authService: AuthService, private translate: TranslateService) {
+        translate.setDefaultLang('en');
+    }
 
     public authenticate(form: NgForm) {
         if (form.valid) {
@@ -31,4 +34,8 @@ import { AuthService } from "./auth.service";
         }
     }
 
+    useLanguage(language: string): void {
+        this.translate.use(language);
+    }
+    
  }

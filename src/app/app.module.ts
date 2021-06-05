@@ -45,6 +45,7 @@ registerLocaleData(localeRu, 'ru');
     AppRoutingModule, 
     StoreModule, BookModule, InputOutputModule,
     LoggerModule.forRoot({serverLoggingUrl: 'http://localhost:3500/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
+   
   ],
   providers: [StoreGuard, 
     {provide: LOCALE_ID, useValue: "fr_FR"},  // beégettük az app locale-ját
@@ -57,3 +58,5 @@ registerLocaleData(localeRu, 'ru');
 export class AppModule {
  
  }
+
+ 

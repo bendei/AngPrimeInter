@@ -1,0 +1,29 @@
+{
+    "book-details.caption": "Book details",
+    "book-details.isbn": "ISBN",
+    "book-details.title": "Title",
+    "book-details.subtitle": "Subtitle",
+    "book-details.rating": "Rating",
+    "book-details.local_time": "Local Time",
+    "book-details.utc_time": "UTC time (english)",
+    "book-details.moscow_time": "Moscow time (russian)",
+    "book-details.pulished_date": "Published date",
+    "book-details.pulished_dateTime": "Published datetime",
+    "book-details.countruy_autoc": "Country selection with autocomplete ( REST ) ",
+    "book-details.add_new_author": "Add new Author",
+    "book-details.add_new_seller": "Add new Seller",
+    "book-details.name": "Name",
+    "book-details.address": "Address",
+    "book-details.quantity": "Quantity",
+    "book-details.age": "Age",
+    "book-details.birthyear": "Birth year",
+    "book-details.delete_seller": "Delete seler",
+    "book-details.submit": "Submit",
+    "book-details.back": "Back",
+
+    "auth.username": "Username",
+    "auth.password": "Password",
+    "auth.login": "Login"
+
+
+}

@@ -1,0 +1,29 @@
+{
+    "book-details.caption": "Könyv részletei",
+    "book-details.isbn": "ISBN",
+    "book-details.title": "Cím",
+    "book-details.subtitle": "Alcím",
+    "book-details.rating": "Értékelés",
+    "book-details.local_time": "Helyi idő",
+    "book-details.utc_time": "UTC idő (english)",
+    "book-details.moscow_time": "Moscow idő (russian)",
+    "book-details.pulished_date": "Publikálás dátuma",
+    "book-details.pulished_dateTime": "Publikálás ideje",
+    "book-details.countruy_autoc": "Ország kiválasztása autocomplete ( REST ) ",
+    "book-details.add_new_author": "Szerző hozzáadása",
+    "book-details.add_new_seller": "Eladó hozzáadása",
+    "book-details.name": "Név",
+    "book-details.address": "Cím",
+    "book-details.quantity": "Mennyiség",
+    "book-details.age": "Életkor",
+    "book-details.birthyear": "Szül. év",
+    "book-details.delete_seller": "Eladó törlése",
+    "book-details.submit": "Beküldés",
+    "book-details.back": "Vissza",
+
+    "auth.username": "Felhasználónév",
+    "auth.password": "Jelszó",
+    "auth.login": "Belépés"
+
+
+}

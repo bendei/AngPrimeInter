@@ -5,28 +5,30 @@
         <div>SPORTS STORE</div>
     </div>
 
+    <button (click)="useLanguage('en')">en</button>
+    <button (click)="useLanguage('hu')">hu</button>
+
     <div class="p-col-12">
         <div *ngIf="errorMsg != null" class="text-danger">{{errorMsg}}</div>
     </div>
-
     <div class="p-col-6">
         <div class="p-fluid">
             <form #form="ngForm" novalidate (ngSubmit)="authenticate(form)">
             <div class="p-field">
-                <label for="firstname" class="p-ml-2 ">Firstname</label>
+                <label for="firstname" class="p-ml-2 " translate>auth.username</label>
                 <div class="p-ml-2 ">
                     <input pInputText tabindex = "0" name="username" [(ngModel)]="username" required />
                 </div>
             </div>
             <div class="p-field">
-                <label for="lastname" class="p-ml-2  ">Lastname</label>
+                <label for="lastname" class="p-ml-2" translate>auth.password</label>
                 <div class="p-ml-2 ">
                     <input pInputText name="password" [(ngModel)]="password" required/>
                 </div>
             </div>
             <div class="p-field">
                 <div class="p-ml-2 p-mx-auto" style="width: 150px;">
-                    <button pButton type="submit" label="Login"></button>
+                    <button pButton type="submit" translate>auth.login</button>
                 </div>
             </div>
 
