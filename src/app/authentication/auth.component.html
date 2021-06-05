@@ -1,16 +1,11 @@
 
 <div class="p-grid">
 
-    <div class="p-col-12">
-        <div>SPORTS STORE</div>
-    </div>
-
-    <button (click)="useLanguage('en')">en</button>
-    <button (click)="useLanguage('hu')">hu</button>
-
+   
     <div class="p-col-12">
         <div *ngIf="errorMsg != null" class="text-danger">{{errorMsg}}</div>
     </div>
+   
     <div class="p-col-6">
         <div class="p-fluid">
             <form #form="ngForm" novalidate (ngSubmit)="authenticate(form)">
@@ -26,13 +21,22 @@
                     <input pInputText name="password" [(ngModel)]="password" required/>
                 </div>
             </div>
+
             <div class="p-field">
                 <div class="p-ml-2 p-mx-auto" style="width: 150px;">
-                    <button pButton type="submit" translate>auth.login</button>
+                    <button pButton type="submit" style="text-align: center;" translate>auth.login</button>
                 </div>
             </div>
 
         </form>
+
+        <div class="p-field">
+            <div class="p-ml-2 p-mx-auto" style="width: 150px;">
+                <button pButton class="p-button-outlined p-ml-2" (click)="useLanguage('en')" style="width: 50px;">en</button>
+                <button pButton class="p-button-outlined p-ml-2" (click)="useLanguage('hu')" style="width: 50px;">hu</button>
+            </div>
+        </div>
+
         </div>
     </div>
 

@@ -21,9 +21,16 @@
     "book-details.submit": "Beküldés",
     "book-details.back": "Vissza",
 
+    "book-list.create_book": "Új könyv",
+
     "auth.username": "Felhasználónév",
     "auth.password": "Jelszó",
-    "auth.login": "Belépés"
+    "auth.login": "Belépés",
+
+    "menu.books": "könyvek",
+    "menu.product_store": "Termékek",
+    "menu.product_admin": "Termék adminisztráció",
+    "menu.input_output": "Input output"
 
 
 }

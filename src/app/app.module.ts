@@ -17,6 +17,7 @@ import {AuthenticationModule} from "./authentication/authentication.module";
 import { StoreModule} from "./store/store.module";
 import {BookModule} from "../app/book/book.module";
 import {InputOutputModule} from "../app/inputOutput/inputOutput.module";
+import {ButtonModule} from "primeng/button";
 
 // comps
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import { StoreGuard } from "./authentication/store.guard";
 import { TokenInterceptor} from "../app/shared/token.interceptor";
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { SharedModule } from './shared/shared.module';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeHu, 'hu');
@@ -40,15 +42,14 @@ registerLocaleData(localeRu, 'ru');
     HomeComponent
   ],
   imports: [
-    BrowserModule, RouterModule, ReactiveFormsModule,
-    AuthenticationModule, 
+    BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,
+    AuthenticationModule, SharedModule,
     AppRoutingModule, 
     StoreModule, BookModule, InputOutputModule,
     LoggerModule.forRoot({serverLoggingUrl: 'http://localhost:3500/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
    
   ],
   providers: [StoreGuard, 
-    {provide: LOCALE_ID, useValue: "fr_FR"},  // beégettük az app locale-ját
     {provide: ErrorHandler, useClass: AppErrorHandler},  // custom error handling
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true} // token interceptior
      

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Modes} from "../../shared/app-enums";
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -23,8 +23,8 @@ export class BookDetailsComponent implements OnInit {
   searchText: string;
   searchResults: string[];
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private fb: FormBuilder, private bookRepo: BookRepository, private logger: NGXLogger, 
-    ) {
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private fb: FormBuilder, private bookRepo: BookRepository, 
+    private logger: NGXLogger) {
       this.modes = Number(activeRoute.snapshot.paramMap.get("mode"));
     }
 

@@ -21,9 +21,17 @@
     "book-details.submit": "Submit",
     "book-details.back": "Back",
 
+    "book-list.create_book": "Create new book",
+
     "auth.username": "Username",
     "auth.password": "Password",
-    "auth.login": "Login"
+    "auth.login": "Login",
+
+    "menu.books": "Books",
+    "menu.product_store": "Product store",
+    "menu.product_admin": "Product admin",
+    "menu.input_output": "Input output"
+
 
 
 }

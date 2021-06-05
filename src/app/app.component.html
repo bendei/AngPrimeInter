@@ -1,29 +1,28 @@
-<div class="container-fluid full-height">
-  <div class="row">
-  <div class="col-2 ull-height">
+<div class="p-grid">
 
-    <button class="btn btn-block btn-primary mb-2" routerLink="/book/list" [style.max-width.px]="180">
-      Books
-    </button>
+  <div class="p-col-12">
 
-    <button class="btn btn-block btn-primary mb-2" routerLink="/store/home" [style.max-width.px]="180">
-      Product Store
-    </button>
+    <span class="p-buttonset">
+      <button pButton class="p-button-success p-mr-2" routerLink="/book/list" [style.min-width.px]="230" translate>
+        menu.books
+      </button>
 
-    <button class="btn btn-block btn-primary mb-2" routerLink="/admin/home" [style.max-width.px]="180">
-      Product Admin
-    </button>
+      <button pButton class="p-button-success p-mr-2" routerLink="/store/home" [style.min-width.px]="230" translate>
+        menu.product_store
+      </button>
 
-    <button class="btn btn-block btn-primary mb-2" routerLink="/inputoutput/home" [style.max-width.px]="180">
-      Input Output
-    </button>
-    
+      <button pButton class="p-button-success p-mr-2" routerLink="/admin/home" [style.min-width.px]="230" translate>
+        menu.product_admin
+      </button>
+
+      <button pButton class="p-button-success p-mr-2" routerLink="/inputoutput/home" [style.min-width.px]="230" translate>
+        menu.input_output
+      </button>
+    </span>
   </div>
 
-  <div class="col-10 full-height">
+  <div class="p-col-12">
     <router-outlet></router-outlet> 
   </div>
-</div>
-
 
 </div>
