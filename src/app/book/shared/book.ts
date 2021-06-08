@@ -14,6 +14,9 @@ export interface Book {
     thumbnails?: Thumbnail[];
     description?: string;
     city?: string;
+    genres: string[];
+    ebook?: boolean;
+    printed?: boolean;
 }
 
 export interface BookSeller {

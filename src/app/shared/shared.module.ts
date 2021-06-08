@@ -10,6 +10,7 @@ import {ButtonModule} from "primeng/button";
 import {TableModule} from 'primeng/table';
 import {CalendarModule} from 'primeng/calendar';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {CheckboxModule} from 'primeng/checkbox';
 
 // import ngx-translate and the http loader
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -17,7 +18,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
 
 const modulesToExport = [CommonModule, FormsModule, RouterModule, ReactiveFormsModule, HttpClientModule];
-const primeModules = [InputTextModule, ButtonModule, TableModule, CalendarModule, AutoCompleteModule];
+const primeModules = [InputTextModule, ButtonModule, TableModule, CalendarModule, AutoCompleteModule, CheckboxModule];
 
 @NgModule({
   imports: [...modulesToExport, ...primeModules,  TranslateModule.forRoot({

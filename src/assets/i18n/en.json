@@ -4,9 +4,9 @@
     "book-details.title": "Title",
     "book-details.subtitle": "Subtitle",
     "book-details.rating": "Rating",
-    "book-details.local_time": "Local Time",
-    "book-details.utc_time": "UTC time (english)",
-    "book-details.moscow_time": "Moscow time (russian)",
+    "book-details.local_time": "Local Time:",
+    "book-details.utc_time": "UTC time (english):",
+    "book-details.moscow_time": "Moscow time (russian):",
     "book-details.pulished_date": "Published date",
     "book-details.pulished_dateTime": "Published datetime",
     "book-details.countruy_autoc": "Country selection with autocomplete ( REST ) ",
@@ -20,6 +20,8 @@
     "book-details.delete_seller": "Delete seler",
     "book-details.submit": "Submit",
     "book-details.back": "Back",
+    "book-details.ebook": "Ebook",
+    "book-details.printed": "Printed",
 
     "book-list.create_book": "Create new book",
 

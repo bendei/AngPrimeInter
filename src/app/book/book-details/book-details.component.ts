@@ -23,6 +23,17 @@ export class BookDetailsComponent implements OnInit {
   searchText: string;
   searchResults: string[];
 
+  // ez az osszes checkbox amit ki kell rakni a feluletre, az API viszont string[] ben csak azokat adja vissza amik true-k,
+  // tehat ezeket majd meg kell feleltetni egymassal: createGenreCechboxes
+  genresAll: any = [
+    {name: 'IT', id: 1, selected: false},
+    {name: 'Programming', id: 2, selected: false},
+    {name: 'Frontend', id: 3, selected: false},
+    {name: 'Backend', id: 4, selected: false},
+    {name: 'Docker', id: 5, selected: false},
+    {name: 'Git', id: 6, selected: false}
+  ];
+
   constructor(private router: Router, private activeRoute: ActivatedRoute, private fb: FormBuilder, private bookRepo: BookRepository, 
     private logger: NGXLogger) {
       this.modes = Number(activeRoute.snapshot.paramMap.get("mode"));
@@ -35,10 +46,8 @@ export class BookDetailsComponent implements OnInit {
 
    if (this.modes === Modes.edit) {
       const id = this.activeRoute.snapshot.paramMap.get("id");
-      this.bookRepo.getBook(id).subscribe(data =>  {  // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST
-                                                     // hivás eredményét
-        this.initForm(data);
-      })
+      // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
+      this.bookRepo.getBook(id).subscribe(data =>  {  this.initForm(data);   })
     } 
   }
 
@@ -55,8 +64,15 @@ export class BookDetailsComponent implements OnInit {
       //sellers: (book === undefined || book.sellers === undefined )? [] : this.fb.array(this.createSellerGroups(book?.sellers))
       // vagy ugyanez 
       sellers: this.fb.array( (!book || !book?.sellers) ? [] : this.createSellerArray(book.sellers), {validators: BookValidator.ageAndYearCorrect} ), // array of FormGroups containing FormControll objects
-      authors: ( (!book || !book?.authors) ? [] : this.createAuthorsArray(book.authors))  //itt mivel nem gropuba hanem egyből FormControllert
+      authors: ( (!book || !book?.authors) ? [] : this.createAuthorsArray(book.authors)), //itt mivel nem gropuba hanem egyből FormControllert
       // használok nem megy valamiért a FormBuilder.array, helyette manuálisan állitom össze!
+
+      // fix checkboxok
+      ebook: new FormControl( (!book || !book?.authors) ? false : book?.ebook),
+      printed: new FormControl((!book || !book?.authors) ? false : book?.printed),
+
+      // dinamikus checkboxok (API-bol)
+      genres: this.createGenreCechboxes(book?.genres)
     });
   }
 
@@ -68,12 +84,13 @@ export class BookDetailsComponent implements OnInit {
     return (this.bookForm.get('sellers') as FormArray).controls;
   }
 
+  get genres(): AbstractControl[] {
+    return (this.bookForm.get('genres') as FormArray).controls;
+  }
+
   createAuthorsArray(values?: string[]): FormArray {
-    const array: FormArray = new FormArray([]);
-    values.forEach(v => {
-      array.push(new FormControl(v));
-    });
-    return array;
+    const arr = values.map(author => {return new FormControl(author)});
+    return new FormArray(arr);
   }
 
   createSellerArray(sellers: BookSeller[]): FormGroup[] {
@@ -84,6 +101,20 @@ export class BookDetailsComponent implements OnInit {
       );
     });
     return sellerGroups;
+  }
+
+  createGenreCechboxes(genres: string[]): FormArray {
+    let result: FormControl[];
+    if(genres) {
+      result = this.genresAll.map(genre => {
+          let matchingGenre = genres.includes(genre.name);
+          //console.log(matchingGenre + ", " + genre.name);
+          return new FormControl(matchingGenre)
+          })
+      } else {
+        result = this.genresAll.map(genre => {return new FormControl(false) });
+      }
+      return new FormArray(result);
   }
 
   private createSellerGroup(s?: BookSeller): FormGroup {
@@ -117,6 +148,13 @@ export class BookDetailsComponent implements OnInit {
      const sellers = this.bookForm.value.sellers.filter((seller: BookSeller) => (seller.address != null && seller.name != null && seller.quantity != 0));
      const authors = this.bookForm.value.authors;
 
+     // kétféleképpen kaphatom meg a controllok értékéeit
+     console.log("ebook:", this.bookForm.value.ebook);  // a form model objektum value metódusa mely az összes value-t tartalmazza
+     console.log("ebook:", this.bookForm.get("ebook").value); // a form model FormControlljan keresztül
+
+     // genre checkbox: azoknak a neveit küldjük csak vissza, amik checked
+     const genres = this.bookForm.value.genres;
+
       const mybook: Book = {
         ...this.bookForm.value,
         id: this.bookForm.get("isbn").value,
@@ -124,7 +162,8 @@ export class BookDetailsComponent implements OnInit {
         published: new Date(this.bookForm.get("published").value).toISOString(), //new Date().toISOString(), //this.bookForm.get("publishedDate").value,
         publishedDate: new Date(this.bookForm.get("publishedDate").value).toISOString(), //this.bookForm.get("publishedDate").value,
         sellers,
-        authors
+        authors,
+        genres: this.getSelectedGenreNames(genres)
       };
 
       if(this.modes == Modes.edit) {
@@ -136,6 +175,22 @@ export class BookDetailsComponent implements OnInit {
             this.router.navigateByUrl("/book/list"))
       }
     }
+  }
+
+  private getSelectedGenreNames(genres: string[]): string[] {
+    // let genresToSend: string[] = [];
+    // this.genresAll.forEach( (element, index) => {
+    //   if (genres[index]) {
+    //     genresToSend.push(element.name);
+    //   }
+    // });
+    // return genresToSend;
+    // itt lent ugyanez csak mappel
+
+    let  genresToSend = this.genresAll.map( (gen, index: number) => {
+      if (genres[index]) return gen.name; // genres elemei booleanek, amik ha a user checkelt kkor ture, azaz azt a sorszamu elemet(nevet) a genresAllbol el kuldjuk
+    });
+    return genresToSend.filter(el => el); // null értékeket kiszedjuk
   }
 
   search(event) {

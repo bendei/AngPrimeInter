@@ -1,161 +1,134 @@
-<br/>
-<div class="p-grid">
-
-    <div class="p-col-12 p-ml-2">
-        <h3 translate>book-details.caption</h3>
+ <form [formGroup]="bookForm" (ngSubmit)="submitForm()">  <!--a form elemet kivulre kell rakrni kulonben nem lesz correct a form layout !! -->
+<div class="p-fluid p-formgrid p-grid p-ml-2 p-mr-2">
+   
+    <div class="p-field p-col-6">
+        <label for="firstname" translate>book-details.isbn</label>
+        <input pInputText type="text" formControlName="isbn" >
     </div>
-   
-    <div class="p-col-8">
-        <div class="p-fluid">
-            <form class="form" [formGroup]="bookForm" (ngSubmit)="submitForm()">
-        
-            <div class="p-field">
-                <label for="firstname" class="p-ml-2 " translate>book-details.isbn</label>
-                <div class="p-ml-2 ">
-                    <input pInputText type="text" formControlName="isbn" >
-                </div>
-            </div>
-            
-            <div class="p-field">
-                <label class="p-ml-2" translate>book-details.title</label>
-                <div class="p-ml-2 ">
-                    <input pInputText type="text" formControlName="title">
-                </div>
-            </div>
-            
-            <div class="p-field">
-                <label class="p-ml-2" translate>book-details.subtitle</label>
-                <div class="p-ml-2 ">
-                    <input pInputText type="text" formControlName="subtitle">
-                </div>
-            </div>
-            
-            <div class="p-field">
-                <label class="p-ml-2" translate>book-details.rating</label>
-                <div class="p-ml-2 ">
-                    <input pInputText type="text" formControlName="rating">
-                </div>
-            </div>
+    <div class="p-field p-col-6">
+        <label translate>book-details.title</label>
+        <input pInputText type="text" formControlName="title">
+        <span class="invalid" *ngIf="bookForm.get('title')?.errors" translate>{{bookForm.get('title')?.errors.title.message}}</span>
+    </div>
+    <div class="p-field p-col-6">
+        <label translate>book-details.subtitle</label>
+        <input pInputText type="text" formControlName="subtitle">
+    </div>
+    <div class="p-field p-col-6">
+        <label translate>book-details.rating</label>
+        <input pInputText type="text" formControlName="rating">
+    </div>
+    <div class="p-field p-col-12">
+        <label><code translate>book-details.local_time</code></label>
+        {{ bookForm.get("published")?.value | date:"longDate" }}, time:  {{ bookForm.get("published")?.value | date:"shortTime" }}
+    
+        <label class="p-ml-2"><code translate>book-details.utc_time</code></label>
+        {{ bookForm.get("published")?.value | date: "longDate":"UTC":"en_EN"}}, time:  {{ bookForm.get("published")?.value | date:"shortTime":"UTC":"en_EN" }}
+    
+        <label class="p-ml-2"><code translate>book-details.moscow_time</code></label>
+        {{ bookForm.get("published")?.value | date: "longDate":"UTC":"ru_RU"}}, time:  {{ bookForm.get("published")?.value | date:"shortTime":"UTC":"ru_RU" }}
+    </div>
+    <div class="p-field p-col-2">
+        <label translate>book-details.pulished_date</label>
+        <p-calendar [style]="{'position': 'auto', 'overflow': 'visible', 'z-index': '999'}" formControlName="publishedDate" dateFormat="yy-m-d"></p-calendar>
+    </div>
+    <div class="p-field p-col-2">
+        <label translate>book-details.pulished_dateTime</label>
+        <p-calendar showTime="true" [style]="{'position': 'auto', 'overflow': 'visible', 'z-index': '999'}" formControlName="published" dateFormat="yy-m-d"></p-calendar>
+    </div>
+    <div class="p-field p-col-3">
+        <label translate>book-details.countruy_autoc</label>
+        <p-autoComplete formControlName="city" [suggestions]="searchResults" (completeMethod)="search($event)" [dropdown]="true"></p-autoComplete>
+    </div>
+    <div class="p-field p-col-5">
+    </div>
+    <div class="p-field p-col-12" formArrayName="authors">
+        <button pButton type="button" class="p-button-outlined p-mr-1"  [style.max-width.px]="180"  (click)="addAuthor()" translate>book-details.add_new_author</button>
+        <input pInputText type="text" style="width:200px;" *ngFor="let a of authors; index as i" [formControlName]="i" class="p-mr-1">
+        <!-- [formControlName]="i" , az i itt maga atz egyik FormControl objektum , és azért kell a [] hogy az i-t ne mint string, hanem mint expressiont adjuk at -->
+    </div>
 
+    <div class="p-field p-col-12">
+        <button pButton type="button" class="p-button-outlined p-mr-1"  [style.max-width.px]="180"  (click)="addSeller()" translate>book-details.add_new_seller</button>
+    </div>
 
-            <div class="p-field"> 
-                <span class="p-ml-2 " style="border: 1px;">
-                    <label class="p-ml-2"><code translate>book-details.local_time</code></label>
-                   {{ bookForm.get("published")?.value | date:"longDate" }}, time:  {{ bookForm.get("published")?.value | date:"shortTime" }}
-                </span>
-                <span class="p-ml-2 ">
-                    <label class="p-ml-2"><code translate>book-details.UTC time (english)</code></label>
-                    {{ bookForm.get("published")?.value | date: "longDate":"UTC":"en_EN"}}, time:  {{ bookForm.get("published")?.value | date:"shortTime":"UTC":"en_EN" }}
-                 </span>
-                 <span class="p-ml-2 ">
-                    <label class="p-ml-2"><code translate>book-details.Moscow time (russian)</code></label>
-                    {{ bookForm.get("published")?.value | date: "longDate":"UTC":"ru_RU"}}, time:  {{ bookForm.get("published")?.value | date:"shortTime":"UTC":"ru_RU" }}
-                </span>
+    <div *ngIf="sellers.length > 0" class="p-field  p-col-8" >   <!--  nem biztos hogy a jsonban van ilyen property -->
+        <div  class="p-grid">
+            <div class="p-col" translate>
+                book-details.name
             </div>
-
-            <div class="p-field" style="width: 150px;">
-                <label class="p-ml-2" translate>book-details.pulished_date</label>
-                 <div class="p-ml-2 "> <!--a style nélkül a dropdown alol áttunt a button -->
-                   <p-calendar [style]="{'position': 'auto', 'overflow': 'visible', 'z-index': '999'}" formControlName="publishedDate" dateFormat="yy-m-d"></p-calendar>
-                </div>
+            <div class="p-col" translate>
+                book-details.address
             </div>
-
-            <div class="p-field" style="width: 150px;">
-                <label class="p-ml-2" translate>book-details.pulished_dateTime</label>
-                 <div class="p-ml-2 "> <!--a style nélkül a dropdown alol áttunt a button -->
-                   <p-calendar showTime="true" [style]="{'position': 'auto', 'overflow': 'visible', 'z-index': '999'}" formControlName="published" dateFormat="yy-m-d"></p-calendar>
-                </div>
+            <div class="p-col" translate>
+                book-details.quantity
             </div>
-
-            <div class="p-field">
-                <label class="p-ml-2" translate>book-details.countruy_autoc</label>
-                 <div class="p-ml-2 "> <!--a style nélkül a dropdown alol áttunt a button -->
-                    <p-autoComplete formControlName="city" [suggestions]="searchResults" (completeMethod)="search($event)" [dropdown]="true"
-                    ></p-autoComplete>
-                </div>
+            <div class="p-col" translate>
+                book-details.age
             </div>
-          
-            <div class="p-field">
-                <button pButton type="button" class="p-button-outlined p-ml-2"  [style.max-width.px]="180"  (click)="addAuthor()" translate>book-details.add_new_author</button>
+            <div class="p-col" translate>
+                book-details.birthyear
             </div>
-            
-            <br/>
-            <div formArrayName="authors">
-                <input pInputText type="text" style="width:200px;" *ngFor="let a of authors; index as i" [formControlName]="i" class="p-ml-2 p-mb-2 ">
-            </div>           
-   
-            <div class="p-field">
-                <button pButton type="button" class="p-button-outlined p-ml-2"  [style.max-width.px]="250"  (click)="addSeller()" translate>book-details.add_new_seller</button>
-            </div>
-
-            <div class="p-field p-ml-2">
-               
-                <div *ngIf="sellers">
-                    <!-- Fejléc -->
-                    <div class="p-grid" >   <!--  nem biztos hogy a jsonban van ilyen property -->
-                        <div class="p-col" translate>
-                            book-details.name
-                        </div>
-                        <div class="p-col" translate>
-                            book-details.address
-                        </div>
-                        <div class="p-col" translate>
-                            book-details.quantity
-                        </div>
-                        <div class="p-col" translate>
-                            book-details.age
-                        </div>
-                        <div class="p-col" translate>
-                            book-details.birthyear
-                        </div>
-                        <div class="p-col">
-                            &nbsp;
-                        </div>           
-                    </div>  
-                </div>  
-            </div>
-              
-            <div class="p-field p-ml-2" *ngIf="sellers">
-               
-                <div class="p-grid" formArrayName="sellers" *ngFor="let seller of sellers; let i = index;">   <!--  nem biztos hogy a jsonban van ilyen property -->
-                    <div [formGroupName]="i" class="p-grid p-mb-2">
-                        <div class="p-col">
-                            <input pInputText id="hobby_name_{{i}}" formControlName="name" >
-                        </div>
-                        <div class="p-col">
-                            <input pInputText formControlName="address" >
-                        </div>
-                        <div class="p-col">
-                            <input pInputText formControlName="quantity" >
-                        </div>
-                        <div class="p-col">
-                            <input pInputText formControlName="age" >
-                        </div>
-                        <div class="p-col">
-                            <input pInputText formControlName="birthYear" >
-                        </div>
-                        <div class="p-col">
-                            <button type="button" class="p-button-outlined p-ml-2" pButton [style.max-width.px]="200" (click)="deleteSeller(i)" translate>book-details.delete_seller</button>
-                        </div>   
-                        <div class="p-col">
-                            <span class="invalid p-col-12" *ngIf="sellers[i]?.errors" translate> {{sellers[i]?.errors?.ageAndYear.message}}</span>
-                        </div>  
-                </div>               
-
+            <div class="p-col" translate>
+                &nbsp;
+            </div>   
+            <div class="p-col" translate>
+                <span class="invalid" *ngIf="sellers[i]?.errors" translate> {{sellers[i]?.errors?.ageAndYear.message}}</span>
             </div>  
-               
+        </div>  
+    </div>      
+    
+    <div class="p-field p-col-8 p-grid " formArrayName="sellers" *ngFor="let seller of sellers; let i = index;">   <!--  nem biztos hogy a jsonban van ilyen property -->
+        <div [formGroupName]="i" class="p-grid p-ml-0">
+            <div class="p-col">
+                <input pInputText id="hobby_name_{{i}}" formControlName="name" >
             </div>
-            
-            <div class="p-field">
-                <button pButton type="submit" class="p-mr-2"  [style.max-width.px]="180" [disabled]="bookForm.invalid" translate>book-details.submit</button>
-                <button pButton type="button" class=""  [style.max-width.px]="180" routerLink="/book/list" translate>book-details.back</button>
+            <div class="p-col">
+                <input pInputText formControlName="address" >
             </div>
+            <div class="p-col">
+                <input pInputText formControlName="quantity" >
+            </div>
+            <div class="p-col">
+                <input pInputText formControlName="age" >
+            </div>
+            <div class="p-col">
+                <input pInputText formControlName="birthYear" >
+            </div>
+            <div class="p-col">
+                <button type="button" class="p-button-outlined" pButton [style.max-width.px]="200" (click)="deleteSeller(i)" translate>book-details.delete_seller</button>
+            </div>   
+            <div class="p-col">
+                <span class="invalid" *ngIf="sellers[i]?.errors" translate> {{sellers[i]?.errors?.ageAndYear.message}}</span>
+            </div>  
+        </div>   
+    </div>
+
+    <!-- fix beegetett checkboxok -->
+    <div class="p-field p-col-12">
+        <input type="checkbox" class="form-check-input" formControlName="ebook" ><span translate>book-details.ebook</span>
+        <input type="checkbox" class="form-check-input" formControlName="printed"><span translate> book-details.printed</span>
+    </div>
+
+    <!-- API-bol jovo dinamikus checkboxok (5 fele checkboxunk van, de az API lehet hogy csak pl 3 at ad vissza) -->
+    <div class="p-field p-col-12">
+        <span *ngFor="let genre of genres; let i = index">
+            <input type="checkbox"  [formControl]="genre" class="p-mr-1">{{genresAll[i].name}}
+        </span>
+    </div>
+
+    <!-- kiiratjuk a formcontrol objektumokat textfieldekbe -->
+    <div class="p-field p-col-12">
+        <span *ngFor="let genre of genres; let i = index">
+            <input type="text"  [value]="genre" class="p-mr-1">{{genresAll[i].name}}
+        </span>
+    </div>
 
 
-            </form>
-
-        </div>
+    <div class="p-field p-col-12">
+        <button pButton type="submit" class="p-mr-2"  [style.max-width.px]="180" [disabled]="bookForm.invalid" translate>book-details.submit</button>
+        <button pButton type="button" class=""  [style.max-width.px]="180" routerLink="/book/list" translate>book-details.back</button>
     </div>
 
 </div>
-
+</form>

@@ -4,9 +4,9 @@
     "book-details.title": "Cím",
     "book-details.subtitle": "Alcím",
     "book-details.rating": "Értékelés",
-    "book-details.local_time": "Helyi idő",
-    "book-details.utc_time": "UTC idő (english)",
-    "book-details.moscow_time": "Moscow idő (russian)",
+    "book-details.local_time": "Helyi idő:",
+    "book-details.utc_time": "UTC idő (english):",
+    "book-details.moscow_time": "Moscow idő (russian):",
     "book-details.pulished_date": "Publikálás dátuma",
     "book-details.pulished_dateTime": "Publikálás ideje",
     "book-details.countruy_autoc": "Ország kiválasztása autocomplete ( REST ) ",
@@ -20,6 +20,8 @@
     "book-details.delete_seller": "Eladó törlése",
     "book-details.submit": "Beküldés",
     "book-details.back": "Vissza",
+    "book-details.ebook": "Ebook",
+    "book-details.printed": "Nyomtatott",
 
     "book-list.create_book": "Új könyv",
 

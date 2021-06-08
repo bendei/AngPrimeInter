@@ -3,3 +3,5 @@ https://www.codeandweb.com/babeledit/tutorials/how-to-translate-your-angular-app
 Dinamikusan lehet nyelvet választani: ez az alap angularral nem lehetséges, mert ott minden locale-hoz külön build készül.
 Lásd: AngularWithPrimeNG projketem.
 
+
+

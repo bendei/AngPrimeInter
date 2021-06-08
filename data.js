@@ -35,7 +35,10 @@ module.exports = function () {
                 published:  new Date().toISOString(), subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices', rating: 5,
                 thumbnails: [{
                     url: 'https://ng-buch.de/angular-cover.jpg', title: 'Buchcover' }],
-                description: 'Lernen Sie Angular mit diesem Praxisbuch!'
+                description: 'Lernen Sie Angular mit diesem Praxisbuch!',
+                genres: ['IT', 'Programming'],
+                ebook: false,
+                printed: false,
             },
             {   id: 554543654, 
                 isbn: 554543654, 
@@ -44,7 +47,10 @@ module.exports = function () {
                 subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
                 thumbnails: [{
                     url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
-                description: 'Das bewährte und umfassende Praxisbuch zu React'
+                description: 'Das bewährte und umfassende Praxisbuch zu React',
+                genres: ['IT', 'Programming', 'Docker'],
+                ebook: true,
+                printed: false,
             }
         ]
     }

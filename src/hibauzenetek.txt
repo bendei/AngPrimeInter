@@ -1,0 +1,9 @@
+1.  t.registerOnChange is not a function:
+   
+    Oka: but if you use FormBuilder, you would see this when you added a control to FormGroup in your component and named it "A",
+     but then either forgot to add input with formControlName="A" to your template, or formControlName for the intended input is not A, 
+     or empty, or not present.
+    
+    https://stackoverflow.com/questions/41474011/what-causes-the-control-registeronchange-is-not-a-function-error
+
+    
