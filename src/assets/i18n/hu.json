@@ -22,6 +22,9 @@
     "book-details.back": "Vissza",
     "book-details.ebook": "Ebook",
     "book-details.printed": "Nyomtatott",
+    "book-details.available": "Elérhető",
+    "book-details.notavailable": "Nem elérhető",
+    "book-details.preordered": "Előrendelt",
 
     "book-list.create_book": "Új könyv",
 

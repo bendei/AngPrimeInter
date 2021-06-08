@@ -118,10 +118,24 @@
     </div>
 
     <!-- kiiratjuk a formcontrol objektumokat textfieldekbe -->
-    <div class="p-field p-col-12">
+    <!-- <div class="p-field p-col-12">
         <span *ngFor="let genre of genres; let i = index">
             <input type="text"  [value]="genre" class="p-mr-1">{{genresAll[i].name}}
         </span>
+    </div> -->
+
+    <!-- radio button for available, not available, preordered: ezeket kuldjuk a serverre -->
+    <div class="p-field p-col-12">
+        <!-- {{bookForm.get("availability")?.value}} -->
+        <input type="radio" name="availability" value="Available" formControlName="availability">
+        <label translate>book-details.available</label>
+
+        <input type="radio" name="availability" value="Not Available" formControlName="availability">
+        <label translate>book-details.notavailable</label>
+
+        <input type="radio" name="availability" value="Preordered" formControlName="availability">
+        <label translate>book-details.preordered</label>
+
     </div>
 
 

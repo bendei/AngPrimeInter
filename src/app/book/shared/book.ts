@@ -17,6 +17,7 @@ export interface Book {
     genres: string[];
     ebook?: boolean;
     printed?: boolean;
+    availability?: string;
 }
 
 export interface BookSeller {

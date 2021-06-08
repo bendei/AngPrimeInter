@@ -72,7 +72,10 @@ export class BookDetailsComponent implements OnInit {
       printed: new FormControl((!book || !book?.authors) ? false : book?.printed),
 
       // dinamikus checkboxok (API-bol)
-      genres: this.createGenreCechboxes(book?.genres)
+      genres: this.createGenreCechboxes(book?.genres),
+
+      // radio button
+      availability: [(!book || !book.availability) ? 'Available' : book.availability]
     });
   }
 
@@ -88,12 +91,12 @@ export class BookDetailsComponent implements OnInit {
     return (this.bookForm.get('genres') as FormArray).controls;
   }
 
-  createAuthorsArray(values?: string[]): FormArray {
+  private createAuthorsArray(values?: string[]): FormArray {
     const arr = values.map(author => {return new FormControl(author)});
     return new FormArray(arr);
   }
 
-  createSellerArray(sellers: BookSeller[]): FormGroup[] {
+  private createSellerArray(sellers: BookSeller[]): FormGroup[] {
     const sellerGroups: FormGroup[] = [];
     sellers.forEach(s => {
       sellerGroups.push(
@@ -103,7 +106,7 @@ export class BookDetailsComponent implements OnInit {
     return sellerGroups;
   }
 
-  createGenreCechboxes(genres: string[]): FormArray {
+  private createGenreCechboxes(genres: string[]): FormArray {
     let result: FormControl[];
     if(genres) {
       result = this.genresAll.map(genre => {

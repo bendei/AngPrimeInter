@@ -39,6 +39,7 @@ module.exports = function () {
                 genres: ['IT', 'Programming'],
                 ebook: false,
                 printed: false,
+                availability: 'Available'
             },
             {   id: 554543654, 
                 isbn: 554543654, 
@@ -51,6 +52,7 @@ module.exports = function () {
                 genres: ['IT', 'Programming', 'Docker'],
                 ebook: true,
                 printed: false,
+                availability: 'Available'
             }
         ]
     }

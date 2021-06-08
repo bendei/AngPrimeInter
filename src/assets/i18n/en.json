@@ -22,6 +22,9 @@
     "book-details.back": "Back",
     "book-details.ebook": "Ebook",
     "book-details.printed": "Printed",
+    "book-details.available": "Available",
+    "book-details.notavailable": "Not available",
+    "book-details.preordered": "Preordered",
 
     "book-list.create_book": "Create new book",
 
