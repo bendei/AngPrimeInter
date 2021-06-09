@@ -1,13 +1,9 @@
-<div class="p-m-2" [ngStyle]="bookStyleMap">
+<div class=" p-p-1" [ngStyle]="bookStyleMap">
 
   <a [routerLink]="['/book/details', ModesEnum.edit, book.id]" [style.color]="linkTextColor">
-    <div class="">
         <!-- src ez html attribute aminek van DOM megfelelője ezért [src]
              style szintén egy html element attr. de nincsen DOm elem megfelelője, ezért prefixeljük attr-val [attr.colspan]-->
         <!-- <img *ngIf="book.thumbnails && book.thumbnails[0] && book.thumbnails[0].url" [src]="book.thumbnails[0].url"  [style.height]="'auto'" [style.width.%]="60"> -->
-    </div>
-    
-    <div class="">
         <h5>{{book.title}}</h5>
         {{book.subtitle}}
         <br/>
@@ -17,7 +13,6 @@
 
         <br/>
         {{book.isbn}}
-    </div>
     </a>
 
 </div>

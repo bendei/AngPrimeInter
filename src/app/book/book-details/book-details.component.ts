@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Modes} from "../../shared/app-enums";
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -26,12 +26,12 @@ export class BookDetailsComponent implements OnInit {
   // ez az osszes checkbox amit ki kell rakni a feluletre, az API viszont string[] ben csak azokat adja vissza amik true-k,
   // tehat ezeket majd meg kell feleltetni egymassal: createGenreCechboxes
   genresAll: any = [
-    {name: 'IT', id: 1, selected: false},
-    {name: 'Programming', id: 2, selected: false},
-    {name: 'Frontend', id: 3, selected: false},
-    {name: 'Backend', id: 4, selected: false},
-    {name: 'Docker', id: 5, selected: false},
-    {name: 'Git', id: 6, selected: false}
+    {name: 'IT', selected: false},
+    {name: 'Programming', selected: false},
+    {name: 'Frontend', selected: false},
+    {name: 'Backend', selected: false},
+    {name: 'Docker', selected: false},
+    {name: 'Git', selected: false}
   ];
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private fb: FormBuilder, private bookRepo: BookRepository, 

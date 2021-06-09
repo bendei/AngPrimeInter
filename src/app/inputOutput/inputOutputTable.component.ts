@@ -18,10 +18,7 @@ export class InputOutputTableComponent {
     @Output()
     productToSend = new EventEmitter<Product>();
 
-    constructor() {
-        console.log("InputOutputTableComponent constructor");
-        
-    }
+    constructor() {}
     
     sendProductToParent(prod: Product) {
         console.log("table comp sent the product");

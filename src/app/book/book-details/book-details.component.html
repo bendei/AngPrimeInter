@@ -17,6 +17,10 @@
     <div class="p-field p-col-6">
         <label translate>book-details.rating</label>
         <input pInputText type="text" formControlName="rating">
+        <span class="invalid" *ngIf="bookForm.get('rating')?.errors" >
+            <span translate>error.required_length</span>
+            {{bookForm.get('rating')?.errors.minlength.requiredLength}}
+        </span>
     </div>
     <div class="p-field p-col-12">
         <label><code translate>book-details.local_time</code></label>
@@ -36,7 +40,7 @@
         <label translate>book-details.pulished_dateTime</label>
         <p-calendar showTime="true" [style]="{'position': 'auto', 'overflow': 'visible', 'z-index': '999'}" formControlName="published" dateFormat="yy-m-d"></p-calendar>
     </div>
-    <div class="p-field p-col-3">
+    <div class="p-field p-col-2">
         <label translate>book-details.countruy_autoc</label>
         <p-autoComplete formControlName="city" [suggestions]="searchResults" (completeMethod)="search($event)" [dropdown]="true"></p-autoComplete>
     </div>

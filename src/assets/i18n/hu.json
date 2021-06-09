@@ -1,4 +1,6 @@
 {
+    "book-list.caption": "Könyvlista",
+
     "book-details.caption": "Könyv részletei",
     "book-details.isbn": "ISBN",
     "book-details.title": "Cím",
@@ -9,7 +11,7 @@
     "book-details.moscow_time": "Moscow idő (russian):",
     "book-details.pulished_date": "Publikálás dátuma",
     "book-details.pulished_dateTime": "Publikálás ideje",
-    "book-details.countruy_autoc": "Ország kiválasztása autocomplete ( REST ) ",
+    "book-details.countruy_autoc": "Ország autocomplete ( REST ) ",
     "book-details.add_new_author": "Szerző hozzáadása",
     "book-details.add_new_seller": "Eladó hozzáadása",
     "book-details.name": "Név",
@@ -35,7 +37,8 @@
     "menu.books": "könyvek",
     "menu.product_store": "Termékek",
     "menu.product_admin": "Termék adminisztráció",
-    "menu.input_output": "Input output"
+    "menu.input_output": "Input output",
 
 
+    "error.required_length": "Minimális hossz:"
 }

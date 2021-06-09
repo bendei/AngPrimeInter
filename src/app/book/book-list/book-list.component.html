@@ -1,4 +1,7 @@
 <div class="p-grid">
+    
+    <div class="p-col-10 p-ml-2" #booklistheader translate></div>
+
     <div class="p-col-10">
         <app-book-list-item *ngFor="let item of books; let i = index;" [book] = "item" [index] = "i"></app-book-list-item>
     </div>

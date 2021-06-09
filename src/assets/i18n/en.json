@@ -1,4 +1,6 @@
 {
+    "book-list.caption": "Booklist",
+
     "book-details.caption": "Book details",
     "book-details.isbn": "ISBN",
     "book-details.title": "Title",
@@ -9,7 +11,7 @@
     "book-details.moscow_time": "Moscow time (russian):",
     "book-details.pulished_date": "Published date",
     "book-details.pulished_dateTime": "Published datetime",
-    "book-details.countruy_autoc": "Country selection with autocomplete ( REST ) ",
+    "book-details.countruy_autoc": "Country autocomplete ( REST ) ",
     "book-details.add_new_author": "Add new Author",
     "book-details.add_new_seller": "Add new Seller",
     "book-details.name": "Name",
@@ -35,8 +37,8 @@
     "menu.books": "Books",
     "menu.product_store": "Product store",
     "menu.product_admin": "Product admin",
-    "menu.input_output": "Input output"
+    "menu.input_output": "Input output",
 
-
+    "error.required_length": "Required length:"
 
 }
