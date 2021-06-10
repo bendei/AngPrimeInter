@@ -40,5 +40,7 @@
     "menu.input_output": "Input output",
 
 
-    "error.required_length": "Minimális hossz:"
+    "error.required_length": "Minimális hossz:",
+    "error.book_title": "A címnek tartalmaznia kell az Angular vagy React szót",
+    "error.book_age": "Kora és a születési éve nem passzol"
 }

@@ -11,8 +11,8 @@ import { Order } from "../store/shared/order.model";
 
 const PROTOCOL = "http";
 const PORT = 3500;
-const api = `${PROTOCOL}://localhost:${PORT}`;
-const RISUrl: string = "http://localhost:59661/api/token";
+const API = `${PROTOCOL}://localhost:${PORT}`;
+const RISURL: string = "http://localhost:59661/api/token";
 
 @Injectable({
     providedIn: "root"
@@ -32,7 +32,7 @@ export class RestDataSource {
 
         // Das Antwort hat ein Array von Product elementen, derer releaseDate Eigenschaft als string vom Server geliefert wird. Wir brauchen aber releaseDate als js Date Objekte im Product Objekten =>
         // wir müssen die ArrayElemente durchsuchen und die string Werte in js Date umwandeeln: wir verwenden dazu pipe() und map Methoden (RxJS und Array.map())
-        return this.http.get<Product[]>(`${api}/products`) // !!! get<Product[]> dieses wird vom Server geschickt
+        return this.http.get<Product[]>(`${API}/products`) // !!! get<Product[]> dieses wird vom Server geschickt
         .pipe(
             retry(3),
             map(rawProducts => rawProducts
@@ -54,7 +54,7 @@ export class RestDataSource {
     }
 
     getBook(id: string): Observable<Book> {
-        return this.http.get<Book>(`${api}/books/${id}`).pipe(
+        return this.http.get<Book>(`${API}/books/${id}`).pipe(
             retry(3),
             map(book => BookFactory.convertBook(book)),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
@@ -62,7 +62,7 @@ export class RestDataSource {
     }
 
     getBooks(): Observable<Book[]> {
-        return this.http.get<Book[]>(`${api}/books`).pipe(
+        return this.http.get<Book[]>(`${API}/books`).pipe(
             retry(3),
             map(rawBook => 
                 rawBook.map(book => BookFactory.convertBook(book))),
@@ -71,21 +71,21 @@ export class RestDataSource {
     }
 
     saveBook(book: Book): Observable<Book> {
-        return this.http.post<Book>(`${api}/books`, book).pipe(
+        return this.http.post<Book>(`${API}/books`, book).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     updateBook(book: Book): Observable<Book> {
-        return this.http.put<Book>(`${api}/books/${book.id}`, book).pipe(
+        return this.http.put<Book>(`${API}/books/${book.id}`, book).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     deleteBook(isbn: string): Observable<any> {
-        return this.http.delete(`${api}/books/${isbn}`, {
+        return this.http.delete(`${API}/books/${isbn}`, {
             responseType: "text", 
             headers: new HttpHeaders({
                 "Authorization": `Bearer<${this.auth_token}>`,
@@ -105,56 +105,56 @@ export class RestDataSource {
     // } 
 
     getProduct(id: number): Observable<Product> {
-        return this.http.get<Product>(`${api}/products/${id}`).pipe(
+        return this.http.get<Product>(`${API}/products/${id}`).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     } 
 
     saveProduct(prod: Product): Observable<Product> {
-        return this.http.post<Product>(`${api}/products`,prod).pipe(
+        return this.http.post<Product>(`${API}/products`,prod).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     updateProduct(prod: Product): Observable<Product> {
-        return this.http.put<Product>(`${api}/products/${prod.id}`, prod).pipe(
+        return this.http.put<Product>(`${API}/products/${prod.id}`, prod).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     deleteProduct(productID: number): Observable<any> {
-        return this.http.delete<Product>(`${api}/products/${productID}`).pipe(
+        return this.http.delete<Product>(`${API}/products/${productID}`).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     getOrders(): Observable<Order[]> {
-        return this.http.get<Order[]>(`${api}/orders`).pipe(
+        return this.http.get<Order[]>(`${API}/orders`).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     markShippedOrder(order: Order): Observable<Order> {
-        return this.http.put<Order>(`${api}/orders/` + order.id, order).pipe(
+        return this.http.put<Order>(`${API}/orders/` + order.id, order).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     deleteOrder(id: number): Observable<Order> {
-        return this.http.delete<Order>(`${api}/orders/` + id).pipe(
+        return this.http.delete<Order>(`${API}/orders/` + id).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     saveOrder(order: Order): Observable<Order> {
-        return this.http.post<Order>(`${api}/orders`, order).pipe(
+        return this.http.post<Order>(`${API}/orders`, order).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
@@ -162,20 +162,20 @@ export class RestDataSource {
 
     // autocomplete
     getCountries(search: string): Observable<string[]> {
-        return this.http.get<string[]>(`${api}/countries/${search}`).pipe(
+        return this.http.get<string[]>(`${API}/countries/${search}`).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     authenticate(name: string, pw: string): Observable<boolean> {
-        return this.http.post<any>(`${api}/login`, {
+        return this.http.post<any>(`${API}/login`, {
             name: name, password: pw
             }).pipe(
                 retry(3),
                 map(response => {
                     this.auth_token = response.success ? response.token : null;
-                    return response.success;
+                    return response.success;    //ez true/false
                     }),
                 catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
             );

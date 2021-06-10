@@ -7,8 +7,7 @@ export class BookValidator {
 
         if (value && (!(value as string).includes('React') && !(value as string).includes('Angular')) ) {
             return {
-                title: {message: "A címnek tartalmaznia kell az Angular vagy React szót"},
-               // "zokni": {message: "zokni"}
+                title: {message: "error.book_title"},
             };
         }  else {
            return null;
@@ -24,7 +23,7 @@ export class BookValidator {
         sor.get("birthYear")?.setErrors({msg: ""});
 
         if((age && year) && currentYear-year != age) {
-            return {ageAndYear: {message: "Kora és a születési éve nem passzol"}};
+            return {ageAndYear: {message: "error.book_age"}};
         } else {
             sor.get("age")?.setErrors(null);
             sor.get("birthYear")?.setErrors(null);

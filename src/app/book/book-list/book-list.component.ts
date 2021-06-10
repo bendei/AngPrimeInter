@@ -31,7 +31,4 @@ export class BookListComponent implements OnInit, AfterViewInit {
     
   }
 
-    //console.log(this.itemComponents.get(0).book.isbn);
-  
-
 }

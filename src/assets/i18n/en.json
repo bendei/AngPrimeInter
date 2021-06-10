@@ -39,6 +39,8 @@
     "menu.product_admin": "Product admin",
     "menu.input_output": "Input output",
 
-    "error.required_length": "Required length:"
+    "error.required_length": "Required length:",
 
+    "error.book_title": "Title must contain Angular or React string",
+    "error.book_age": "Age and birthyear does not fit"
 }
