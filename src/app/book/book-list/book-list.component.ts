@@ -26,9 +26,7 @@ export class BookListComponent implements OnInit, AfterViewInit {
   }
       
   ngAfterViewInit() {
-    console.log("ngAfterViewInit", this.booklistheader);
-    this.booklistheader.nativeElement.innerHTML = "book-list.caption";
-    
+    this.booklistheader.nativeElement.innerHTML = "book-list.caption";    
   }
 
 }

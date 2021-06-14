@@ -17,7 +17,7 @@ describe('RestDataSource', () => {
         service = TestBed.inject(RestDataSource);
         });
    
-        it('login correctly', () => {
+        it('login succeeds', () => {
             const UN: string = "a";
             const PW: string = "a";
             const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiYSIsImV4cGlyZXNJbiI6IjFoIiwiaWF0IjoxNjIzMzE3NDI0fQ.2P61rTLx1qJzIKtpNq60R1k5zcxHxgUPzq3V18xR5XI';
@@ -38,7 +38,7 @@ describe('RestDataSource', () => {
             expect(service.auth_token).toEqual(TOKEN);
         });
     
-        it('login failed', () => {
+        it('login fails', () => {
             let receivedResponse: any;
             const UN: string = "aa";
             const PW: string = "a";
@@ -57,7 +57,7 @@ describe('RestDataSource', () => {
             expect(service.auth_token).toBeNull()
         });
 
-        it('all books retrieved', () => {
+        it('retrieves all books', () => {
             let receivedResponse: Book[];
             const responseObject = [  {  
                     id: 34324233, 
@@ -89,7 +89,7 @@ describe('RestDataSource', () => {
             expect(responseObject.findIndex(x => x.isbn === 34324233) != -1).toBeTrue();
         });
 
-        it('book updated', () => {
+        it('updates book', () => {
             let receivedResponse: Book;
             const responseObject: Book = {
                     id: '34324233',
@@ -117,7 +117,7 @@ describe('RestDataSource', () => {
         
             req.flush(responseObject);
 
-           // expect(req.request.method).toEqual('PUT');
+            expect(req.request.method).toEqual('PUT');
             expect(responseObject.isbn === '34324233').toBeTrue();
         });
 

@@ -40,15 +40,16 @@ export class BookDetailsComponent implements OnInit {
     }
 
   ngOnInit(): void {
-   this.initForm();  // meg kell hivni mert a template már renderelve lehet mire a REST response megjön és a [fromGroup] egy undefined objectre mutat
+      this.initForm();  // meg kell hivni mert a template már renderelve lehet mire a REST response megjön és a [fromGroup] egy undefined objectre mutat
 
-   this.logger.error("logging BookDetailsComponent");
+      this.logger.error("logging BookDetailsComponent");
 
-   if (this.modes === Modes.edit) {
-      const id = this.activeRoute.snapshot.paramMap.get("id");
-      // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
-      this.bookRepo.getBook(id).subscribe(data =>  {  this.initForm(data);   })
-    } 
+      if (this.modes === Modes.edit) {
+          const id = this.activeRoute.snapshot.paramMap.get("id");
+          // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
+          this.bookRepo.getBook(id).subscribe(data =>  {  
+            this.initForm(data);   })
+      } 
   }
 
   private initForm(book?: Book): void {
@@ -111,7 +112,6 @@ export class BookDetailsComponent implements OnInit {
     if(genres) {
       result = this.genresAll.map(genre => {
           let matchingGenre = genres.includes(genre.name);
-          //console.log(matchingGenre + ", " + genre.name);
           return new FormControl(matchingGenre)
           })
       } else {
@@ -146,6 +146,7 @@ export class BookDetailsComponent implements OnInit {
 
   submitForm() {
     if(this.bookForm.valid) {
+      console.table(this.bookForm);
 
       // kiszűrni ha a user üres seller sorokat adott hozzá
      const sellers = this.bookForm.value.sellers.filter((seller: BookSeller) => (seller.address != null && seller.name != null && seller.quantity != 0));
@@ -190,7 +191,7 @@ export class BookDetailsComponent implements OnInit {
     // return genresToSend;
     // itt lent ugyanez csak mappel
 
-    let  genresToSend = this.genresAll.map( (gen, index: number) => {
+    let  genresToSend = this.genresAll.map( (gen: any, index: number) => {
       if (genres[index]) return gen.name; // genres elemei booleanek, amik ha a user checkelt kkor ture, azaz azt a sorszamu elemet(nevet) a genresAllbol el kuldjuk
     });
     return genresToSend.filter(el => el); // null értékeket kiszedjuk

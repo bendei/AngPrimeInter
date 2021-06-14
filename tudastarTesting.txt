@@ -1,0 +1,6 @@
+1.  jó kezdő leírás: https://testing-angular.com/angular-testing-principles/#angular-testing-principles
+    interjú előtte érdemes átolvasni egyszer
+
+2. AtivatedRoute stub : https://testing-angular.com/angular-testing-principles/#angular-testing-principles
+
+
