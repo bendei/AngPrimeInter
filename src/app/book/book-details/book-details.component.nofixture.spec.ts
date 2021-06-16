@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Book } from '../../book/shared/book';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Modes} from "../../shared/app-enums";
@@ -7,36 +7,26 @@ import { BookRepository } from '../shared/book.repository';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BookDetailsComponent } from "../book-details/book-details.component";
 import { NGXLogger } from 'ngx-logger';
-import { SharedModule } from "../../shared/shared.module";  // kell a shared is mert benne van importálva a PrimeAng komponensek
-import localeFr from '@angular/common/locales/fr';
-import localeHu from '@angular/common/locales/hu';
-import localeRu from '@angular/common/locales/ru';
-import { registerLocaleData } from '@angular/common';  
 
-registerLocaleData(localeFr, 'fr');
-registerLocaleData(localeHu, 'hu');
-registerLocaleData(localeRu, 'ru');
-
-describe('BookDetails component', () => {   // inline function
+describe('BookDetails component', () => {
     let router;
     let activatedRoute;
     let formBuilder;
     let bookRepository;
     let logger;
     let component;
-    let fixture: ComponentFixture<BookDetailsComponent>;
 
-    const book: Book = 
+    const book = 
         {  
-            id: '34324233', 
-            isbn: '34324233', 
+            id: 34324233, 
+            isbn: 34324233, 
             sellers: [
                 {name: 'Bende seller', address: 'Csáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
                 {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
                 ],
             title: "Angular 11", 
             authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen'], 
-            published:  new Date(), subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices', rating: 5,
+            published:  new Date().toISOString(), subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices', rating: 5,
             thumbnails: [{
                 url: 'https://ng-buch.de/angular-cover.jpg', title: 'Buchcover' }],
             description: 'Lernen Sie Angular mit diesem Praxisbuch!',
@@ -62,8 +52,8 @@ describe('BookDetails component', () => {   // inline function
         };
 
         TestBed.configureTestingModule({
-            declarations: [BookDetailsComponent], 
-            imports: [ReactiveFormsModule, SharedModule],
+            declarations: [], // nem integration test igy nem kell
+            imports: [ReactiveFormsModule],
             providers: [
                         {
                             provide: ActivatedRoute,    // https://www.joshuacolvin.net/mocking-activated-route-data-in-angular/
@@ -94,35 +84,24 @@ describe('BookDetails component', () => {   // inline function
                             provide: NGXLogger,
                             useValue: logger
                         },
+                        BookDetailsComponent,
                         FormBuilder
             ]
         });
 
-        fixture = TestBed.createComponent(BookDetailsComponent);
-        component = fixture.componentInstance;
+        component = TestBed.inject(BookDetailsComponent);
         bookRepository = TestBed.inject(BookRepository);
         activatedRoute = TestBed.inject(ActivatedRoute);
         router = TestBed.inject(Router);
         logger = TestBed.inject(NGXLogger);
         formBuilder = TestBed.inject(FormBuilder);
 
-        
+        component.ngOnInit();
     });
 
     it('initiates component - bookForm defined', () => {
-        component.ngOnInit();
-        expect(component.bookForm).toBeDefined();
+           expect(component.bookForm).toBeDefined();
     });
-
-    it('renders isbn text field as disabled', () => {
-        fixture.detectChanges();    // enelkul nem populalja a fieldeket a feluleten
-        component.ngOnInit();
-        const detailsElement = fixture.nativeElement;
-        expect(detailsElement.textContent).toContain('book-details.isbn');
-    });
-
-    
-
     
 
 });

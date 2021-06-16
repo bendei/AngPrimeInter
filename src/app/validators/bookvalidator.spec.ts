@@ -1,4 +1,4 @@
-import { BookValidator } from "../BookValidator";
+import { BookValidator } from "./BookValidator";
 import {FormBuilder, FormControl, FormGroup, ValidationErrors} from "@angular/forms";
 
 describe('Book Validator üzenetek', () => {

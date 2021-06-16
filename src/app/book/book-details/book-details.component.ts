@@ -9,7 +9,7 @@ import { NGXLogger } from 'ngx-logger';
 
 
 @Component({
-  selector: 'app-book-details',
+  selector: 'book-details',
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.css'],
 })
