@@ -2,11 +2,24 @@ import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RestDataSource } from './rest.datasource';
 import { Book } from '../book/shared/book';
+import { TESTBOOKS } from "../testdata/data-books";
+import { HttpErrorResponse } from '@angular/common/http';
 
 // nem igazi API hivas, hanem mi adjuk a repsone-ot is meg
-describe('RestDataSource', () => {
+describe('RestDataSource 1', () => {
     let httpMock: HttpTestingController;
     let service: RestDataSource;
+    const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiYSIsImV4cGlyZXNJbiI6IjFoIiwiaWF0IjoxNjIzMzE3NDI0fQ.2P61rTLx1qJzIKtpNq60R1k5zcxHxgUPzq3V18xR5XI';
+    const UN: string = "a";
+    const PW: string = "a";
+
+    const responseAuthenticationSuccess = {
+        success: true,
+        token: TOKEN
+      };
+    const responseAuthenticationFails = {
+        success: false,
+      };
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -16,109 +29,88 @@ describe('RestDataSource', () => {
         httpMock = TestBed.inject(HttpTestingController);
         service = TestBed.inject(RestDataSource);
         });
-   
+
+        // testing : 1. request uses GET method, repo method calls http://localhost:3500/books GET method url, repo return expected json
+        it('retrieves all books', () => {
+            service.getBooks().subscribe(response => {                      // set of excpectations regarding response object
+                expect(response).toBeTruthy();
+                expect(response.length == 2).toBeTrue();
+                expect(response[0].id == '34324233').toBeTrue();
+            });
+            
+            const req = httpMock.expectOne(`http://localhost:3500/books`);  // repo request really this url?
+            expect(req.request.method).toEqual('GET');                      // repo uses really GET method?
+            req.flush(Object.values(TESTBOOKS));                            // sending back our moch json response
+        });
+
+        it('updates book', () => {  
+            let updatableBook: Book = Object.values(TESTBOOKS)[0] as Book;
+            updatableBook.authors = [...updatableBook.authors, 'Bende Psita'];
+            service.updateBook(updatableBook).subscribe(response => {
+                expect(response.isbn == '34324233').toBeTrue();
+                expect(response.authors.includes('Bende Psita')).toBeTrue();
+                expect(response.authors.length == 4).toBeTrue();
+            });            
+            const req = httpMock.expectOne(`http://localhost:3500/books/${34324233}`);
+            expect(req.request.method).toEqual('PUT', "method not PUT");            
+            req.flush(updatableBook);
+        });
+
+        it('deletes existing book', () => {
+            service.deleteBook('34324233').subscribe(response => {
+                console.log("response:",response);
+            });
+            const req = httpMock.expectOne(`http://localhost:3500/books/${34324233}`);
+            expect(req.request.method).toEqual('DELETE', "method not DELETE");     
+            req.flush({}); 
+        });
+
+        // The server might reject the request for various reasons. Whenever it does it will return the error response with the HTTP Status Codes such as Unauthorized (401),
+        //  Forbidden (403), Not found (404), internal Server Error (500), etc. The Angular assigns the error response to error property of the HttpErrorResponse.
+        it('deletes non exisiting book', () => {
+            const errorResponse = new HttpErrorResponse({
+                error: '404 error',
+                status: 404, statusText: 'Not Found'
+              });
+
+              service.deleteBook('34324233').subscribe(
+               response => {
+                   (error: HttpErrorResponse) => {
+                       expect(error.status).toBe(404);
+                   }
+               }
+                
+            );
+
+            const req = httpMock.expectOne(`http://localhost:3500/books/${34324233}`);
+            expect(req.request.method).toEqual('DELETE', "method not DELETE");     
+            req.flush(errorResponse); 
+        });
+
         it('login succeeds', () => {
-            const UN: string = "a";
-            const PW: string = "a";
-            const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiYSIsImV4cGlyZXNJbiI6IjFoIiwiaWF0IjoxNjIzMzE3NDI0fQ.2P61rTLx1qJzIKtpNq60R1k5zcxHxgUPzq3V18xR5XI';
-
-            let receivedResponse: any;
-            const responseObject = {
-                success: true,
-                token: TOKEN
-              };
-
-            service.authenticate(UN, PW).subscribe(response => receivedResponse = response);
-            // Request aus der Warteschlange holen
+            service.authenticate(UN, PW).subscribe(response =>{
+                expect(response).toBeTrue();    // token felejtős mert azt a RestDS sem adja vissza, hanem tárolja és csak a true vagy false jön vissza!
+                expect(service.auth_token == TOKEN).toBeTrue();
+            });
             const req = httpMock.expectOne('http://localhost:3500/login');
-            req.flush(responseObject);
-
             expect(req.request.method).toEqual('POST');
-            expect(receivedResponse).toBeTrue();    // token felejtős mert azt a RestDS sem adja vissza, hanem tárolja és csak a true vagy false jön vissza!
-            expect(service.auth_token).toEqual(TOKEN);
+            req.flush(responseAuthenticationSuccess);    // ezt a json-t adná vissza sikeres auth kor a server
         });
     
         it('login fails', () => {
-            let receivedResponse: any;
-            const UN: string = "aa";
-            const PW: string = "a";
-            const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiYSIsImV4cGlyZXNJbiI6IjFoIiwiaWF0IjoxNjIzMzE3NDI0fQ.2P61rTLx1qJzIKtpNq60R1k5zcxHxgUPzq3V18xR5XI';
-            const responseObject = {
-                success: false,
-              };
-
-            service.authenticate(UN, PW).subscribe(response => receivedResponse = response);
-            // Request aus der Warteschlange holen
+            service.authenticate(UN, 'a').subscribe(response => {
+                expect(response).toBeFalse();    // token felejtős mert azt a RestDS sem adja vissza, hanem tárolja és csak a true vagy false jön vissza!
+                expect(service.auth_token).toBeNull()
+            });
             const req = httpMock.expectOne('http://localhost:3500/login');
-            req.flush(responseObject);
-
             expect(req.request.method).toEqual('POST');
-            expect(receivedResponse).toBeFalse();    // token felejtős mert azt a RestDS sem adja vissza, hanem tárolja és csak a true vagy false jön vissza!
-            expect(service.auth_token).toBeNull()
+            req.flush(responseAuthenticationFails);
         });
 
-        it('retrieves all books', () => {
-            let receivedResponse: Book[];
-            const responseObject = [  {  
-                    id: 34324233, 
-                    isbn: 34324233, 
-                    sellers: [
-                        {name: 'Bende seller', address: 'sáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
-                        {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
-                        ],
-                    title: "Angular 11", 
-                    authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen'], 
-                    published:  new Date().toISOString(), subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices', rating: 5,
-                    thumbnails: [{
-                        url: 'https://ng-buch.de/angular-cover.jpg', title: 'Buchcover' }],
-                    description: 'Lernen Sie Angular mit diesem Praxisbuch!',
-                    genres: ['IT', 'Programming'],
-                    ebook: false,
-                    printed: false,
-                    availability: 'Available'
-                }];
 
-            service.getBooks().subscribe(response => receivedResponse = response);
-            const req = httpMock.expectOne({method: 'GET', url: `http://localhost:3500/books`});
-            // Request aus der Warteschlange holen
-        
-            req.flush(responseObject);
-
-            expect(req.request.method).toEqual('GET');
-            expect(responseObject.length == 1).toBeTrue();
-            expect(responseObject.findIndex(x => x.isbn === 34324233) != -1).toBeTrue();
-        });
-
-        it('updates book', () => {
-            let receivedResponse: Book;
-            const responseObject: Book = {
-                    id: '34324233',
-                    isbn: '34324233', 
-                    sellers: [
-                        {name: 'Bende seller', address: 'sáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
-                        {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
-                        ],
-                    title: "Angular 11", 
-                    authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen'], 
-                    published:  null, 
-                    subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices', rating: 5,
-                    thumbnails: [{
-                        url: 'https://ng-buch.de/angular-cover.jpg', title: 'Buchcover' }],
-                    description: 'Lernen Sie Angular mit diesem Praxisbuch!',
-                    genres: ['IT', 'Programming'],
-                    ebook: false,
-                    printed: false,
-                    availability: 'Available'
-            };
-
-            service.updateBook(responseObject).subscribe(response => receivedResponse = response);            
-            const req = httpMock.expectOne({method: 'PUT', url: `http://localhost:3500/books/${34324233}`});
-            // Request aus der Warteschlange holen
-        
-            req.flush(responseObject);
-
-            expect(req.request.method).toEqual('PUT');
-            expect(responseObject.isbn === '34324233').toBeTrue();
+        afterEach(() => {
+            // prüfen, ob kein Request übrig geblieben ist
+            httpMock.verify();
         });
 
 });
