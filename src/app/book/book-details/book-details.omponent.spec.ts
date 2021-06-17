@@ -18,12 +18,12 @@ registerLocaleData(localeHu, 'hu');
 registerLocaleData(localeRu, 'ru');
 
 describe('BookDetails component', () => {   // inline function
-    let router;
-    let activatedRoute;
-    let formBuilder;
-    let bookRepository;
-    let logger;
-    let component;
+    let router: any;
+    let activatedRoute: any;
+    let formBuilder: FormBuilder;
+    let bookRepository: any;
+    let loggerSpy: any;
+    let component: BookDetailsComponent;
     let fixture: ComponentFixture<BookDetailsComponent>;
 
     const book: Book = 
@@ -53,9 +53,7 @@ describe('BookDetails component', () => {   // inline function
             getBook: (id: string) => of(book)
         };
 
-        logger = {
-            error: (text: string) => console.log("Test mock logger: ", text)
-        };
+        loggerSpy = jasmine.createSpyObj('NGXLogger', ['error']);
 
         router = {
             navigateByUrl: (url: string) => console.log("Test mocjók router.navigateByUrl(...) to: ", url)
@@ -92,7 +90,7 @@ describe('BookDetails component', () => {   // inline function
                         },
                         {
                             provide: NGXLogger,
-                            useValue: logger
+                            useValue: loggerSpy
                         },
                         FormBuilder
             ]
@@ -103,7 +101,7 @@ describe('BookDetails component', () => {   // inline function
         bookRepository = TestBed.inject(BookRepository);
         activatedRoute = TestBed.inject(ActivatedRoute);
         router = TestBed.inject(Router);
-        logger = TestBed.inject(NGXLogger);
+        loggerSpy = TestBed.inject(NGXLogger);
         formBuilder = TestBed.inject(FormBuilder);
 
         
@@ -112,6 +110,7 @@ describe('BookDetails component', () => {   // inline function
     it('initiates component - bookForm defined', () => {
         component.ngOnInit();
         expect(component.bookForm).toBeDefined();
+        expect(loggerSpy.error).toHaveBeenCalledTimes(1);
     });
 
     it('renders isbn text field as disabled', () => {
