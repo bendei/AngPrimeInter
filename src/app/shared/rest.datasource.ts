@@ -84,13 +84,9 @@ export class RestDataSource {
         );
     }
 
-    deleteBook(isbn: string): Observable<any> {
+    deleteBook(isbn: string): Observable<any> { //semmit nem küld vissza, mert eppen toroltuk a bookot? ha siekres status code 200 OK, ha nincs ilyen 404
         return this.http.delete(`${API}/books/${isbn}`, {
             responseType: "text", 
-            headers: new HttpHeaders({
-                "Authorization": `Bearer<${this.auth_token}>`,
-                "Content-Type": "application/json"
-                })
         }).pipe(
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )

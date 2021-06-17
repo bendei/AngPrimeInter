@@ -24,8 +24,8 @@ module.exports = function () {
         ],
         orders: [],
         books: [
-            {   id: 34324233, 
-                isbn: 34324233, 
+            {   id: '34324233', 
+                isbn: '34324233', 
                 sellers: [
                     {name: 'Bende seller', address: 'sáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
                     {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
@@ -41,8 +41,8 @@ module.exports = function () {
                 printed: false,
                 availability: 'Available'
             },
-            {   id: 554543654, 
-                isbn: 554543654, 
+            {   id: '554543654', 
+                isbn: '554543654', 
                 title: "React", 
                 authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
                 subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
