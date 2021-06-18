@@ -42,14 +42,18 @@ export class BookDetailsComponent implements OnInit {
   ngOnInit(): void {
       this.initForm();  // meg kell hivni mert a template már renderelve lehet mire a REST response megjön és a [fromGroup] egy undefined objectre mutat
 
-      this.logger.error("logging BookDetailsComponent");
+      //this.logger.error("logging BookDetailsComponent");
 
       if (this.modes === Modes.edit) {
           const id = this.activeRoute.snapshot.paramMap.get("id");
+          console.log(id);
           // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
-          this.bookRepo.getBook(id).subscribe(data =>  {  
+          this.bookRepo.getBook(id).subscribe(data =>  { 
+            console.table(data); 
             this.initForm(data);   })
-      } 
+      }  else {
+        
+      }
   }
 
   private initForm(book?: Book): void {

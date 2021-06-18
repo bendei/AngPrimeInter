@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, of, throwError } from "rxjs";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import { catchError, map, retry } from "rxjs/operators";
 import { HttpHeaders } from '@angular/common/http';
 import {ProductFactory} from "../store/shared/ProductFactory";
@@ -8,6 +8,7 @@ import {BookFactory} from "../book/shared/BookFactory";
 import { Book } from "../book/shared/book";
 import { Product } from "../store/shared/product";
 import { Order } from "../store/shared/order.model";
+import { ConditionalExpr } from "@angular/compiler";
 
 const PROTOCOL = "http";
 const PORT = 3500;
@@ -91,6 +92,22 @@ export class RestDataSource {
             retry(3),
             catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
+    }
+
+    findBooks(filter: string, sortOrder: string, pageNumber: number, pageSize: number): Observable<Book[]> {
+        console.log(pageNumber);
+        return this.http.get<Book[]>(`${API}/books`, {
+            params: new HttpParams()
+                .set('pageNumber', pageNumber.toString())
+                .set('pageSize', pageSize.toString())
+                .set('sortOrder', sortOrder)
+                .set('filter', filter)
+        }).pipe(
+            retry(3),
+            map(rawBook => 
+                rawBook.map(book => BookFactory.convertBook(book))),
+                catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            );
     }
 
     // getProduct(id: number): Observable<Product> {

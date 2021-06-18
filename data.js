@@ -53,7 +53,124 @@ module.exports = function () {
                 ebook: true,
                 printed: false,
                 availability: 'Available'
-            }
+            },
+            {   id: '1111', 
+                isbn: '1111', 
+                title: "React 1", 
+                authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+                subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+                thumbnails: [{
+                    url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+                description: 'Das bewährte und umfassende Praxisbuch zu React',
+                genres: ['IT', 'Programming', 'Docker'],
+                ebook: true,
+                printed: false,
+                availability: 'Available'
+        },
+        {   id: '2222', 
+            isbn: '2222', 
+            title: "React 2", 
+            authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+            subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+            thumbnails: [{
+                url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+            description: 'Das bewährte und umfassende Praxisbuch zu React',
+            genres: ['IT', 'Programming', 'Docker'],
+            ebook: true,
+            printed: false,
+            availability: 'Available'
+        },
+        {   id: '3333', 
+            isbn: '3333', 
+            title: "React 3", 
+            authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+            subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+            thumbnails: [{
+                url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+            description: 'Das bewährte und umfassende Praxisbuch zu React',
+            genres: ['IT', 'Programming', 'Docker'],
+            ebook: true,
+            printed: false,
+            availability: 'Available'
+        },
+        {   id: '4444', 
+            isbn: '4444', 
+            title: "React 4", 
+            authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+            subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+            thumbnails: [{
+                url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+            description: 'Das bewährte und umfassende Praxisbuch zu React',
+            genres: ['IT', 'Programming', 'Docker'],
+            ebook: true,
+            printed: false,
+            availability: 'Available'
+        },
+        {   id: '5555', 
+            isbn: '5555', 
+            title: "React 5", 
+            authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+            subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+            thumbnails: [{
+                url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+            description: 'Das bewährte und umfassende Praxisbuch zu React',
+            genres: ['IT', 'Programming', 'Docker'],
+            ebook: true,
+            printed: false,
+            availability: 'Available'
+        },
+        {   id: '6666', 
+            isbn: '6666', 
+            title: "React 6", 
+            authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+            subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+            thumbnails: [{
+                url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+            description: 'Das bewährte und umfassende Praxisbuch zu React',
+            genres: ['IT', 'Programming', 'Docker'],
+            ebook: true,
+            printed: false,
+            availability: 'Available'
+        },
+        {   id: '7777', 
+            isbn: '7777', 
+            title: "React 7", 
+            authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+            subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+            thumbnails: [{
+                url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+            description: 'Das bewährte und umfassende Praxisbuch zu React',
+            genres: ['IT', 'Programming', 'Docker'],
+            ebook: true,
+            printed: false,
+            availability: 'Available'
+        },
+        {   id: '8888', 
+            isbn: '8888', 
+            title: "React 8", 
+            authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+            subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+            thumbnails: [{
+                url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+            description: 'Das bewährte und umfassende Praxisbuch zu React',
+            genres: ['IT', 'Programming', 'Docker'],
+            ebook: true,
+            printed: false,
+            availability: 'Available'
+        },
+        {   id: '9999', 
+            isbn: '9999', 
+            title: "React 9", 
+            authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+            subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+            thumbnails: [{
+                url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+            description: 'Das bewährte und umfassende Praxisbuch zu React',
+            genres: ['IT', 'Programming', 'Docker'],
+            ebook: true,
+            printed: false,
+            availability: 'Available'
+        }
         ]
     }
 }

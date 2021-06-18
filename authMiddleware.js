@@ -1,10 +1,161 @@
+
+
 const jwt = require("jsonwebtoken");
 
 const APP_SECRET = "myappsecret";
 const USERNAME = "a";
 const PASSWORD = "a";
 
-const countries = ["Afghanistan","Andorra","Alabama","Belgium","Bhutan","Belaruss"]
+const countries = ["Afghanistan","Andorra","Alabama","Belgium","Bhutan","Belaruss"];
+const books = [
+    {   id: '34324233', 
+        isbn: '34324233', 
+        sellers: [
+            {name: 'Bende seller', address: 'sáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
+            {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
+            ],
+        title: "Angular 11", 
+        authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen'], 
+        published:  new Date().toISOString(), subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices', rating: 5,
+        thumbnails: [{
+            url: 'https://ng-buch.de/angular-cover.jpg', title: 'Buchcover' }],
+        description: 'Lernen Sie Angular mit diesem Praxisbuch!',
+        genres: ['IT', 'Programming'],
+        ebook: false,
+        printed: false,
+        availability: 'Available'
+    },
+    {   id: '554543654', 
+        isbn: '554543654', 
+        title: "React", 
+        authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+        subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+        thumbnails: [{
+            url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+        description: 'Das bewährte und umfassende Praxisbuch zu React',
+        genres: ['IT', 'Programming', 'Docker'],
+        ebook: true,
+        printed: false,
+        availability: 'Available'
+    },
+    {   id: '1111', 
+        isbn: '1111', 
+        title: "React 1", 
+        authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+        subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+        thumbnails: [{
+            url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+        description: 'Das bewährte und umfassende Praxisbuch zu React',
+        genres: ['IT', 'Programming', 'Docker'],
+        ebook: true,
+        printed: false,
+        availability: 'Available'
+},
+{   id: '2222', 
+    isbn: '2222', 
+    title: "React 2", 
+    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+    thumbnails: [{
+        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+    description: 'Das bewährte und umfassende Praxisbuch zu React',
+    genres: ['IT', 'Programming', 'Docker'],
+    ebook: true,
+    printed: false,
+    availability: 'Available'
+},
+{   id: '3333', 
+    isbn: '3333', 
+    title: "React 3", 
+    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+    thumbnails: [{
+        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+    description: 'Das bewährte und umfassende Praxisbuch zu React',
+    genres: ['IT', 'Programming', 'Docker'],
+    ebook: true,
+    printed: false,
+    availability: 'Available'
+},
+{   id: '4444', 
+    isbn: '4444', 
+    title: "React 4", 
+    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+    thumbnails: [{
+        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+    description: 'Das bewährte und umfassende Praxisbuch zu React',
+    genres: ['IT', 'Programming', 'Docker'],
+    ebook: true,
+    printed: false,
+    availability: 'Available'
+},
+{   id: '5555', 
+    isbn: '5555', 
+    title: "React 5", 
+    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+    thumbnails: [{
+        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+    description: 'Das bewährte und umfassende Praxisbuch zu React',
+    genres: ['IT', 'Programming', 'Docker'],
+    ebook: true,
+    printed: false,
+    availability: 'Available'
+},
+{   id: '6666', 
+    isbn: '6666', 
+    title: "React 6", 
+    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+    thumbnails: [{
+        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+    description: 'Das bewährte und umfassende Praxisbuch zu React',
+    genres: ['IT', 'Programming', 'Docker'],
+    ebook: true,
+    printed: false,
+    availability: 'Available'
+},
+{   id: '7777', 
+    isbn: '7777', 
+    title: "React 7", 
+    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+    thumbnails: [{
+        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+    description: 'Das bewährte und umfassende Praxisbuch zu React',
+    genres: ['IT', 'Programming', 'Docker'],
+    ebook: true,
+    printed: false,
+    availability: 'Available'
+},
+{   id: '8888', 
+    isbn: '8888', 
+    title: "React 8", 
+    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+    thumbnails: [{
+        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+    description: 'Das bewährte und umfassende Praxisbuch zu React',
+    genres: ['IT', 'Programming', 'Docker'],
+    ebook: true,
+    printed: false,
+    availability: 'Available'
+},
+{   id: '9999', 
+    isbn: '9999', 
+    title: "React 9", 
+    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+    thumbnails: [{
+        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+    description: 'Das bewährte und umfassende Praxisbuch zu React',
+    genres: ['IT', 'Programming', 'Docker'],
+    ebook: true,
+    printed: false,
+    availability: 'Available'
+}
+];
 
 const mappings = {
     get: ["/api/orders", "/orders","/api/products","/products", "/books", "/api/books", "/api/countries", "/countries"],
@@ -17,14 +168,11 @@ function requiresAuth(method, url) {
     return (mappings[method.toLowerCase()] || [])
         .find(p => url.startsWith(p)) !== undefined;
 }
-
 module.exports = function (req, res, next) {
-
+    
     console.log("request url:", req.url);
 
     if (req.url.endsWith("/logs") && req.method == "POST") {
-        console.log("Logging received from Angular:");
-        console.log(req.body);
         res.end();
         return;
     }
@@ -35,6 +183,30 @@ module.exports = function (req, res, next) {
         res.json(co);
         res.end();
         return;
+    }
+    else if(req.url.includes("/books")) {
+        let strippedUrl = req.url.substring(6);
+        console.log("m:",strippedUrl);
+
+        if(strippedUrl.startsWith('/')) {   
+            let bookId = strippedUrl.substring(1);
+            let book = books.filter(book => book.id == bookId);
+            res.json(book);
+            res.end();
+            return;
+        }
+        else if(strippedUrl.startsWith('?')) {
+            let booksPart = books.slice(0,4);
+            res.json(booksPart);
+            res.end();
+            return;
+        }
+        else {
+            res.json(books);
+            res.end();
+            return;
+        }
+
     }
     else if (req.url.endsWith("/login") && req.method == "POST") {
         if (req.body && req.body.name == USERNAME && req.body.password == PASSWORD) {

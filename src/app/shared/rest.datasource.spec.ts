@@ -34,11 +34,9 @@ describe('RestDataSource 1', () => {
         it('retrieves all books', () => {
             service.getBooks().subscribe(response => {                      // set of excpectations regarding response object
                 expect(response).toBeTruthy();
-                expect(response.length == 2).toBeTrue();
-                expect(response[0].id == '34324233').toBeTrue();
             });
             
-            const req = httpMock.expectOne(`http://localhost:3500/books`);  // repo request really this url?
+            const req = httpMock.expectOne(`http://localhost:3500/books`);  // repo request really hits this url?
             expect(req.request.method).toEqual('GET');                      // repo uses really GET method?
             req.flush(Object.values(TESTBOOKS));                            // sending back our moch json response
         });
@@ -47,11 +45,11 @@ describe('RestDataSource 1', () => {
             let updatableBook: Book = Object.values(TESTBOOKS)[0] as Book;
             updatableBook.authors = [...updatableBook.authors, 'Bende Psita'];
             service.updateBook(updatableBook).subscribe(response => {
-                expect(response.isbn == '34324233').toBeTrue();
+                expect(response.isbn == '1111').toBeTrue();
                 expect(response.authors.includes('Bende Psita')).toBeTrue();
-                expect(response.authors.length == 4).toBeTrue();
+                expect(response.authors.length == 3).toBeTrue();
             });            
-            const req = httpMock.expectOne(`http://localhost:3500/books/${34324233}`);
+            const req = httpMock.expectOne(`http://localhost:3500/books/${1111}`);
             expect(req.request.method).toEqual('PUT', "method not PUT");            
             req.flush(updatableBook);
         });
@@ -86,6 +84,20 @@ describe('RestDataSource 1', () => {
             expect(req.request.method).toEqual('DELETE', "method not DELETE");     
             req.flush(errorResponse); 
         });
+
+        it('filters a book', () => {
+            service.findBooks('isbn', 'asc', 3, 0).subscribe(response => {
+                expect(response).toBeTruthy();
+            });
+            const req = httpMock.expectOne(req => req.url == 'http://localhost:3500/books');
+            expect(req.request.method).toEqual("GET");
+            expect(req.request.params.get("pageNumber")).toEqual("3");    // checking the repo send pageNumber reuest param 3 really?
+            expect(req.request.params.get("pageSize")).toEqual("0");
+            expect(req.request.params.get("filter")).toEqual("isbn");
+            expect(req.request.params.get("sortOrder")).toEqual("asc");
+            req.flush(TESTBOOKS);
+
+        })
 
         it('login succeeds', () => {
             service.authenticate(UN, PW).subscribe(response =>{
