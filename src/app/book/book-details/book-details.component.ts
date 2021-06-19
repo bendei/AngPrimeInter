@@ -9,7 +9,7 @@ import { NGXLogger } from 'ngx-logger';
 
 
 @Component({
-  selector: 'book-details',
+  selector: 'app-book-details',
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.css'],
 })
@@ -40,23 +40,24 @@ export class BookDetailsComponent implements OnInit {
     }
 
   ngOnInit(): void {
-      this.initForm();  // meg kell hivni mert a template már renderelve lehet mire a REST response megjön és a [fromGroup] egy undefined objectre mutat
+        // meg kell hivni mert a template már renderelve lehet mire a REST response megjön és a [fromGroup] egy undefined objectre mutat
 
       //this.logger.error("logging BookDetailsComponent");
 
       if (this.modes === Modes.edit) {
           const id = this.activeRoute.snapshot.paramMap.get("id");
-          console.log(id);
           // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
           this.bookRepo.getBook(id).subscribe(data =>  { 
-            console.table(data); 
-            this.initForm(data);   })
+              this.initForm(data); 
+              console.table(this.bookForm); 
+            })
       }  else {
-        
+        this.initForm();
       }
   }
 
   private initForm(book?: Book): void {
+    console.log(book?.isbn);
     this.bookForm = this.fb.group({
       id: [book?.isbn],
       isbn: [{value: book?.isbn, disabled: this.modes == Modes.edit}, Validators.minLength(3)],
