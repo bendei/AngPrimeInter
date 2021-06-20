@@ -8,7 +8,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BookDetailsComponent } from "../book-details/book-details.component";
 import { NGXLogger } from 'ngx-logger';
 
-describe('BookDetails component', () => {
+describe('BookDetails component not fixture', () => {
     let router;
     let activatedRoute;
     let formBuilder;
@@ -99,7 +99,7 @@ describe('BookDetails component', () => {
         component.ngOnInit();
     });
 
-    it('initiates component - bookForm defined', () => {
+    xit('initiates component - bookForm defined', () => {
            expect(component.bookForm).toBeDefined();
     });
     

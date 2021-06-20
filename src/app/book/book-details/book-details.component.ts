@@ -40,8 +40,6 @@ export class BookDetailsComponent implements OnInit {
     }
 
   ngOnInit(): void {
-        // meg kell hivni mert a template már renderelve lehet mire a REST response megjön és a [fromGroup] egy undefined objectre mutat
-
       //this.logger.error("logging BookDetailsComponent");
 
       if (this.modes === Modes.edit) {
@@ -49,7 +47,6 @@ export class BookDetailsComponent implements OnInit {
           // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
           this.bookRepo.getBook(id).subscribe(data =>  { 
               this.initForm(data); 
-              console.table(this.bookForm); 
             })
       }  else {
         this.initForm();
@@ -57,7 +54,6 @@ export class BookDetailsComponent implements OnInit {
   }
 
   private initForm(book?: Book): void {
-    console.log(book?.isbn);
     this.bookForm = this.fb.group({
       id: [book?.isbn],
       isbn: [{value: book?.isbn, disabled: this.modes == Modes.edit}, Validators.minLength(3)],
@@ -151,7 +147,7 @@ export class BookDetailsComponent implements OnInit {
 
   submitForm() {
     if(this.bookForm.valid) {
-      console.table(this.bookForm);
+     
 
       // kiszűrni ha a user üres seller sorokat adott hozzá
      const sellers = this.bookForm.value.sellers.filter((seller: BookSeller) => (seller.address != null && seller.name != null && seller.quantity != 0));
@@ -203,6 +199,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   search(event) {
+    console.log("search",event.query);
     this.bookRepo.getCountries(event.query).subscribe(x => this.searchResults = x)
   }
     

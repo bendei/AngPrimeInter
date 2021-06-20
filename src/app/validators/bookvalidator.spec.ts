@@ -1,7 +1,7 @@
 import { BookValidator } from "./BookValidator";
 import {FormBuilder, FormControl, FormGroup, ValidationErrors} from "@angular/forms";
 
-describe('Book Validator üzenetek', () => {
+describe('BookValidator', () => {
 
     it('title is correct, should return no error message', () => {
         let control = new FormControl('React');
@@ -9,7 +9,7 @@ describe('Book Validator üzenetek', () => {
         expect(valasz).toBeNull();
     });
 
-    it('title should return validation error message: error.book_title', () => {
+    it('title returns validation error message: error.book_title', () => {
         let control = new FormControl('valami');
         let valasz = BookValidator.titleFormat(control);
         let expected = {title: {message: "error.book_title"}};

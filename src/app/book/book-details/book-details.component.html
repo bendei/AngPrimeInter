@@ -42,18 +42,18 @@
     </div>
     <div class="p-field p-col-2">
         <label translate>book-details.countruy_autoc</label>
-        <p-autoComplete formControlName="city" [suggestions]="searchResults" (completeMethod)="search($event)" [dropdown]="true"></p-autoComplete>
+        <p-autoComplete id="countryAuto" formControlName="city" [suggestions]="searchResults" (completeMethod)="search($event)" [dropdown]="true"></p-autoComplete>
     </div>
     <div class="p-field p-col-5">
     </div>
-    <div class="p-field p-col-12" formArrayName="authors">
-        <button pButton type="button" class="p-button-outlined p-mr-1"  [style.max-width.px]="180"  (click)="addAuthor()" translate>book-details.add_new_author</button>
+    <div class="p-field p-col-12" formArrayName="authors" id="auhtorsDiv">
+        <button pButton type="button" class="p-button-outlined p-mr-1" id="addAuthorButton"  [style.max-width.px]="180"  (click)="addAuthor()" translate>book-details.add_new_author</button>
         <input pInputText type="text" style="width:200px;" *ngFor="let a of authors; index as i" [formControlName]="i" class="p-mr-1">
         <!-- [formControlName]="i" , az i itt maga atz egyik FormControl objektum , és azért kell a [] hogy az i-t ne mint string, hanem mint expressiont adjuk at -->
     </div>
 
     <div class="p-field p-col-12">
-        <button pButton type="button" class="p-button-outlined p-mr-1"  [style.max-width.px]="180"  (click)="addSeller()" translate>book-details.add_new_seller</button>
+        <button pButton type="button" class="p-button-outlined p-mr-1" id="addSeller" [style.max-width.px]="180"  (click)="addSeller()" translate>book-details.add_new_seller</button>
     </div>
 
     <div *ngIf="sellers.length > 0" class="p-field  p-col-8" >   <!--  nem biztos hogy a jsonban van ilyen property -->
@@ -82,7 +82,7 @@
         </div>  
     </div>      
     
-    <div class="p-field p-col-8 p-grid " formArrayName="sellers" *ngFor="let seller of sellers; let i = index;">   <!--  nem biztos hogy a jsonban van ilyen property -->
+    <div class="p-field p-col-8 p-grid sellersDiv"  formArrayName="sellers" *ngFor="let seller of sellers; let i = index;">   <!--  nem biztos hogy a jsonban van ilyen property -->
         <div [formGroupName]="i" class="p-grid p-ml-0">
             <div class="p-col">
                 <input pInputText id="hobby_name_{{i}}" formControlName="name" >
