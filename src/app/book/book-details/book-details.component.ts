@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Modes} from "../../shared/app-enums";
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -41,7 +41,6 @@ export class BookDetailsComponent implements OnInit {
 
   ngOnInit(): void {
       //this.logger.error("logging BookDetailsComponent");
-
       if (this.modes === Modes.edit) {
           const id = this.activeRoute.snapshot.paramMap.get("id");
           // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
@@ -147,15 +146,13 @@ export class BookDetailsComponent implements OnInit {
 
   submitForm() {
     if(this.bookForm.valid) {
-     
-
       // kiszűrni ha a user üres seller sorokat adott hozzá
      const sellers = this.bookForm.value.sellers.filter((seller: BookSeller) => (seller.address != null && seller.name != null && seller.quantity != 0));
      const authors = this.bookForm.value.authors;
 
      // kétféleképpen kaphatom meg a controllok értékéeit
-     console.log("ebook:", this.bookForm.value.ebook);  // a form model objektum value metódusa mely az összes value-t tartalmazza
-     console.log("ebook:", this.bookForm.get("ebook").value); // a form model FormControlljan keresztül
+     //console.log("ebook:", this.bookForm.value.ebook);  // a form model objektum value metódusa mely az összes value-t tartalmazza
+     //console.log("ebook:", this.bookForm.get("ebook").value); // a form model FormControlljan keresztül
 
      // genre checkbox: azoknak a neveit küldjük csak vissza, amik checked
      const genres = this.bookForm.value.genres;
@@ -174,7 +171,7 @@ export class BookDetailsComponent implements OnInit {
       if(this.modes == Modes.edit) {
           this.bookRepo.updateBook(mybook).subscribe(data => 
             this.router.navigateByUrl("/book/list")
-            );
+             );
       } else {
           this.bookRepo.saveBook(mybook).subscribe(data => 
             this.router.navigateByUrl("/book/list"))
@@ -199,10 +196,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   search(event) {
-    console.log("search",event.query);
     this.bookRepo.getCountries(event.query).subscribe(x => this.searchResults = x)
   }
-    
- 
 
 }

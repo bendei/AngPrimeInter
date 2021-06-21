@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Book } from '../../book/shared/book';
+import { Book } from '../shared/book';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Modes} from "../../shared/app-enums";
 import { of } from 'rxjs';
 import { BookRepository } from '../shared/book.repository';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { BookDetailsComponent } from "../book-details/book-details.component";
+import { BookDetailsComponent } from "./book-details.component";
 import { NGXLogger } from 'ngx-logger';
 import { SharedModule } from "../../shared/shared.module";  // kell a shared is mert benne van importálva a PrimeAng komponensek
 import localeFr from '@angular/common/locales/fr';
@@ -54,18 +54,20 @@ describe('BookDetails component', () => {   // inline function
     beforeEach(() => {
         // cretaing stubs for DI
         bookRepository = {
-            getBook: (id: string) => of(book),
+            getBook: (id: string) => of(book),  // Observable-t kell visszaadnunk!!
             getCountries: (cou: string) => {
-                console.log(cou);
                 const selection = countries.filter(co => co.toLowerCase().includes(cou.toLowerCase()));
-                return of(selection);
+                return of(selection);  // Observable-t kell visszaadnunk!!
+            },
+            updateBook: (book: Book) => {
+                return of(book); // Observable-t kell visszaadnunk!!
             }
         };
 
         loggerSpy = jasmine.createSpyObj('NGXLogger', ['error']);
 
         router = {
-            navigateByUrl: (url: string) => console.log("Test mocjók router.navigateByUrl(...) to: ", url)
+            navigateByUrl: (url: string) => {console.log("Router.navigateByUrl(...) to: ", url)}
         };
 
         TestBed.configureTestingModule({
@@ -130,8 +132,7 @@ describe('BookDetails component', () => {   // inline function
 
     it('places out 3 authors input', () => {
         fixture.detectChanges();      
-        const hostEl: HTMLElement = fixture.nativeElement;  // a native DOM elementet kapjuk meg igy a 
-        const arrAuthorsInputs = hostEl.querySelector("#auhtorsDiv").querySelectorAll("input");
+        const arrAuthorsInputs = el.nativeElement.querySelector("#auhtorsDiv").querySelectorAll("input");
         expect(arrAuthorsInputs.length).toBe(3);
         expect(arrAuthorsInputs[0].value).toEqual("Ferdinand Malcher");
     });
@@ -140,8 +141,7 @@ describe('BookDetails component', () => {   // inline function
         fixture.detectChanges();    
        
         // how to get and iterate over elements in DOM: https://attacomsian.com/blog/getting-dom-elements-javascript
-        const hostEl: HTMLElement = fixture.nativeElement;  // a native DOM elementet kapjuk meg igy a 
-        const arrAuthorsInputs = hostEl.querySelector("#auhtorsDiv").querySelectorAll("input");
+        const arrAuthorsInputs = el.nativeElement.querySelector("#auhtorsDiv").querySelectorAll("input");
 
         // click on button to add new author
         const addAuthorButton = el.query(By.css("#addAuthorButton"));
@@ -150,12 +150,12 @@ describe('BookDetails component', () => {   // inline function
         fixture.detectChanges();
 
         // writing new author input with the name Bende
-        let numberOfInputs = hostEl.querySelector("#auhtorsDiv").querySelectorAll("input").length;
-        let lastInputEl = hostEl.querySelector("#auhtorsDiv").querySelectorAll("input")[--numberOfInputs];
+        let numberOfInputs = el.nativeElement.querySelector("#auhtorsDiv").querySelectorAll("input").length;
+        let lastInputEl = el.nativeElement.querySelector("#auhtorsDiv").querySelectorAll("input")[--numberOfInputs];
         lastInputEl.value = "Bende";
         fixture.detectChanges();
 
-        const arrAuthorsInputsClicked = hostEl.querySelector("#auhtorsDiv").querySelectorAll("input");
+        const arrAuthorsInputsClicked = el.nativeElement.querySelector("#auhtorsDiv").querySelectorAll("input");
         expect(arrAuthorsInputsClicked.length).toEqual(arrAuthorsInputs.length+1);
     })
 
@@ -169,33 +169,31 @@ describe('BookDetails component', () => {   // inline function
 
     it('deleting first seller row', () => {
         fixture.detectChanges(); 
-        const hostEl: HTMLElement = fixture.nativeElement;  // a native DOM elementet kapjuk meg igy a 
 
         // there must be 2 sellers, figyelem: sellersDiv-bol annyi van ahany seller soor a gui-n
-        let arrSellerRow = hostEl.querySelectorAll(".sellersDiv");
+        let arrSellerRow = el.nativeElement.querySelectorAll(".sellersDiv");
         expect(arrSellerRow.length).toBe(2);
         const deleteButton = arrSellerRow[0].querySelector("button");
         deleteButton.click();   // delete buttonal toroljuk az elso sellert
         fixture.detectChanges(); 
 
         // cecking there is only on seller now
-        arrSellerRow = hostEl.querySelectorAll(".sellersDiv");
+        arrSellerRow = el.nativeElement.querySelectorAll(".sellersDiv");
         expect(arrSellerRow.length).toBe(1);
         expect((component.bookForm.get("sellers") as FormArray).length).toBe(1);
     });
 
     it('adding seller', () => {
         fixture.detectChanges(); 
-        const hostEl: HTMLElement = fixture.nativeElement;  // a native DOM elementet kapjuk meg igy a 
 
         // adding new empty raw by clicking add new seller button
-        let arrSellerRow = hostEl.querySelectorAll(".sellersDiv");
+        let arrSellerRow = el.nativeElement.querySelectorAll(".sellersDiv");
         expect(arrSellerRow.length).toBe(2);
-        const addSellerButton: HTMLButtonElement = hostEl.querySelector("#addSeller");
+        const addSellerButton: HTMLButtonElement = el.nativeElement.querySelector("#addSeller");
         addSellerButton.click();
         fixture.detectChanges(); 
 
-        arrSellerRow = hostEl.querySelectorAll(".sellersDiv");
+        arrSellerRow = el.nativeElement.querySelectorAll(".sellersDiv");
         expect(arrSellerRow.length).toBe(3);
 
         let newSellerRow = arrSellerRow[2];
@@ -219,29 +217,35 @@ describe('BookDetails component', () => {   // inline function
         yearInput.dispatchEvent(new Event('input'));
         fixture.detectChanges(); 
 
-        // dioes the form model updated?
+        // does the form model updated?
         expect(component.bookForm.value.sellers[2].name).toEqual("Kása Pista");
-
     });
+
+    it('validating title for conatinng Angular', () => {
+        fixture.detectChanges(); 
+        const titleEL: HTMLInputElement = el.nativeElement.querySelector("#titleInput");
+        titleEL.value = "Angul";
+        titleEL.dispatchEvent(new Event('input'));
+        fixture.detectChanges(); 
+        expect(component.bookForm.get('title')?.errors.title.message).toEqual("error.book_title");
+    })
 
     it('chkeing Docker only', () => {});
 
-    it('submit', () => {});
+    it('submitting', () => {
+        fixture.detectChanges(); 
+        const ebookChkb: HTMLInputElement = el.nativeElement.querySelector("#ebookChkb");
+        ebookChkb.click();
+        fixture.detectChanges(); 
+
+        const submitButton: HTMLButtonElement = el.nativeElement.querySelector("[type='submit']");
+        submitButton.click();
+        expect(component.bookForm.value.ebook).toBeTrue();
+        expect(component.bookForm.get("ebook").value).toBeTrue();
+    });
 
 });
 
 
-// export const ButtonClickEvents = {
-//     left:  { button: 0 },
-//     right: { button: 2 }
-//  };
 
-// /** Simulate element click. Defaults to mouse left-button click event. */
-// export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClickEvents.left): void {
-//     if (el instanceof HTMLElement) {
-//       el.click();
-//     } else {
-//       el.triggerEventHandler('click', eventObj);
-//     }
-//   }
 

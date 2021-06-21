@@ -7,8 +7,8 @@
     </div>
     <div class="p-field p-col-6">
         <label translate>book-details.title</label>
-        <input pInputText type="text" formControlName="title">
-        <span class="invalid" *ngIf="bookForm.get('title')?.errors" translate>{{bookForm.get('title')?.errors.title.message}}</span>
+        <input pInputText id="titleInput" type="text" formControlName="title">
+        <span class="invalid"  *ngIf="bookForm.get('title')?.errors" translate>{{bookForm.get('title')?.errors.title.message}}</span>
     </div>
     <div class="p-field p-col-6">
         <label translate>book-details.subtitle</label>
@@ -110,8 +110,8 @@
 
     <!-- fix beegetett checkboxok -->
     <div class="p-field p-col-12">
-        <input type="checkbox" class="form-check-input" formControlName="ebook" ><span translate>book-details.ebook</span>
-        <input type="checkbox" class="form-check-input" formControlName="printed"><span translate> book-details.printed</span>
+        <input type="checkbox" id="ebookChkb" class="form-check-input" formControlName="ebook" ><span translate>book-details.ebook</span>
+        <input type="checkbox" id="printedChkb" class="form-check-input" formControlName="printed"><span translate> book-details.printed</span>
     </div>
 
     <!-- API-bol jovo dinamikus checkboxok (5 fele checkboxunk van, de az API lehet hogy csak pl 3 at ad vissza) -->
