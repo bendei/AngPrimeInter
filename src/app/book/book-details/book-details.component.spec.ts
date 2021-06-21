@@ -117,8 +117,6 @@ describe('BookDetails component', () => {   // inline function
     
             component.ngOnInit();
         });
-
-      
     }));
 
     it('initiates component - bookForm defined', () => {

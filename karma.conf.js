@@ -11,7 +11,7 @@ module.exports = function (config) {
      // "node_modules/primeicons/primeicons.css",
       "node_modules/primeng/resources/themes/saga-blue/theme.css",
       "node_modules/primeng/resources/primeng.min.css",
-      "node_modules/primeflex/primeflex.css"
+      //"node_modules/primeflex/primeflex.css"
     ],
     plugins: [
       require('karma-jasmine'),
