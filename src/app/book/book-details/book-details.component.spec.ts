@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Book } from '../shared/book';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Modes} from "../../shared/app-enums";
@@ -51,7 +51,7 @@ describe('BookDetails component', () => {   // inline function
         }
     ;
 
-    beforeEach(() => {
+    beforeEach(waitForAsync(() => {
         // cretaing stubs for DI
         bookRepository = {
             getBook: (id: string) => of(book),  // Observable-t kell visszaadnunk!!
@@ -105,19 +105,21 @@ describe('BookDetails component', () => {   // inline function
                         },
                         FormBuilder
             ]
+        }).compileComponents().then( () => {
+            fixture = TestBed.createComponent(BookDetailsComponent);
+            el = fixture.debugElement;
+            component = fixture.componentInstance;
+            bookRepository = TestBed.inject(BookRepository);
+            activatedRoute = TestBed.inject(ActivatedRoute);
+            router = TestBed.inject(Router);
+            loggerSpy = TestBed.inject(NGXLogger);
+            formBuilder = TestBed.inject(FormBuilder);
+    
+            component.ngOnInit();
         });
 
-        fixture = TestBed.createComponent(BookDetailsComponent);
-        el = fixture.debugElement;
-        component = fixture.componentInstance;
-        bookRepository = TestBed.inject(BookRepository);
-        activatedRoute = TestBed.inject(ActivatedRoute);
-        router = TestBed.inject(Router);
-        loggerSpy = TestBed.inject(NGXLogger);
-        formBuilder = TestBed.inject(FormBuilder);
-
-        component.ngOnInit();
-    });
+      
+    }));
 
     it('initiates component - bookForm defined', () => {
         expect(component.bookForm).toBeDefined();
