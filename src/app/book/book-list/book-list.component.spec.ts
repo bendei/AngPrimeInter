@@ -35,6 +35,7 @@ describe('BookListComponent tests', () => {
             component = fixture.componentInstance;
             component.ngOnInit();
         });
+        
     }));
 
     it('get a list of all books', () => {
