@@ -22,5 +22,11 @@ abstract class ComponentFixture {
   detectChanges();    // trigger component change detection
 }
 
+DebugElement is a wrapper across native elements and tested component allowing test to run on all supported platforms.
+
+fixture.nativeElement and fixture.debugElement.nativeElement are the same things. This is HTML element generated in the DOM by Angular as specified in the tested component's template. Through nativeElement you can access and test what visualized on the screen, in your test above whether the text content of the H1 is Welcome to the app. Keep in mind fixture.debugElement has other methods and properties that are useful in tests like By.css() for example.
+
+fixture.componentInstance gives you access to the component class. This allows you to test the public API of your component. In you test above you are whether the title property of you app component is app.
+
 
 

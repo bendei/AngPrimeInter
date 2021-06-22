@@ -47,12 +47,5 @@ describe('BookListComponent tests', () => {
         });
     });
 
-    it('get a list of all books',
-        inject([BookListComponent], (component: BookListComponent) => {    // injecting the testable comp into the Testbed
-            component.ngOnInit();
-            let konyvek: Book[] = component.books;
-
-            expect(konyvek.length==1).toBeTrue();
-    }));
-
+  
 });
