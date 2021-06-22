@@ -29,8 +29,14 @@ describe('BookListComponent tests', () => {
                 },
                 BookListComponent
             ]
+        }).compileComponents().then( () => {
+            fixture = TestBed.createComponent(BookListComponent);
+            el = fixture.debugElement;
+            component = fixture.componentInstance;
+            component.ngOnInit();
         });
-    });
+        
+    }));
 
     it('get a list of all books', () => {
             let konyvek: Book[] = component.books;
