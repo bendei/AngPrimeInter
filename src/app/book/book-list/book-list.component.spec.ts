@@ -1,38 +1,23 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { BookRepository } from "../shared/book.repository";
 import { BookListComponent } from "../book-list/book-list.component";
 import { of } from 'rxjs';
 import { Book } from '../shared/book';
+import { DebugElement } from '@angular/core';
+import {TESTBOOKS} from "../../testdata/data-books";
 
 describe('BookListComponent tests', () => {
 
-    let bookRepoStub;
-    let books = [
-        {  
-            id: 34324233, 
-            isbn: 34324233, 
-            sellers: [
-                {name: 'Bende seller', address: 'Csáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
-                {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
-                ],
-            title: "Angular 11", 
-            authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen'], 
-            published:  new Date().toISOString(), subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices', rating: 5,
-            thumbnails: [{
-                url: 'https://ng-buch.de/angular-cover.jpg', title: 'Buchcover' }],
-            description: 'Lernen Sie Angular mit diesem Praxisbuch!',
-            genres: ['IT', 'Programming'],
-            ebook: false,
-            printed: false,
-            availability: 'Available'
-        }
-    ];
-
-    beforeEach( () => {
+    let fixture: ComponentFixture<BookListComponent>;
+    let el: DebugElement;
+    let bookRepoStub: any;
+    let component: BookListComponent;
+    
+    beforeEach(waitForAsync(() => {
 
         // creating stub for bookRepo (Observble)
         bookRepoStub = {
-            getBooks: () => of(books)
+            getBooks: () => of(Object.values(TESTBOOKS))
         };
 
         // confugring Testbed
@@ -47,5 +32,9 @@ describe('BookListComponent tests', () => {
         });
     });
 
-  
+    it('get a list of all books', () => {
+            let konyvek: Book[] = component.books;
+            expect(konyvek.length == 11).toBeTrue();
+    });
+
 });
