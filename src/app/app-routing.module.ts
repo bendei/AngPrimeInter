@@ -17,7 +17,7 @@ const routes: Routes = [
       , canActivate: [StoreGuard]
     },
     {path: "inputoutput",
-      loadChildren: () => import("./inputOutput/inputoutput-routing.module").then(i => i.InputOutputRoutingModule)
+      loadChildren: () => import("./inputOutput/shared/inputoutput-routing.module").then(i => i.InputOutputRoutingModule)
     },
     
     // !!! a ** pathnak kell legutoljára jönnie különben az alatta levő path nem mux

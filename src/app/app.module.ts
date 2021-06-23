@@ -16,7 +16,7 @@ import {AppErrorHandler} from "../app/shared/AppErrorHandler";
 import {AuthenticationModule} from "./authentication/authentication.module";
 import { StoreModule} from "./store/store.module";
 import {BookModule} from "../app/book/book.module";
-import {InputOutputModule} from "../app/inputOutput/inputOutput.module";
+import {InputOutputModule} from "./inputOutput/shared/inputOutput.module";
 import {ButtonModule} from "primeng/button";
 
 // comps
@@ -39,7 +39,7 @@ registerLocaleData(localeRu, 'ru');
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,

@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import { DatePipe } from "@angular/common";
-import {Product} from "../store/shared/Product";
+import {Product} from "../../store/shared/Product";
 
 @Component({
     providers: [DatePipe],

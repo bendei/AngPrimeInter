@@ -1,17 +1,17 @@
-<div class="row m-2" >
-    <div class="col-4 border border-secondary" >
+<div class="" >
+    <div class="" >
         <!-- form child comp küldi majd a productot a parentComp.addProduct()-nak (noha zavaró hogy ezt a child component
             template bindingjében tesszük és nem a parentében))-->
         <inputoutput-form (newProductOutputEvent)="addProduct($event)" [categories]="categories" [receivedFromTable]="receivedProductFromTable"></inputoutput-form>
     </div>
 
-    <div class="col-8 " >
+    <div class="" >
         <!-- a table child comp kapja a (fér hozzá) a parent comp products propertijéhez.
         Aenderts sich die Daten (Product[], wird das Binding automatisch aktualisiert)-->
        <inputoutput-table (productToSend)="receiveSelectedProduct($event)" [products]="products"></inputoutput-table>
     </div>
 
-    <div class="row m-2">
+    <div class="">
         <button class="btn btn-block btn-outline-secondary" routerLink="/store" [style.max-width.px]="180">Back</button>
     </div>
 

@@ -1,6 +1,6 @@
 import {Component, Output, OnInit} from "@angular/core";
-import {Product} from "../store/shared/Product";
-import {ProductRepository} from "../store/shared/product.repository";
+import {Product} from "../../store/shared/Product";
+import {ProductRepository} from "../../store/shared/product.repository";
 
 @Component({
     templateUrl: "inputOutputParent.component.html"

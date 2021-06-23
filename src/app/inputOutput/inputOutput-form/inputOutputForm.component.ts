@@ -1,6 +1,6 @@
 import {Component, Output, Input, EventEmitter, OnChanges, SimpleChanges} from "@angular/core";
 import {NgForm} from "@angular/forms";
-import {Product} from "../store/shared/Product";
+import {Product} from "../../store/shared/Product";
 
 @Component({
     selector: "inputoutput-form",
