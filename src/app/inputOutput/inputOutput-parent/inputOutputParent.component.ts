@@ -43,9 +43,12 @@ export class InputOutputParentComponent {
         // };
 
         // cloning the product object
+
+        console.log(this.products.length);
         let clonedProduct: Product = {};
         Object.assign(clonedProduct, product);
-        this.products.push(clonedProduct);
+        this.products.push(product);
+        console.log(this.products.length);
 
         // this.products.forEach(p => {
         //     console.log(p.name);

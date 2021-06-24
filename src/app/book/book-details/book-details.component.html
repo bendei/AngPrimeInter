@@ -139,12 +139,11 @@
 
         <input type="radio" name="availability" value="Preordered" formControlName="availability">
         <label translate>book-details.preordered</label>
-
     </div>
-
 
     <div class="p-field p-col-12">
         <button pButton type="submit" class="p-mr-2"  [style.max-width.px]="180" [disabled]="bookForm.invalid" translate>book-details.submit</button>
+        <button pButton type="button"  class="p-mr-2" [style.max-width.px]="180" (click)="clearForm()" translate>button.clear_form</button>
         <button pButton type="button" class=""  [style.max-width.px]="180" routerLink="/book/list" translate>book-details.back</button>
     </div>
 

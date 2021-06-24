@@ -29,6 +29,13 @@
     "book-details.preordered": "Előrendelt",
 
     "book-list.create_book": "Új könyv",
+   
+    "inputoutput.number": "Sorszám",
+    "inputoutput.name": "Név:",
+    "inputoutput.category": "Kategória",
+    "inputoutput.price": "Ár",
+    "inputoutput.releasedate": "Kiadás éve",
+    "inputoutput.booklist": "Könyvek listája",
 
     "auth.username": "Felhasználónév",
     "auth.password": "Jelszó",
@@ -42,5 +49,13 @@
 
     "error.required_length": "Minimális hossz:",
     "error.book_title": "A címnek tartalmaznia kell az Angular vagy React szót",
-    "error.book_age": "Kora és a születési éve nem passzol"
+    "error.book_age": "Kora és a születési éve nem passzol",
+
+   
+    "button.back": "Vissza",
+    "button.openconfirm": "Confirm dialog nyitása",
+    "button.new_product": "Új termék",
+    "button.clear_form": "Töröl"
+
+    
 }

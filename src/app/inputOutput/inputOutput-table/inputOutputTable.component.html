@@ -1,0 +1,34 @@
+<div class="m-2">
+    <h3 translate>inputoutput.booklist</h3>
+    <table class="">
+        <thead>
+            <th  class="oddRow1" translate>inputoutput.number</th>
+            <th translate>inputoutput.name</th>
+            <th translate>inputoutput.category</th>
+            <th translate>inputoutput.price</th>
+            <th translate>inputoutput.releasedate</th>
+        </thead>
+        <tr *ngFor="let p of products; let odd = odd; let first = first; let last = last; let i = index" 
+               
+                 (click)="sendProductToParent(p)">
+                <td><input pInputText type="text" disabled [style.max-width.px]="70" [style.color]="odd ? 'black' : 'red'" [style.background-color]="odd ? 'white' : 'lightgrey'"   value={{i}}></td>
+                <td><input pInputText type="text" disabled value={{p.name}} [style.color]="odd ? 'black' : 'red'"  [style.background-color]="odd ? 'white' : 'lightgrey'" type="text"></td>
+                <td><input pInputText type="text" disabled value={{p.category}} [style.color]="odd ? 'black' : 'red'" [style.background-color]="odd ? 'white' : 'lightgrey'" type="text"></td>
+                <td><input pInputText type="text" disabled value={{p.price}} [style.color]="odd ? 'black' : 'red'"  [style.background-color]="odd ? 'white' : 'lightgrey'" type="text"></td>
+                <td>
+                    <!-- core.js:6185 ERROR Error: InvalidPipeArgument: 'Missing locale data for the locale "hu".' for pipe 'DatePipe'
+                        mert a hu locale le kell tölteni: We need to register the locale information. ott van a compban-->
+                    <input type="text" pInputText disabled value={{transformDateWithPipe(p.releaseDate)}} [style.color]="odd ? 'black' : 'red'"  [style.background-color]="odd ? 'white' : 'lightgrey'" type="text">
+                    <!-- <br/>
+                    UTC: {{p.releaseDate | date:'short':'UTC'}} -->
+                </td>
+            </tr>
+        <tbody>
+        </tbody>
+    </table>
+
+</div>
+
+<!-- táblázat stiped:  PrimeNG pInputText altal kigeneralt class mindent felulvag, a lenti odd nem mukodik alatta. 
+ez ami megy: [style.color]="odd ? 'black' : 'red'" type="text"-->
+ <!-- [style.color]="odd" [class.oddRow1]="odd" [class.bg-warning]="first" [class.bg-danger]="last" [class.text-white]="last"  ha nem PrimeNG lenne akkor mukodik -->

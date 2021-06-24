@@ -179,6 +179,10 @@ export class BookDetailsComponent implements OnInit {
     }
   }
 
+  clearForm() {
+    this.bookForm.reset();
+  }
+
   private getSelectedGenreNames(genres: string[]): string[] {
     // let genresToSend: string[] = [];
     // this.genresAll.forEach( (element, index) => {
