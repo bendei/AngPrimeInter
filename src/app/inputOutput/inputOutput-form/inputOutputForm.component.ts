@@ -1,6 +1,7 @@
 import {Component, Output, Input, EventEmitter, OnChanges, SimpleChanges} from "@angular/core";
 import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
 import {Product} from "../../store/shared/Product";
+import { RestDataSource } from "../../shared/rest.datasource";
 
 @Component({
     selector: "inputoutput-form",
@@ -21,15 +22,16 @@ export class InputOutputFormComponent implements OnChanges{
     @Input()
     receivedFromTable: Product;
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private repo: RestDataSource) {
        this.initForm();
     }
 
-    private initForm(): void {
+    private initForm(product?: Product): void {
         this.productForm = this.fb.group({
-            name: [''],
-            category: [''],
-            price: [11]
+            id: [product?.id],
+            name: [product?.name],
+            category: [product?.category],
+            price: [product?.price]
         });
     }
 
@@ -42,7 +44,9 @@ export class InputOutputFormComponent implements OnChanges{
           if (propName == "receivedFromTable") {
             if (changedProp.currentValue !== undefined) {
                 console.log("form comp detected changes on receivedFromTable @Input property and updating newProductevent property (for the template form model) with the received product");
-                Object.assign(this.productForm, changedProp.currentValue);
+                //Object.assign(this.productForm, changedProp.currentValue);
+                this.productForm = {...changedProp.currentValue};
+                this.initForm(this.receivedFromTable);
             }
           }
         }
@@ -63,14 +67,31 @@ export class InputOutputFormComponent implements OnChanges{
     }
 
     submitForm() {
-        console.table(this.productForm.value);
-
-        const newProduct: Product = {
-            ...this.productForm.value
+        debugger;
+        let newProduct: Product = {
+            ...this.productForm.value           
         };
 
+        if (newProduct.id == null) {
+            console.log("itt");
+            newProduct.id = this.getLastProductID(); // naja, ez az id ami a DB bol jon majd
+            this.repo.saveProduct(newProduct).subscribe(data => newProduct = data); // az product.id szukseges ezert kell a return value (a DB.-bol)            
+        } else {
+            this.repo.updateProduct(newProduct);
+        }
 
         // emmitiert event und übergibt product object der Eltern-Komponente, die wiederum als input 
         this.newProductevent.emit(newProduct);
+    }
+
+    private getLastProductID(): number {
+        debugger;
+        let arr: Product[] = [];
+        this.repo.getProducts().subscribe(data => arr = data);
+        let newArr = arr.sort(x => x.id).map(x => x.id);
+        let generatedId = newArr[0];
+        console.log("....",generatedId);
+        console.log(typeof(generatedId));
+        return ++generatedId;
     }
 }

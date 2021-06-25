@@ -9,9 +9,8 @@
             <th translate>inputoutput.releasedate</th>
         </thead>
         <tr *ngFor="let p of products; let odd = odd; let first = first; let last = last; let i = index" 
-               
                  (click)="sendProductToParent(p)">
-                <td><input pInputText type="text" disabled [style.max-width.px]="70" [style.color]="odd ? 'black' : 'red'" [style.background-color]="odd ? 'white' : 'lightgrey'"   value={{i}}></td>
+                <td><input pInputText type="text" disabled [style.max-width.px]="70" [style.color]="odd ? 'black' : 'red'" [style.background-color]="odd ? 'white' : 'lightgrey'"   value={{p.id}}></td>
                 <td><input pInputText type="text" disabled value={{p.name}} [style.color]="odd ? 'black' : 'red'"  [style.background-color]="odd ? 'white' : 'lightgrey'" type="text"></td>
                 <td><input pInputText type="text" disabled value={{p.category}} [style.color]="odd ? 'black' : 'red'" [style.background-color]="odd ? 'white' : 'lightgrey'" type="text"></td>
                 <td><input pInputText type="text" disabled value={{p.price}} [style.color]="odd ? 'black' : 'red'"  [style.background-color]="odd ? 'white' : 'lightgrey'" type="text"></td>

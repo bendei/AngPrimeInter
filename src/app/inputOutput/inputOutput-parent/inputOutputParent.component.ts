@@ -29,30 +29,16 @@ export class InputOutputParentComponent {
     }    
 
     addProduct(product: Product) {
-       // this.nevek.push(product);
+        this.receivedProductFromTable = product;      
+        const prodFound = this.products.filter(p => p.id == product.id).length > 0;
 
-        // this.nevek.forEach(x => {
-        //     console.log(x);
-        // });
-
-        // objektumokkal -> FIGYELEM !! ha nem hozok létre új objektumot, hanem a outputkent megkapottat pusholom, az nem jó, mert valahogy mindig felülirja a már pusholtz objektumokat!!!
-        // let uj = {
-        //     name: product.name,
-        //     category: product.category,
-        //     price: product.price
-        // };
-
-        // cloning the product object
-
-        console.log(this.products.length);
-        let clonedProduct: Product = {};
-        Object.assign(clonedProduct, product);
-        this.products.push(product);
-        console.log(this.products.length);
-
-        // this.products.forEach(p => {
-        //     console.log(p.name);
-        // });
+        if(prodFound) {  // ha van már ilyen product akkor nem push csak replace a product array-ben
+           const index = this.products.findIndex( ({id}) => id == product.id);  // using arrow function and deconstructing
+            this.products.splice(index, 1, product);
+        } else {
+            console.table(product);
+            this.products.push(product);     // itt adjuk hozza az uj productot, amit a tableben jelenitunk meg  
+        }           
     }
 
     // a table egy sorára kattintva a parent megkapja a kiválasztott productot amit a form component vesz át és majd tölt be 

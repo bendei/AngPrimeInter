@@ -55,7 +55,8 @@
     "button.back": "Vissza",
     "button.openconfirm": "Confirm dialog nyitása",
     "button.new_product": "Új termék",
-    "button.clear_form": "Töröl"
+    "button.clear_form": "Töröl",
+    "button.update_product": "Termék frissítése"
 
     
 }

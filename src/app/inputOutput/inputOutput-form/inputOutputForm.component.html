@@ -4,7 +4,9 @@
     <div class="p-field p-col-12">
         <ul>
                 <li>A form kitöltésével és submitálásával egy új product jön létre,ami a táblázatban megjelenítésre kerül</li>
-                <li>A táblázat egy sorára kattintva a product értékei átadásra kerülnek a form mezőinek</li>
+                <li>A táblázat egy sorára kattintva a product értékei átadásra kerülnek a form mezőinek, de csak updatelni lehet a kiválasztott product-ot.
+                     A clear form-ra kattintva, majd kitöltve a mezőket új product hozható létre.
+                </li>
                 <li>A form custom validátort használ ( https://www.tektutorialshub.com/angular/custom-validator-in-template-driven-forms-in-angular/)</li>
         </ul>
     </div>
@@ -28,7 +30,8 @@
             <button pButton type="button" class="p-mr-2" (click)="simpleClicked()" translate>button.openconfirm</button> 
         </div>
         <div class="p-field">
-            <button pButton type="submit" class="p-mr-2"  type="submit" translate>button.new_product</button>
+            <button  *ngIf="productForm.get('id').value == null" pButton type="submit" class="p-mr-2"  type="submit" translate>button.new_product</button>
+            <button  *ngIf="productForm.get('id').value != null" pButton type="submit" class="p-mr-2"  type="submit" translate>button.update_product</button>
         </div>
         <div class="p-field">
             <button pButton class="p-button-outlined p-mr-1" (click)="clearForm()" translate>button.clear_form</button>
