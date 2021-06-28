@@ -36,7 +36,6 @@ export class InputOutputParentComponent {
            const index = this.products.findIndex( ({id}) => id == product.id);  // using arrow function and deconstructing
             this.products.splice(index, 1, product);
         } else {
-            console.table(product);
             this.products.push(product);     // itt adjuk hozza az uj productot, amit a tableben jelenitunk meg  
         }           
     }

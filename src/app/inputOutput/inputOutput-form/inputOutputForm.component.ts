@@ -2,6 +2,7 @@ import {Component, Output, Input, EventEmitter, OnChanges, SimpleChanges} from "
 import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
 import {Product} from "../../store/shared/Product";
 import { RestDataSource } from "../../shared/rest.datasource";
+import { createUnparsedSourceFile } from "typescript";
 
 @Component({
     selector: "inputoutput-form",
@@ -67,14 +68,19 @@ export class InputOutputFormComponent implements OnChanges{
     }
 
     submitForm() {
-        debugger;
         let newProduct: Product = {
             ...this.productForm.value           
         };
 
+        this.repo.getProducts().subscribe(data => {
+            // sollen GetAllProducts abwarten !!
+           this.saveProductAsync(newProduct, data);
+        });
+    }
+
+    private saveProductAsync(newProduct: Product, arr: Product[]): void {
         if (newProduct.id == null) {
-            console.log("itt");
-            newProduct.id = this.getLastProductID(); // naja, ez az id ami a DB bol jon majd
+            newProduct.id = this.getLastProductID(arr); // naja, ez az id ami a DB bol jon majd
             this.repo.saveProduct(newProduct).subscribe(data => newProduct = data); // az product.id szukseges ezert kell a return value (a DB.-bol)            
         } else {
             this.repo.updateProduct(newProduct);
@@ -84,14 +90,9 @@ export class InputOutputFormComponent implements OnChanges{
         this.newProductevent.emit(newProduct);
     }
 
-    private getLastProductID(): number {
-        debugger;
-        let arr: Product[] = [];
-        this.repo.getProducts().subscribe(data => arr = data);
+    private getLastProductID(arr: Product[]): number {
         let newArr = arr.sort(x => x.id).map(x => x.id);
-        let generatedId = newArr[0];
-        console.log("....",generatedId);
-        console.log(typeof(generatedId));
-        return ++generatedId;
+        let generatedId = newArr.pop();
+        return ++generatedId;       
     }
 }
