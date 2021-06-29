@@ -1,4 +1,5 @@
 import {Component, Output, OnInit} from "@angular/core";
+import { Category } from "src/app/shared/category";
 import {Product} from "../../store/shared/Product";
 import {ProductRepository} from "../../store/shared/product.repository";
 
@@ -11,7 +12,7 @@ export class InputOutputParentComponent {
     products: Product[] = [];
 
     // form child comp kapja meg mint @Input
-    categories: string[] = [];
+    categories: Category[] = [];
 
     receivedProductFromTable: Product;
 
@@ -19,13 +20,12 @@ export class InputOutputParentComponent {
     }
 
     ngOnInit(): void {
-        this.repo.getProducts().subscribe(data => {
-            this.products = data;
-            // ne rakd a subscriben kivul, mert nem biztos hogy adataot kap a RESTol időben!!
-            this.categories =  this.products.map(x => x.category).filter((c, index, sor) => sor.indexOf(c) == index);
-            this.categories.unshift("Kérem válasszon");
-            }
-        );
+        this.repo.getProducts().subscribe(data => this.products = data);
+
+        this.repo.getCategories().subscribe(cats => {
+            this.categories = cats;
+            this.categories.unshift({name: "Kérem válasszon", code: "00"});
+        });
     }    
 
     addProduct(product: Product) {

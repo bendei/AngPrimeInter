@@ -1,12 +1,12 @@
 <div class="p-grid">
     <div class="p-col-5">
          <!-- form child comp küldi majd a productot a parentComp.addProduct()-nak (noha zavaró hogy ezt a child component
-            template bindingjében tesszük és nem a parentében))-->
+                template bindingjében tesszük és nem a parentében))-->
         <inputoutput-form (newProductOutputEvent)="addProduct($event)" [categories]="categories" [receivedFromTable]="receivedProductFromTable"></inputoutput-form>
     </div>
     <div class="p-col-7">
             <!-- a table child comp kapja a (fér hozzá) a parent comp products propertijéhez.
-        Aenderts sich die Daten (Product[], wird das Binding automatisch aktualisiert)-->
+                Aenderts sich die Daten (Product[], wird das Binding automatisch aktualisiert)-->
        <inputoutput-table (productToSend)="receiveSelectedProduct($event)" [products]="products"></inputoutput-table>
     </div>
     <div class="p-col-12">

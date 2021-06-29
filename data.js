@@ -1,5 +1,6 @@
 module.exports = function () {
     return { 
+        categories: [{name: "Watersports", code: "WS"}, {name: "Soccer", code: "SC"}, {name: "Chess", code: "CH"}],
         products: [
             { id: 1, name: "Kayak", category: "Watersports", 
                 description: "A boat for one person", price: 275, releaseDate:  new Date().toISOString()},    // UTC dátumok
@@ -174,8 +175,6 @@ module.exports = function () {
         ]
     }
 }
-
-console.log("date bol dátum:", new Date());
 
 /*
     DÁTUM _!!!!

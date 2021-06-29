@@ -1,8 +1,10 @@
 import {Component, Output, Input, EventEmitter, OnChanges, SimpleChanges} from "@angular/core";
-import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
+import {FormBuilder, FormGroup } from "@angular/forms";
 import {Product} from "../../store/shared/Product";
 import { RestDataSource } from "../../shared/rest.datasource";
-import { createUnparsedSourceFile } from "typescript";
+import {DropdownModule} from 'primeng/dropdown';
+import { Category } from "src/app/shared/category";
+import { SelectItem } from "primeng/api/selectitem";
 
 @Component({
     selector: "inputoutput-form",
@@ -10,11 +12,11 @@ import { createUnparsedSourceFile } from "typescript";
 })
 export class InputOutputFormComponent implements OnChanges{
     productForm: FormGroup;
-    selectedCategory: string;
+    selectedCategory: Category;
 
     @Input()
-    categories: string[];
-    
+    categories: Category[];
+
     // egy új event tipust ozunk létre, amire majd a consumer componens figyelni fog
     // ez az event jön létre, ha új productot huzunk létre és átadásra kerül a product objektum
     @Output("newProductOutputEvent")
@@ -34,10 +36,14 @@ export class InputOutputFormComponent implements OnChanges{
             category: [product?.category],
             price: [product?.price]
         });
+
+        console.table("www",this.productForm.get("name").value);
     }
 
-    // egy dolog, hogy az output propertit megkapta a perent a tabletol és aztán átadta a formnak, de aform nem értesül automatikusan ha az input prop updatelődött:
+    // egy dolog, hogy az output propertit megkapta a parent a tabletol és aztán átadta a formnak, de aform nem értesül automatikusan ha az input prop updatelődött:
     // we must intercept input property changes
+    // Simply in the ngOnChange is fire when declared property values are changed. So in that method, we can set this as a param to store the data. like this
+    // https://sithummeegahapola.medium.com/what-is-angular-simplechanges-in-ngonchange-method-2e6b8e7f411d
     ngOnChanges(changes: SimpleChanges) {
         for (const propName in changes) {
           const changedProp = changes[propName];
@@ -45,8 +51,10 @@ export class InputOutputFormComponent implements OnChanges{
           if (propName == "receivedFromTable") {
             if (changedProp.currentValue !== undefined) {
                 console.log("form comp detected changes on receivedFromTable @Input property and updating newProductevent property (for the template form model) with the received product");
-                //Object.assign(this.productForm, changedProp.currentValue);
+                console.log("aaa", changedProp.currentValue);
                 this.productForm = {...changedProp.currentValue};
+                console.log("aaa 2", this.productForm);
+                console.log("aaa 3", this.receivedFromTable);
                 this.initForm(this.receivedFromTable);
             }
           }

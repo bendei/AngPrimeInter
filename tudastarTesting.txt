@@ -1,4 +1,6 @@
-1.  jó kezdő leírás: https://testing-angular.com/angular-testing-principles/#angular-testing-principles
+1.  jó kezdő leírások:
+    https://testing-angular.com/angular-testing-principles/#angular-testing-principles
+    https://testing-angular.com/testing-components/#componentfixture-and-debugelement   -- ez szépen leirja a Testing frameworkot- érdemes ezzel kezdeni
     interjú előtte érdemes átolvasni egyszer
 
 2. AtivatedRoute stub : https://testing-angular.com/angular-testing-principles/#angular-testing-principles
@@ -8,6 +10,9 @@
  https://angular.io/guide/testing-components-scenarios
  https://www.portiva.nl/portiblog/blogs-cat/3-levels-of-css-selectors-to-select-all-elements
  https://attacomsian.com/blog/getting-dom-elements-javascript
+
+https://www.mobiquity.com/insights/testing-angular-http-communication
+https://testing-angular.com/testing-components/#black-vs-white-box-component-testing
 
 - nativeElement returns a reference to the DOM element
 - DebugElement is an Angular2 class that contains all kinds of references and methods relevant to investigate an element or component

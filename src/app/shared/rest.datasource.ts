@@ -8,7 +8,7 @@ import {BookFactory} from "../book/shared/BookFactory";
 import { Book } from "../book/shared/book";
 import { Product } from "../store/shared/product";
 import { Order } from "../store/shared/order.model";
-import { ConditionalExpr } from "@angular/compiler";
+import { Category } from "../shared/category";
 
 const PROTOCOL = "http";
 const PORT = 3500;
@@ -95,7 +95,6 @@ export class RestDataSource {
     }
 
     findBooks(filter: string, sortOrder: string, pageNumber: number, pageSize: number): Observable<Book[]> {
-        console.log(pageNumber);
         return this.http.get<Book[]>(`${API}/books`, {
             params: new HttpParams()
                 .set('pageNumber', pageNumber.toString())
@@ -116,6 +115,13 @@ export class RestDataSource {
     //         catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
     //     );
     // } 
+
+    getCategories(): Observable<Category[]> {
+        return this.http.get<Category[]>(`${API}/categories`).pipe(
+            retry(3),
+            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+        );
+    }
 
     getProduct(id: number): Observable<Product> {
         return this.http.get<Product>(`${API}/products/${id}`).pipe(

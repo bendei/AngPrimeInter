@@ -1,5 +1,6 @@
 import { Injectable }  from "@angular/core";
 import { Observable } from "rxjs";
+import { Category } from "src/app/shared/category";
 import { RestDataSource } from "src/app/shared/rest.datasource";
 import { Product } from "./product";
 
@@ -46,6 +47,11 @@ export class ProductRepository {
     deleteProduct(productID: number): Observable<Product> {
        return this.restDataSource.deleteProduct(productID);
     }
+
+    getCategories(): Observable<Category[]> {
+        return this.restDataSource.getCategories();
+    }
+
 
     // getCategories(): string[] {
     //     return this.products.map(p => p.category).filter((cat, index, array) => array.indexOf(cat) == index).sort();

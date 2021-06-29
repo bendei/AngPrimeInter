@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Book } from '../shared/book';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Modes} from "../../shared/app-enums";
