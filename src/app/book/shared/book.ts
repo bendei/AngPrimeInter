@@ -18,6 +18,7 @@ export interface Book {
     ebook?: boolean;
     printed?: boolean;
     availability?: string;
+    level?: string;
 }
 
 export interface BookSeller {

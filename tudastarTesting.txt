@@ -6,7 +6,13 @@
 2. AtivatedRoute stub : https://testing-angular.com/angular-testing-principles/#angular-testing-principles
 
  how to get and iterate over elements in DOM: https://attacomsian.com/blog/getting-dom-elements-javascript
+ 
+ // css stylok alkalmazasa a templateben, foleg kondicionalisan:
+ https://www.udemy.com/course/angular-course/learn/lecture/11765252#overview   -- ez nagyon jol elmagyarazza
+ az angol Angular könyvben 253 oldal
  https://www.w3schools.com/cssref/css_selectors.asp
+
+
  https://angular.io/guide/testing-components-scenarios
  https://www.portiva.nl/portiblog/blogs-cat/3-levels-of-css-selectors-to-select-all-elements
  https://attacomsian.com/blog/getting-dom-elements-javascript

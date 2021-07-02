@@ -2,9 +2,7 @@ import {Component, Output, Input, EventEmitter, OnChanges, SimpleChanges} from "
 import {FormBuilder, FormGroup } from "@angular/forms";
 import {Product} from "../../store/shared/Product";
 import { RestDataSource } from "../../shared/rest.datasource";
-import {DropdownModule} from 'primeng/dropdown';
 import { Category } from "src/app/shared/category";
-import { SelectItem } from "primeng/api/selectitem";
 
 @Component({
     selector: "inputoutput-form",
@@ -36,8 +34,6 @@ export class InputOutputFormComponent implements OnChanges{
             category: [product?.category],
             price: [product?.price]
         });
-
-        console.table("www",this.productForm.get("name").value);
     }
 
     // egy dolog, hogy az output propertit megkapta a parent a tabletol és aztán átadta a formnak, de aform nem értesül automatikusan ha az input prop updatelődött:
@@ -51,10 +47,7 @@ export class InputOutputFormComponent implements OnChanges{
           if (propName == "receivedFromTable") {
             if (changedProp.currentValue !== undefined) {
                 console.log("form comp detected changes on receivedFromTable @Input property and updating newProductevent property (for the template form model) with the received product");
-                console.log("aaa", changedProp.currentValue);
                 this.productForm = {...changedProp.currentValue};
-                console.log("aaa 2", this.productForm);
-                console.log("aaa 3", this.receivedFromTable);
                 this.initForm(this.receivedFromTable);
             }
           }
@@ -80,6 +73,8 @@ export class InputOutputFormComponent implements OnChanges{
             ...this.productForm.value           
         };
 
+        // a productForm.value  object literal formájában tartalmazza az értékeket. !! a productForm.get("name").value null-t adi vissza submit utan
+
         this.repo.getProducts().subscribe(data => {
             // sollen GetAllProducts abwarten !!
            this.saveProductAsync(newProduct, data);
@@ -98,7 +93,7 @@ export class InputOutputFormComponent implements OnChanges{
         this.newProductevent.emit(newProduct);
     }
 
-    private getLastProductID(arr: Product[]): number {
+    getLastProductID(arr: Product[]): number {
         let newArr = arr.sort(x => x.id).map(x => x.id);
         let generatedId = newArr.pop();
         return ++generatedId;       

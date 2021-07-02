@@ -57,7 +57,10 @@
     "button.openconfirm": "Confirm dialog nyitása",
     "button.new_product": "Új termék",
     "button.clear_form": "Töröl",
-    "button.update_product": "Termék frissítése"
+    "button.update_product": "Termék frissítése",
 
-    
+    "level.beginner": "Beginner",
+    "level.intermedite": "Intermediate",
+    "level.advanced": "Advanced",
+    "level.all": "All level"
 }

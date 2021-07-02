@@ -1,15 +1,33 @@
 <div class=" p-p-1" [ngStyle]="bookStyleMap">
 
+    <h5 [style.text-decoration]="'underline'">{{book.title}}</h5>
+
   <a [routerLink]="['/book/details', ModesEnum.edit, book.id]" [style.color]="linkTextColor">
         <!-- src ez html attribute aminek van DOM megfelelője ezért [src]
              style szintén egy html element attr. de nincsen DOm elem megfelelője, ezért prefixeljük attr-val [attr.colspan]-->
         <!-- <img *ngIf="book.thumbnails && book.thumbnails[0] && book.thumbnails[0].url" [src]="book.thumbnails[0].url"  [style.height]="'auto'" [style.width.%]="60"> -->
-        <h5>{{book.title}}</h5>
+       
         {{book.subtitle}}
         <br/>
         <ng-container *ngFor="let author of book.authors; last as l">
-            {{author}} <ng-container *ngIf="!l">, </ng-container>
+            {{author}} <span *ngIf="!l">, </span>
         </ng-container>
+
+        <br/>
+        <br/>
+        <img width="100" *ngIf="book.thumbnails else noImage " [src]="book.thumbnails[0].url" loading="lazy">
+            <ng-template #noImage>
+                No image avaliable
+            </ng-template>
+        <br/>
+
+        <ng-container [ngSwitch]="book.level">
+            <div *ngSwitchCase="'Beginner'" translate>level.beginner</div>
+            <div *ngSwitchCase="'Advanced'" translate>level.advanced</div>
+            <div *ngSwitchCase="'Intermediate'" translate>level.intermedite</div>
+            <div *ngSwitchDefault translate>level.all</div>
+        </ng-container>
+        
 
         <br/>
         {{book.isbn}}

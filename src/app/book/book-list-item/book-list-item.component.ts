@@ -32,7 +32,7 @@ export class BookListItemComponent {
     };
   }
 
-  get y (): string {
+  get linkTextColor (): string {
     return (this.index % 2 == 0) ? "wheat" : "black";
   }
 

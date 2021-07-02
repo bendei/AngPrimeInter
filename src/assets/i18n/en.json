@@ -56,6 +56,11 @@
     "button.openconfirm": "Open confirm dialog",
     "button.new_product": "Create new Product",
     "button.clear_form": "Clear form",
-    "button.update_product": "Update product"
+    "button.update_product": "Update product",
+
+    "level.beginner": "Beginner",
+    "level.intermedite": "Intermediate",
+    "level.advanced": "Advanced",
+    "level.all": "All level"
 
 }

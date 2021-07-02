@@ -1,9 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import {Modes} from "../../shared/app-enums";
 import { of } from 'rxjs';
-import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { NGXLogger } from 'ngx-logger';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from "../../shared/shared.module";  // kell a shared is mert benne van importálva a PrimeAng komponensek
 import localeFr from '@angular/common/locales/fr';
 import localeHu from '@angular/common/locales/hu';
@@ -12,7 +9,6 @@ import { registerLocaleData } from '@angular/common';
 import { RestDataSource } from "../../shared/rest.datasource";
 import { DebugElement, SimpleChange, SimpleChanges } from '@angular/core';
 import { InputOutputFormComponent } from "../../inputOutput/inputOutput-form/inputOutputForm.component";
-import { By } from '@angular/platform-browser';
 import { TESTPRODUCTS } from "../../testdata/data-products";
 import { Product } from 'src/app/store/shared/product';
 
@@ -60,7 +56,6 @@ describe('InputOutputFormComponent', () =>
         });
     }));
 
-
     it('gets @Input(Product) property set by the host component', () => {
         // the ComponentFixture holds the Component and provides a convenient interface to both the Component instance and the rendered DOM.
         // The fixture references the Component instance via the componentInstance property. In our example, it contains a InputOutputFormComponent instance.
@@ -91,6 +86,36 @@ describe('InputOutputFormComponent', () =>
         // @Input property values changes detection happens in this lifecycle hook --- so we call it
         component.ngOnChanges(simpleChanges);
         expect(component.productForm.get("id").value).toBeTruthy();
-    })
+    });
+
+    it('creates a new product - testing custom event emitting', () => {
+      fixture.detectChanges(); 
+      // spying on EventEmmitter
+      spyOn(component.newProductevent, 'emit');
+      const nameInput: HTMLInputElement = el.nativeElement.querySelector("[data-testId='nameInput']");
+      nameInput.value = "köcsög";
+      nameInput.dispatchEvent(new Event('input'));
+      const priceInput: HTMLInputElement = el.nativeElement.querySelector("[data-testId='priceInput']");
+      priceInput.value = "22.2";
+      priceInput.dispatchEvent(new Event('input')); 
+      const newSubmitButton: HTMLInputElement = el.nativeElement.querySelector("[data-testId='newSubmitButton']");
+
+      fixture.detectChanges(); 
+
+      expect(nameInput.value).toEqual("köcsög");
+      expect(priceInput.value).toEqual("22.2");
+      expect(component.productForm.value.price).toEqual(22.2);
+      expect(component.productForm.value.name).toEqual("köcsög");
+
+      newSubmitButton.click();
+      let lastId = component.getLastProductID([{id: 9}]);
+      let newProduct: Product = {
+        ...component.productForm.value,
+        id: lastId           
+    };
+
+    // was "newProductevent" emmitted after submit?
+      expect(component.newProductevent.emit).toHaveBeenCalledWith(newProduct);
+    });
 
 });

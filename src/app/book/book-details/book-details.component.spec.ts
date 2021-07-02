@@ -230,8 +230,6 @@ describe('BookDetails component', () => {   // inline function
         expect(component.bookForm.get('title')?.errors.title.message).toEqual("error.book_title");
     })
 
-    it('chkeing Docker only', () => {});
-
     it('submitting', () => {
         fixture.detectChanges(); 
         const ebookChkb: HTMLInputElement = el.nativeElement.querySelector("#ebookChkb");

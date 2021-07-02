@@ -13,7 +13,7 @@
         
     <div class="p-field p-col-12">
         <label translate>inputoutput.name</label>
-        <input pInputText class="form-control" formControlName="name">
+        <input pInputText data-testId="nameInput" class="form-control" formControlName="name">
     </div>
 
     <!-- legyen dropdown a categoriakbol  NEM MUKODIK !!
@@ -25,7 +25,7 @@
     <!-- csak number lehessen -->
     <div class="p-field p-col-12">
         <label translate>inputoutput.price</label>
-        <input pInputText class="form-control" formControlName="price" type="number">
+        <input pInputText data-testId="priceInput" class="form-control" formControlName="price" type="number">
     </div>
 
     <div class="p-formgroup-inline">
@@ -33,7 +33,7 @@
             <button pButton type="button" class="p-mr-2" (click)="simpleClicked()" translate>button.openconfirm</button> 
         </div>
         <div class="p-field">
-            <button  *ngIf="productForm.get('id').value == null" pButton type="submit" class="p-mr-2"  type="submit" translate>button.new_product</button>
+            <button data-testId="newSubmitButton" *ngIf="productForm.get('id').value == null" pButton type="submit" class="p-mr-2"  type="submit" translate>button.new_product</button>
             <button  *ngIf="productForm.get('id').value != null" pButton type="submit" class="p-mr-2"  type="submit" translate>button.update_product</button>
         </div>
         <div class="p-field">
