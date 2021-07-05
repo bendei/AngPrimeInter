@@ -1,6 +1,14 @@
 <div class=" p-p-1" [ngStyle]="bookStyleMap">
 
-    <h5 [style.text-decoration]="'underline'">{{book.title}}</h5>
+    <!-- for debugging -->
+        <!-- <div *ngFor="let pair of book | keyvalue">
+            {{pair.key + '   :   ' + pair.value}}
+        </div> 
+        {{book | json}} -->
+    <!-- for debugging -->
+
+
+  <h5 [style.text-decoration]="'underline'">{{book.title | titlecase}}</h5>
 
   <a [routerLink]="['/book/details', ModesEnum.edit, book.id]" [style.color]="linkTextColor">
         <!-- src ez html attribute aminek van DOM megfelelője ezért [src]
@@ -15,11 +23,9 @@
 
         <br/>
         <br/>
-        <img width="100" *ngIf="book.thumbnails else noImage " [src]="book.thumbnails[0].url" loading="lazy">
-            <ng-template #noImage>
-                No image avaliable
-            </ng-template>
-        <br/>
+       
+        <ng-content select=".imgDiv"></ng-content>
+        <ng-content select=".book-description"></ng-content>
 
         <ng-container [ngSwitch]="book.level">
             <div *ngSwitchCase="'Beginner'" translate>level.beginner</div>

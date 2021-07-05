@@ -1,1 +1,9 @@
 https://www.tektutorialshub.com/angular/angular-http-error-handling/
+
+tesztelni a templaten az adatokat :
+ <!-- for debugging -->
+        <!-- <div *ngFor="let pair of book | keyvalue">
+            {{pair.key + '   :   ' + pair.value}}
+        </div> 
+        {{book | json}} -->
+    <!-- for debugging -->

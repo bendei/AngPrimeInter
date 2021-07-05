@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Modes} from "../../shared/app-enums";
-import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {BookRepository} from "../shared/book.repository";
+import { Modes} from "../../shared/app-enums";
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { BookRepository} from "../shared/book.repository";
 import { Book, BookSeller } from '../shared/book';
-import {BookValidator} from "../../validators/BookValidator";
+import { BookValidator} from "../../validators/BookValidator";
 import { NGXLogger } from 'ngx-logger';
 
 

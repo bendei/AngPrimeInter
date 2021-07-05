@@ -172,3 +172,5 @@ Vadi új projektet hozunk létre és azt tesszük fel a remote github-ra.
 ng-template / ng-container stb rol:
 https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/
 
+
+

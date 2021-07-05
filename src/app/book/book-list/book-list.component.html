@@ -1,9 +1,29 @@
 <div class="p-grid">
     
-    <div class="p-col-10 p-ml-2" #booklistheader translate></div>
+    <div class="p-col-10 p-ml-2" #booklistheader translate></div>  
+    <!-- #booklistheader ez egy template reference -->
 
     <div class="p-col-10">
-        <app-book-list-item *ngFor="let item of books; let i = index;" [book] = "item" [index] = "i"></app-book-list-item>
+
+        <app-book-list-item *ngFor="let item of books; let i = index;" [book] = "item" [index] = "i">
+
+        <!-- content projection: mikor a parent templateből html contentet injektalunk/projektalunk a child templatebe,
+        ez időnként akár a @Input propertyt is kivalthatja -->
+        <div class="imgDiv" title="content-projection with <ng-content>">
+            <img width="100" *ngIf="item.thumbnails else noImage " [src]="item.thumbnails[0].url" loading="lazy">
+           
+        </div>
+
+        <!-- by default nem visible a ng-template, csak ha mashonnan hasznaljuk. Hat Zugriff auf die Variablen der ausseren Kontext  -->
+        <ng-template #noImage>
+            <p>{{item.title}} has no image avaliable.</p>
+            <img width="130" src="/assets/images/no-image.png">
+        </ng-template>
+
+        <div class="book-description">{{item.description}}</div>
+
+        </app-book-list-item>
+
     </div>
     <div class="p-col-10">
         <button pButton class="p-button-outlined p-ml-2" [style.max-width.px]="180"  [routerLink]="['/book/details', ModesEnum.create]" translate>
