@@ -9,4 +9,4 @@ tesztelni a templaten az adatokat :
     <!-- for debugging -->
 
 mainview.component.ts legerrálása nyomonkovetes/main/ folderbe:
-   ng generate component  nyomonkovetes/main/mainview
+    ng generate module nyomonkovetes/shared/nyomonkovetes --flat

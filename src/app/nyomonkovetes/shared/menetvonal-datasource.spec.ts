@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MenetvonalDatasourceService } from './menetvonal-datasource.service';
+import { MenetvonalDatasourceService } from './menetvonal-datasource';
 
 describe('MenetvonalDatasourceService', () => {
   let service: MenetvonalDatasourceService;

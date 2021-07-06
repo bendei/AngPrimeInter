@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import { catchError, map, retry } from "rxjs/operators";
-import { Menetvonal } from "../../nyomonkovetes/shared/menetvonal";
+import { Menetvonal } from "./menetvonal";
+import { Vonat } from "./vonat";
 
 const PROTOCOL = "http";
 const PORT = 3500;
@@ -22,5 +23,11 @@ export class MenetvonalDatasourceService {
     );
   }
 
+  getVonatok(): Observable<Vonat[]> {
+    return this.http.get<Vonat[]>(`${API}/vonatok`).pipe(
+      retry(3),
+      catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+    );
+  }
 
 }

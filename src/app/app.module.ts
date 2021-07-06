@@ -16,6 +16,7 @@ import {AppErrorHandler} from "../app/shared/AppErrorHandler";
 import {AuthenticationModule} from "./authentication/authentication.module";
 import { StoreModule} from "./store/store.module";
 import {BookModule} from "../app/book/book.module";
+import { NyomonkovetesModule } from "../app/nyomonkovetes/shared/nyomonkovetes.module";
 import {InputOutputModule} from "./inputOutput/shared/inputOutput.module";
 import {ButtonModule} from "primeng/button";
 
@@ -31,8 +32,8 @@ import { StoreGuard } from "./authentication/store.guard";
 import { TokenInterceptor} from "../app/shared/token.interceptor";
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { SharedModule } from './shared/shared.module';
-import { MenetvonalComponent } from './nyomonkovetes/menetvonat/menetvonal/menetvonal.component';
 import { MainviewComponent } from './nyomonkovetes/main/mainview/mainview.component';
+import { VonatokComponent } from './nyomonkovetes/tervezheto/vonatok/vonatok.component';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeHu, 'hu');
@@ -42,16 +43,14 @@ registerLocaleData(localeRu, 'ru');
   declarations: [
     AppComponent,
     HomeComponent,
-    MenetvonalComponent,
-    MainviewComponent,
+    MainviewComponent
   ],
   imports: [
     BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,
     AuthenticationModule, SharedModule,
     AppRoutingModule, 
-    StoreModule, BookModule, InputOutputModule,
+    StoreModule, BookModule, InputOutputModule, NyomonkovetesModule,
     LoggerModule.forRoot({serverLoggingUrl: 'http://localhost:3500/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
-   
   ],
   providers: [StoreGuard, 
     {provide: ErrorHandler, useClass: AppErrorHandler},  // custom error handling
