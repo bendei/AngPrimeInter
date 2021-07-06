@@ -42,10 +42,14 @@
     "auth.password": "Jelszó",
     "auth.login": "Belépés",
 
+    "nyomonkovetes.nyomonkovetes": "Nyomonkövetés",
+
     "menu.books": "könyvek",
     "menu.product_store": "Termékek",
     "menu.product_admin": "Termék adminisztráció",
     "menu.input_output": "Input output",
+    "menu.nyomonkovetes": "Nyomonkövetés",
+
 
 
     "error.required_length": "Minimális hossz:",

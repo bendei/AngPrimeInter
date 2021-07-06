@@ -42,10 +42,13 @@
     "auth.password": "Password",
     "auth.login": "Login",
 
+    "nyomonkovetes.nyomonkovetes": "Followups",
+
     "menu.books": "Books",
     "menu.product_store": "Product store",
     "menu.product_admin": "Product admin",
     "menu.input_output": "Input output",
+    "menu.nyomonkovetes": "Followups",
 
     "error.required_length": "Required length:",
 

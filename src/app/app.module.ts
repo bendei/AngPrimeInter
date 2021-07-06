@@ -31,6 +31,8 @@ import { StoreGuard } from "./authentication/store.guard";
 import { TokenInterceptor} from "../app/shared/token.interceptor";
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { SharedModule } from './shared/shared.module';
+import { MenetvonalComponent } from './nyomonkovetes/menetvonat/menetvonal/menetvonal.component';
+import { MainviewComponent } from './nyomonkovetes/main/mainview/mainview.component';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeHu, 'hu');
@@ -40,6 +42,8 @@ registerLocaleData(localeRu, 'ru');
   declarations: [
     AppComponent,
     HomeComponent,
+    MenetvonalComponent,
+    MainviewComponent,
   ],
   imports: [
     BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,

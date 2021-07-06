@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, of, throwError } from "rxjs";
-import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import { catchError, map, retry } from "rxjs/operators";
-import { HttpHeaders } from '@angular/common/http';
 import {ProductFactory} from "../store/shared/ProductFactory";
 import {BookFactory} from "../book/shared/BookFactory";
 import { Book } from "../book/shared/book";

@@ -19,6 +19,9 @@ const routes: Routes = [
     {path: "inputoutput",
       loadChildren: () => import("./inputOutput/shared/inputoutput-routing.module").then(i => i.InputOutputRoutingModule)
     },
+    {path: "nyomonkovetes",
+      loadChildren: () => import("./nyomonkovetes/shared/nyomonkovetes-routing.module").then(i => i.NyomonkovetesRoutingModule)
+    },
     
     // !!! a ** pathnak kell legutoljára jönnie különben az alatta levő path nem mux
     {path: "**", redirectTo: "home"}  // um die Navigation zu nicht bekannten URLs aubzufangen
