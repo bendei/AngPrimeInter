@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VonatokComponent } from './vonatok.component';
+import { VonatComponent } from './vonat.component';
 
-describe('VonatokComponent', () => {
-  let component: VonatokComponent;
-  let fixture: ComponentFixture<VonatokComponent>;
+describe('VonatComponent', () => {
+  let component: VonatComponent;
+  let fixture: ComponentFixture<VonatComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VonatokComponent ]
+      declarations: [ VonatComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VonatokComponent);
+    fixture = TestBed.createComponent(VonatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

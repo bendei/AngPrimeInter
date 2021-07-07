@@ -32,8 +32,6 @@ import { StoreGuard } from "./authentication/store.guard";
 import { TokenInterceptor} from "../app/shared/token.interceptor";
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { SharedModule } from './shared/shared.module';
-import { MainviewComponent } from '../app/nyomonkovetes/main/mainview.component';
-import { VonatokComponent } from './nyomonkovetes/tervezhetok/vonatok.component';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeHu, 'hu');
@@ -43,7 +41,6 @@ registerLocaleData(localeRu, 'ru');
   declarations: [
     AppComponent,
     HomeComponent,
-    MainviewComponent,
   ],
   imports: [
     BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,
