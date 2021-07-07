@@ -33,7 +33,6 @@ import { TokenInterceptor} from "../app/shared/token.interceptor";
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { SharedModule } from './shared/shared.module';
 import { MainviewComponent } from './nyomonkovetes/main/mainview/mainview.component';
-import { VonatokComponent } from './nyomonkovetes/tervezheto/vonatok/vonatok.component';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeHu, 'hu');
