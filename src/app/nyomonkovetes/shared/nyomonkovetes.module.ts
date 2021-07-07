@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from "../../shared/shared.module";
-import { VonatokComponent } from "../../nyomonkovetes/tervezheto/vonatok/vonatok.component";
+import { VonatokComponent } from "../../nyomonkovetes/tervezhetok/vonatok.component";
 
 @NgModule({
   imports: [SharedModule],

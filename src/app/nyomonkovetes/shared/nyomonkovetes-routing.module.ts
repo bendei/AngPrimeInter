@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import { RouterModule, Routes} from "@angular/router";
-import { MainviewComponent } from "../../nyomonkovetes/main/mainview/mainview.component";
+import { MainviewComponent } from "../../nyomonkovetes/main/mainview.component";
 
 const routes: Routes = [
      {path: "main", component: MainviewComponent},

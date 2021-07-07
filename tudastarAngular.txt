@@ -8,5 +8,5 @@ tesztelni a templaten az adatokat :
         {{book | json}} -->
     <!-- for debugging -->
 
-mainview.component.ts legerrálása nyomonkovetes/main/ folderbe:
-    ng generate module nyomonkovetes/shared/nyomonkovetes --flat
+folderbe: nyomonkovetes/shared ( létre is hozza ha még nincsen) a mainview component legenerálása
+ng generate module nyomonkovetes/main/mainview --flat
