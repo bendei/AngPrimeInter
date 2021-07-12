@@ -1,0 +1,9 @@
+.mainBlock {
+    border-width: 1px;
+    border-style: solid;
+    border-color: grey;
+}
+
+.upperDiv {
+    align-items:right;
+}

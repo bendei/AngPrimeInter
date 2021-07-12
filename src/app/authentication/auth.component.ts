@@ -5,7 +5,15 @@
  import {TranslateService} from '@ngx-translate/core'; 
 
  @Component({
-     templateUrl: "auth.component.html"
+     templateUrl: "auth.component.html",
+     styles: [`
+          .mainBlock {
+            border-width: 1px;
+            border-style: solid;
+            border-color: grey;
+            padding-left:  5px;
+          }
+        `]
  }) 
  export class AuthComponent {
 

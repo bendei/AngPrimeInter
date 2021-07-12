@@ -12,6 +12,8 @@ import {CalendarModule} from 'primeng/calendar';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CheckboxModule} from 'primeng/checkbox';
 import {DropdownModule} from 'primeng/dropdown';
+import {DialogModule} from 'primeng/dialog';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 // import ngx-translate and the http loader
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -19,7 +21,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
 
 const modulesToExport = [CommonModule, FormsModule, RouterModule, ReactiveFormsModule, HttpClientModule];
-const primeModules = [InputTextModule, ButtonModule, TableModule, CalendarModule, AutoCompleteModule, CheckboxModule, DropdownModule];
+const primeModules = [InputTextModule, ButtonModule, TableModule, CalendarModule, AutoCompleteModule, CheckboxModule, DropdownModule, DialogModule, ProgressBarModule];
 
 @NgModule({
   imports: [...modulesToExport, ...primeModules,  TranslateModule.forRoot({

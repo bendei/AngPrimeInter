@@ -44,6 +44,13 @@
 
     "nyomonkovetes.nyomonkovetes": "Followups",
     "nyomonkovetes.terv_vonatok": "Assignable trains",
+    "nyomonkovetes.search": "Search",
+    "nyomonkovetes.clear": "Clear",
+    "nyomonkovetes.close": "Close",
+    "nyomonkovetes.ris_id": "RIS identifier",
+    "nyomonkovetes.giver": "Giver",
+    "nyomonkovetes.planned_time": "Planned time",
+    "nyomonkovetes.start_station": "Start station",
 
 
     "menu.books": "Books",
@@ -51,6 +58,7 @@
     "menu.product_admin": "Product admin",
     "menu.input_output": "Input output",
     "menu.nyomonkovetes": "Followups",
+    "menu.search": "Search",
 
     "error.required_length": "Required length:",
 
@@ -62,6 +70,8 @@
     "button.new_product": "Create new Product",
     "button.clear_form": "Clear form",
     "button.update_product": "Update product",
+    "button.search": "Search",
+    "button.save": "Mentés",
 
     "level.beginner": "Beginner",
     "level.intermedite": "Intermediate",

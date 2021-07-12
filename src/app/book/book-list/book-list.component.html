@@ -7,20 +7,25 @@
 
         <app-book-list-item *ngFor="let item of books; let i = index;" [book] = "item" [index] = "i">
 
-        <!-- content projection: mikor a parent templateből html contentet injektalunk/projektalunk a child templatebe,
-        ez időnként akár a @Input propertyt is kivalthatja -->
-        <div class="imgDiv" title="content-projection with <ng-content>">
-            <img width="100" *ngIf="item.thumbnails else noImage " [src]="item.thumbnails[0].url" loading="lazy">
-           
-        </div>
+            <!-- content projection: mikor a parent templateből html contentet injektalunk/projektalunk a child templatebe,
+            ez időnként akár a @Input propertyt is kivalthatja -->
 
-        <!-- by default nem visible a ng-template, csak ha mashonnan hasznaljuk. Hat Zugriff auf die Variablen der ausseren Kontext  -->
-        <ng-template #noImage>
-            <p>{{item.title}} has no image avaliable.</p>
-            <img width="130" src="/assets/images/no-image.png">
-        </ng-template>
+            <div>ez is content projection</div>
 
-        <div class="book-description">{{item.description}}</div>
+            <div class="imgDiv" title="content-projection with <ng-content>">
+                <img width="100" *ngIf="item.thumbnails else noImage " [src]="item.thumbnails[0].url" loading="lazy">
+            </div>
+
+            <!-- by default nem visible a ng-template, csak ha mashonnan hasznaljuk. Hat Zugriff auf die Variablen der ausseren Kontext,
+            und kann man es bei ihrem template reference erreichen von ngIf directive  -->
+            <ng-template #noImage>
+                <p>{{item.title}} has no image avaliable.</p>
+                <img width="130" src="/assets/images/no-image.png">
+            </ng-template>
+
+             <!-- content projection: mikor a parent templateből html contentet injektalunk/projektalunk a child templatebe,
+                ez időnként akár a @Input propertyt is kivalthatja -->
+            <div class="book-description">{{item.description}}</div>
 
         </app-book-list-item>
 

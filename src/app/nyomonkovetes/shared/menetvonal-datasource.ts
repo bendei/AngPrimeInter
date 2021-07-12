@@ -4,6 +4,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import { catchError, map, retry } from "rxjs/operators";
 import { Menetvonal } from "./menetvonal";
 import { Vonat } from "./vonat";
+import { VonatFactory } from "../shared/VonatFactory";
 
 const PROTOCOL = "http";
 const PORT = 3500;
@@ -26,6 +27,8 @@ export class MenetvonalDatasourceService {
   getVonatok(): Observable<Vonat[]> {
     return this.http.get<Vonat[]>(`${API}/vonatok`).pipe(
       retry(3),
+      map(rawVonats => rawVonats.map(vonat =>  VonatFactory.convertRawToVonat(vonat))
+    ),
       catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
     );
   }

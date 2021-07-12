@@ -10,7 +10,5 @@ describe('MenetvonalDatasourceService', () => {
     service = TestBed.inject(MenetvonalDatasourceService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+ 
 });

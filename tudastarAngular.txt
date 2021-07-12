@@ -10,3 +10,31 @@ tesztelni a templaten az adatokat :
 
 folderbe: nyomonkovetes/shared ( létre is hozza ha még nincsen) a mainview component legenerálása
 ng generate module nyomonkovetes/main/mainview --flat
+
+ng-template / ng-container stb rol:
+https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/
+
+style:
+<div [style.myStyle]="expr"></div> (ha csak egy propertit setteelunk)  This is the standard property binding, which is used to set a single style property to the result of the expression.
+
+<div [style.myStyle.units]="expr"> </div> This is the special style binding, which allows the units for the style value to be specified as part of the target.
+
+<div [ngStyle]="map"></div>  (ha tobb propertit settelunk)  This binding sets multiple style properties using the data in a map object.
+
+
+class:
+ <div [class]="expr"></div> (az összes classt felülirjuk) This binding evaluates the expression and uses the result to replace any existing class memberships.
+
+ <div [class.myClass]="expr"></div> (csak az adott classt irja felul) This binding evaluates the expression and uses the result to set the element’s membership of myClass.
+
+ <div [ngClass]="map"></div>  (kombinalt)  This binding sets class membership of multiple classes using the data in a map object.
+
+
+
+ // class
+
+ block and inline :
+ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout/Block_and_Inline_Layout_in_Normal_Flow
+
+ outer display mode: block or inline
+ inner display mode: none, block, inline, flex, table, inline-flex, see: https://www.w3schools.com/cssref/pr_class_display.asp

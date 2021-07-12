@@ -1,1 +1,46 @@
-<p>vonat works!</p>
+<div class="parentPista2">
+	<h2>Tervezhető vonatok</h2>
+	<!-- <div class="child">Tervezhető vonatok</div> -->
+	<div class="item2">
+		<button pButton type="button" class="p-mr-2"  [style.max-width.px]="180" translate (click)="showDialog()">button.search</button>
+		<button pButton type="button" class="p-mr-2"  [style.max-width.px]="180" translate >button.save</button>
+	</div>
+</div>
+
+
+  <!-- PrimeNg stilusanak felulirasa csak igy megy:  [style]="{'max-width':'40%'}" map objektumot kell hasznalni-->
+  <p-dialog header="Keresés" resizable="true" draggable="true" [(visible)]="display"  [style]="{'max-width':'40%'}">  
+    <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+        <div class="p-fluid p-formgrid p-grid p-ml-2 p-mr-2">
+
+            <div class="p-field p-col-6">
+                <label translate>nyomonkovetes.ris_id</label>
+                <input pInputText type="text" formControlName="risAzonosito" >
+            </div>
+
+            <div class="p-field p-col-6">
+                <label translate>nyomonkovetes.giver</label>
+                <input pInputText type="text" formControlName="atado" >
+            </div>
+
+            <div class="p-field p-col-6">
+                <label translate>nyomonkovetes.planned_time</label>
+                <p-calendar [style]="{'position': 'auto', 'overflow': 'visible', 'z-index': '999'}" formControlName="tervIdo" dateFormat="yy-m-d"></p-calendar>
+            </div>
+
+            <div class="p-field p-col-6">
+                <label translate>nyomonkovetes.start_station</label>
+                <input pInputText type="text" formControlName="indulasiAllomas" >
+            </div>
+
+        </div>
+
+        <div class="p-field p-col-12">
+            <button pButton type="submit" class="p-mr-2"  [style.max-width.px]="180" translate>nyomonkovetes.search</button>
+            <button pButton type="button" class="p-mr-2"  [style.max-width.px]="180"  (click)="clearForm()" translate>nyomonkovetes.clear</button>
+            <button pButton type="button" class="p-mr-2"  [style.max-width.px]="180" (click)="display=false" translate>nyomonkovetes.close</button>
+        </div>
+    </form>
+</p-dialog>
+
+{{vonatok | json}}
