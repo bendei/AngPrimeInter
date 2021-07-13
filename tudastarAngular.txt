@@ -1,3 +1,9 @@
+##### deploying to IIS under the root ,a aka localhost:80  is the address of the app (hello-world) első része lényeges a többi nem:
+http://sundeepkamath.in/posts/hosting-angular-application-in-iis-server/
+
+https://angular.io/guide/deployment
+
+##### Error handling
 https://www.tektutorialshub.com/angular/angular-http-error-handling/
 
 tesztelni a templaten az adatokat :
@@ -14,7 +20,7 @@ ng generate module nyomonkovetes/main/mainview --flat
 ng-template / ng-container stb rol:
 https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/
 
-style:
+##### style:
 <div [style.myStyle]="expr"></div> (ha csak egy propertit setteelunk)  This is the standard property binding, which is used to set a single style property to the result of the expression.
 
 <div [style.myStyle.units]="expr"> </div> This is the special style binding, which allows the units for the style value to be specified as part of the target.
@@ -22,7 +28,7 @@ style:
 <div [ngStyle]="map"></div>  (ha tobb propertit settelunk)  This binding sets multiple style properties using the data in a map object.
 
 
-class:
+##### class:
  <div [class]="expr"></div> (az összes classt felülirjuk) This binding evaluates the expression and uses the result to replace any existing class memberships.
 
  <div [class.myClass]="expr"></div> (csak az adott classt irja felul) This binding evaluates the expression and uses the result to set the element’s membership of myClass.
@@ -38,3 +44,45 @@ class:
 
  outer display mode: block or inline
  inner display mode: none, block, inline, flex, table, inline-flex, see: https://www.w3schools.com/cssref/pr_class_display.asp
+
+
+
+#### WiwCild vs ContentChild:
+
+I'll answer your question using Shadow DOM and Light DOM terminology (it have come from web components, see more here). In general:
+
+Shadow DOM - is an internal DOM of your component that is defined by you (as a creator of the component) and hidden from an end-user. For example:
+@Component({
+  selector: 'some-component',
+  template: `
+    <h1>I am Shadow DOM!</h1>
+    <h2>Nice to meet you :)</h2>
+    <ng-content></ng-content>
+  `;
+})
+class SomeComponent { /* ... */ }
+Light DOM - is a DOM that an end-user of your component supply into your component. For example:
+@Component({
+  selector: 'another-component',
+  directives: [SomeComponent],
+  template: `
+    <some-component>
+      <h1>Hi! I am Light DOM!</h1>
+      <h2>So happy to see you!</h2>
+    </some-component>
+  `
+})
+class AnotherComponent { /* ... */ }
+So, the answer to your question is pretty simple:
+
+The difference between @ViewChildren and @ContentChildren is that @ViewChildren look for elements in Shadow DOM while @ContentChildren look for them in Light DOM.
+@ContentChild and @ContentChildren queries will return directives existing inside the <ng-content></ng-content> element of your view,
+ whereas @ViewChild and @ViewChildren only look at elements that are on your view template directly.
+!! @ViewChildren == your own child ; @ContentChildren == someone's else child
+
+ (click)="display=false"
+
+##### view encapsulation: mikor a css-t kivesszük a globas styles.css ből és a component stylesUrl/styles metadataba- rakjuk, igy csak a component templatre húzódik rá.
+     Angular takes every components and gives tehm a unique attribute like _ngcontent-c1, than angular takes the " element's attribute and "stamps" all child html elements with the
+     host's attribute, so making it avaliable only for the compontns's css styles (no other css stiles). With view encapsulation we are making styles that applies only to certain
+     component elements.

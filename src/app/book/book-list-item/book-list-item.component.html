@@ -1,13 +1,5 @@
 <div class=" p-p-1" [ngStyle]="bookStyleMap">
-
-    <!-- for debugging -->
-        <!-- <div *ngFor="let pair of book | keyvalue">
-            {{pair.key + '   :   ' + pair.value}}
-        </div> 
-        {{book | json}} -->
-    <!-- for debugging -->
-
-
+    
   <h5 [style.text-decoration]="'underline'">{{book.title | titlecase}}</h5>
 
   <a [routerLink]="['/book/details', ModesEnum.edit, book.id]" [style.color]="linkTextColor">

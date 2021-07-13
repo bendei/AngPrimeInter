@@ -1,9 +1,20 @@
-.mainBlock {
-    border-width: 1px;
-    border-style: solid;
-    border-color: grey;
+:host { 
+   /* -- csak a host "vonat" element et fomrazza  */
+   color: rgb(18, 18, 173);
 }
 
-.upperDiv {
-    align-items:right;
-}
+/* a host elemen belül a adott element et is kivalasztja */
+:host .parentPista2 { 
+    --width: 100%;
+    height: 50px;
+    border: 1px solid grey;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .item2 button {
+    --align-self: flex-end;
+    height: 36px;
+    margin-right: 5px;
+  }

@@ -1,3 +1,4 @@
+import { ElementRef, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MenetvonalDatasourceService } from "../shared/menetvonal-datasource";
@@ -6,28 +7,15 @@ import { Vonat } from '../shared/vonat';
 @Component({
   selector: 'vonat',
   templateUrl: 'vonat.component.html',
-  styles: [`
-          .parentPista2 {
-            --width: 100%;
-            height: 50px;
-            border: 1px solid grey;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          }
-          .item2 button {
-            --align-self: flex-end;
-            height: 36px;
-            margin-right: 5px;
-          }
-        
-        `]
+  styleUrls: ['vonat.component.css']
 })
 export class VonatComponent implements OnInit {
   display: boolean = false;
   vonatok: Vonat[];
   searchForm: FormGroup;
+
+  // @ViewChild("vonatokTableDiv")
+  // tableElement: ElementRef;
 
   constructor(private ds: MenetvonalDatasourceService,  private fb: FormBuilder) { }
 
@@ -47,6 +35,7 @@ export class VonatComponent implements OnInit {
 
   clearForm() {
     this.searchForm.reset();
+    this.showDialog();
   }
 
   submitForm(): void {
@@ -72,10 +61,18 @@ export class VonatComponent implements OnInit {
     
      });
 
+     this.display = false;
+    // this.tableElement.nativeElement.hidden = false;
   }
 
   showDialog() {
       this.display = !this.display;
+      //let table: HTMLElement = this.tableElement.nativeElement;
+      // if (this.display) {
+      //   table.hidden = true;
+      // } else {
+      //   table.hidden = false;
+      // }
   }
 
 }
