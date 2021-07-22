@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainviewComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+    throw new Error("hehehehe");
+    
+   }
 
   ngOnInit(): void {
   }
