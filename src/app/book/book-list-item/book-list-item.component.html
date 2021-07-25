@@ -17,7 +17,8 @@
         <br/>
        
         <!--content projection, wobei das select attribute das vom host projezierte content definiert, hier gibt man an, was wohin projezirt wird -->
-        <ng-content></ng-content> <!-- <div>ez is content projection</div> jön majd ide, ez egy altalanos projection-->
+        
+        <ng-content select="h4"></ng-content>
         <ng-content select=".imgDiv"></ng-content>
         <ng-content select=".book-description"></ng-content>
 

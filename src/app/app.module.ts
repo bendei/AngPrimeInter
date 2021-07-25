@@ -40,7 +40,7 @@ registerLocaleData(localeRu, 'ru');
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,

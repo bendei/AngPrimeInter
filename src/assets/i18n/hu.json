@@ -29,6 +29,7 @@
     "book-details.preordered": "Előrendelt",
 
     "book-list.create_book": "Új könyv",
+    "book-list.click_on_viewchild": "Click on this to increment counter on child-component using ViewChild",
     "inputoutput.productlist": "Termékek listája",
    
     "inputoutput.number": "Sorszám",
