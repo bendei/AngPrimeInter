@@ -11,7 +11,6 @@ export class AppErrorHandler implements ErrorHandler {
     }
 
     handleError(error: any): void {
-        this.errortransferService.clearAll();       
         this.errortransferService.setMessage(error.message);
         this.router.navigate(['/error']);
     }

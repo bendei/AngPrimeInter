@@ -31,6 +31,7 @@ import {AppRoutingModule} from "./app-routing.module";
 // services
 import { StoreGuard } from "./authentication/store.guard";
 import { TokenInterceptor} from "../app/shared/token.interceptor";
+import { GlobalhttpinterceptorService } from "../app/shared/globalhttpinterceptor.service";
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { SharedModule } from './shared/shared.module';
 import { ErrortransferService } from "./error/errortransfer.service";
@@ -54,7 +55,8 @@ registerLocaleData(localeRu, 'ru');
   ],
   providers: [StoreGuard, ErrortransferService,
     {provide: ErrorHandler, useClass: AppErrorHandler},  // custom error handling
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true} // token interceptior
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}, // token interceptior
+    {provide: HTTP_INTERCEPTORS, useClass: GlobalhttpinterceptorService, multi: true} 
      
     ],
   bootstrap: [AppComponent]
