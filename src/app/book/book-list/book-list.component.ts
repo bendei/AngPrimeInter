@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
-import { BookRepository } from '../shared/book.repository';
 import { Book } from '../shared/book';
 import { Modes} from "../../shared/app-enums";
 import { BookListItemComponent } from '../book-list-item/book-list-item.component';
@@ -29,12 +28,12 @@ export class BookListComponent implements OnInit, AfterViewInit {
   @ViewChild(BookChildComponent)
   child: BookChildComponent;
 
-    constructor(private repo: BookRepository, private renderer: Renderer2, private restDS: RestDataSource) { }
+    constructor(private ds: RestDataSource, private renderer: Renderer2, private restDS: RestDataSource) { }
 
   ngOnInit(): void {
     //setTimeout( () => {this.repo.getBooks().subscribe(data => this.books = data)}, 1400);
     // this.repo.getBooks().subscribe(data => this.books = data);
-    this.books$ = this.repo.getBooks().pipe(share());
+    this.books$ = this.ds.getBooks().pipe(share());
     this.books$.subscribe(x => this.thereAreBooks = true);
   }
       
