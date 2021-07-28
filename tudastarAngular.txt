@@ -48,6 +48,7 @@ https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-
 
 
 #### WiwCild vs ContentChild:
+https://www.tektutorialshub.com/angular/contentchild-and-contentchildren-in-angular/
 
 I'll answer your question using Shadow DOM and Light DOM terminology (it have come from web components, see more here). In general:
 
@@ -75,7 +76,8 @@ Light DOM - is a DOM that an end-user of your component supply into your compone
 class AnotherComponent { /* ... */ }
 So, the answer to your question is pretty simple:
 
-The difference between @ViewChildren and @ContentChildren is that @ViewChildren look for elements in Shadow DOM while @ContentChildren look for them in Light DOM.
+The difference between @ViewChildren and @ContentChildren is that @ViewChildren look for elements in Shadow DOM while @ContentChildren look for them in Light DOM (in the from host component
+projected content).
 @ContentChild and @ContentChildren queries will return directives existing inside the <ng-content></ng-content> element of your view,
  whereas @ViewChild and @ViewChildren only look at elements that are on your view template directly.
 !! @ViewChildren == your own child ; @ContentChildren == someone's else child

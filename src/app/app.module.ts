@@ -10,19 +10,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 
 // class
-import {AppErrorHandler} from "../app/shared/AppErrorHandler";
+import {AppErrorHandler} from "./error/AppErrorHandler";
 
 // modules
 import {AuthenticationModule} from "./authentication/authentication.module";
 import { StoreModule} from "./store/store.module";
-import {BookModule} from "../app/book/book.module";
+import { BookModule} from "../app/book/book.module";
 import { NyomonkovetesModule } from "../app/nyomonkovetes/shared/nyomonkovetes.module";
-import {InputOutputModule} from "./inputOutput/shared/inputOutput.module";
-import {ButtonModule} from "primeng/button";
+import { InputOutputModule} from "./inputOutput/shared/inputOutput.module";
+import { ButtonModule} from "primeng/button";
 
 // comps
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { ErrorComponent } from "./error/error.component";
 
 // routing modules
 import {AppRoutingModule} from "./app-routing.module";
@@ -32,6 +33,7 @@ import { StoreGuard } from "./authentication/store.guard";
 import { TokenInterceptor} from "../app/shared/token.interceptor";
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { SharedModule } from './shared/shared.module';
+import { ErrortransferService } from "./error/errortransfer.service";
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeHu, 'hu');
@@ -41,6 +43,7 @@ registerLocaleData(localeRu, 'ru');
   declarations: [
     AppComponent,
     HomeComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,
@@ -49,7 +52,7 @@ registerLocaleData(localeRu, 'ru');
     StoreModule, BookModule, InputOutputModule, NyomonkovetesModule,
     LoggerModule.forRoot({serverLoggingUrl: 'http://localhost:3500/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
   ],
-  providers: [StoreGuard, 
+  providers: [StoreGuard, ErrortransferService,
     {provide: ErrorHandler, useClass: AppErrorHandler},  // custom error handling
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true} // token interceptior
      
@@ -57,7 +60,6 @@ registerLocaleData(localeRu, 'ru');
   bootstrap: [AppComponent]
 })
 export class AppModule {
- 
- }
+}
 
  

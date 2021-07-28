@@ -1,16 +1,44 @@
+<!-- child component zum Spielen mit ViewChild, klikkt man auf das Button wird counter auf dem cChild-Komponente erhöht und auf dem Host-Komponente angezeigt. -->
+
+<div>
+    Anzahl der Klick auf dem Child-Komponente: {{child?.counter}}
+    <br/>
+    <section [ngStyle]="{'margin-top.px': '10', 'margin-bottom.px': '10'}">
+        <button pButton class="p-button-outlined p-ml-2"  (click)="incrementOnChild()" translate>
+            book-list.click_on_viewchild
+        </button>
+        <button pButton class="p-button-outlined p-ml-2" (click)="throwError1()">Error 1</button>
+        <button pButton class="p-button-outlined p-ml-2" (click)="throwError2()">Error 2</button>
+        <button pButton class="p-button-outlined p-ml-2" (click)="kamuErrorFromHttp()">Call a Rest API to get 404</button>
+    </section>
+
+    <div>{{errorObject | json}}</div>
+
+    <app-book-child #bookChildComponent>
+        <!-- Wege, um Daten von der Host-Komponente für die Child-Komponente zu übergeben:
+            -   Mit property-binding, @Input
+            -   Mit ViewChild krigen wird ein Referenez auf child-component und setzten wir ihr property 
+        -->
+    </app-book-child>
+</div>
+
+<div [style.padding.px]="5">   <!-- Uses Local Variable to access the child -->
+    {{bookChildComponent.message}}
+</div>
+
 <div class="p-grid">
-    
-    <div class="p-col-10 p-ml-2" #booklistheader translate></div>  
+
+    <h2 class="p-col-10 p-ml-2" #booklistheader translate></h2>  
     <!-- #booklistheader ez egy template reference -->
 
-    <div class="p-col-10">
+    <div class="p-col-10" *ngIf="books$ | async as books; else loadingBooks">
 
         <app-book-list-item *ngFor="let item of books; let i = index;" [book] = "item" [index] = "i">
 
             <!-- content projection: mikor a parent templateből html contentet injektalunk/projektalunk a child templatebe,
             ez időnként akár a @Input propertyt is kivalthatja -->
 
-            <div>ez is content projection</div>
+            <div>ez is content projection de selector nélküli</div>
 
             <div class="imgDiv" title="content-projection with <ng-content>">
                 <img width="100" *ngIf="item.thumbnails else noImage " [src]="item.thumbnails[0].url" loading="lazy">
@@ -38,9 +66,7 @@
 
 </div>
 
-<div *ngIf="!books" class="spinner-border" role="status">
-</div>
+<ng-template #loadingBooks class="spinner-border" role="status">
+</ng-template>
 
-<div *ngIf="books && !books.length" >
-     Es wurden noch keine Bücher eingetragen!
-</div>
+

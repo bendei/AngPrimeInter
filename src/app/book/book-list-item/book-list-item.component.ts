@@ -1,14 +1,15 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, ContentChild, ElementRef, Renderer2, Input, OnInit, Output, ContentChildren, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from '../shared/book';
 import {Modes} from "../../shared/app-enums";
+import { AfterContentInit } from '@angular/core';
 
 @Component({
   selector: 'app-book-list-item',
   templateUrl: './book-list-item.component.html',
   styleUrls: ['./book-list-item.component.css']
 })
-export class BookListItemComponent {
+export class BookListItemComponent  {
 
   ModesEnum = Modes;  // ez js module és nam angular module ezért nem kell egy ng modulban sem importálni
 
@@ -18,8 +19,11 @@ export class BookListItemComponent {
   @Input()
   index: number;
 
-  constructor(private router: Router) { }
+  @ViewChild("h4")
+  projectedContentImg: ElementRef;
 
+  constructor(private router: Router, private renderer: Renderer2) { }
+ 
   selectBook(selectedBook: Book) {
     this.router.navigateByUrl("/book/details");
   }
@@ -32,8 +36,16 @@ export class BookListItemComponent {
     };
   }
 
+  justPrintMyBookISBN(): void {
+    console.log("---justPrintMyBookISBN: ", this.book.isbn);
+  }
+
   get linkTextColor (): string {
     return (this.index % 2 == 0) ? "wheat" : "black";
   }
 
+ 
+
 }
+
+

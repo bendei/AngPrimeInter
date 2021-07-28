@@ -34,4 +34,8 @@ export class BookRepository {
         return this.ds.getCountries(text);
     }
 
+    get404StatusCode(): Observable<string> {
+        return this.ds.get404StatusCode();
+    }
+
 }

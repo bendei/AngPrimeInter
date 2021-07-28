@@ -29,6 +29,7 @@
     "book-details.preordered": "Preordered",
 
     "book-list.create_book": "Create new book",
+    "book-list.click_on_viewchild": "Click on this to increment counter on child-component using ViewChild",
     "inputoutput.productlist": "Products list",
 
     "inputoutput.number": "No.",
