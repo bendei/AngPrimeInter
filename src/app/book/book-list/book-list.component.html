@@ -1,16 +1,30 @@
 <!-- child component zum Spielen mit ViewChild, klikkt man auf das Button wird counter auf dem cChild-Komponente erhöht und auf dem Host-Komponente angezeigt. -->
-Anzahl der Klick auf dem Chil-Komponente: {{child?.counter}}
-<br/>
-<button pButton class="p-button-outlined p-ml-2" [ngStyle]="{'margin-top.px': '10', 'margin-bottom.px': '10'}" (click)="incrementOnChild()" translate>
-    book-list.click_on_viewchild
-</button>
 
-<app-book-child>
-    <!-- Wege, um Daten von der Host-Komponente für die Child-Komponente zu übergeben:
-        -   Mit property-binding, @Input
-        -   Mit ViewChild krigen wird ein Referenez auf child-component und setzten wir ihr property 
-    -->
-</app-book-child>
+<div>
+    Anzahl der Klick auf dem Child-Komponente: {{child?.counter}}
+    <br/>
+    <section [ngStyle]="{'margin-top.px': '10', 'margin-bottom.px': '10'}">
+        <button pButton class="p-button-outlined p-ml-2"  (click)="incrementOnChild()" translate>
+            book-list.click_on_viewchild
+        </button>
+        <button pButton class="p-button-outlined p-ml-2" (click)="throwError1()">Error 1</button>
+        <button pButton class="p-button-outlined p-ml-2" (click)="throwError2()">Error 2</button>
+        <button pButton class="p-button-outlined p-ml-2" (click)="kamuErrorFromHttp()">Call a Rest API to get 404</button>
+    </section>
+
+    <div>{{errorObject | json}}</div>
+
+    <app-book-child #bookChildComponent>
+        <!-- Wege, um Daten von der Host-Komponente für die Child-Komponente zu übergeben:
+            -   Mit property-binding, @Input
+            -   Mit ViewChild krigen wird ein Referenez auf child-component und setzten wir ihr property 
+        -->
+    </app-book-child>
+</div>
+
+<div [style.padding.px]="5">   <!-- Uses Local Variable to access the child -->
+    {{bookChildComponent.message}}
+</div>
 
 <div class="p-grid">
 
@@ -20,8 +34,6 @@ Anzahl der Klick auf dem Chil-Komponente: {{child?.counter}}
     <div class="p-col-10" *ngIf="books$ | async as books; else loadingBooks">
 
         <app-book-list-item *ngFor="let item of books; let i = index;" [book] = "item" [index] = "i">
-
-            <h4>Új content</h4>
 
             <!-- content projection: mikor a parent templateből html contentet injektalunk/projektalunk a child templatebe,
             ez időnként akár a @Input propertyt is kivalthatja -->

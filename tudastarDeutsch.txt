@@ -48,6 +48,8 @@ NULLSIH COALESCING
  Nullish Coalescing: Es erlaubt die einfache Zuweisung von Rückfallwerten, für den Fall, dass eine Variable den Wert null oder undefined hat
  let bar = foo ?? 'backup'; // Ergebnis: 0
  
+in einer Template können wir den selector (host) element mikt den folgenden css selector zugreifen :host ; un d mit :host(.focus) können wir sogar ein focus CSS-Klasse zuweisen.
+ 
 #######################################################################################################################################################################################
 PROPERTY BINDING: mit Komponenten kommunizieren
 
@@ -67,7 +69,18 @@ Objekt existieren ( textConetnt, innerHTML) und es  gibt html Attribute die kein
 DOM Element Property binding: [property]="expr" eckigen Klammern / Anführungszeichen
 html Attribute: <img src="angular.png" title="Angular">, diese lassen ich nicht veraenderm , sie sing al Text in HTML da.
 
-Shadow DOM: kapselt das Markup und den Style einer Web Component, sodass dieser von anderen Style-Denitionen und Komponenten isoliert wird.
+Shadow DOM: das innere DOm der Komponente d.h template html selbst, was vom Angular aufgebaut/gelőscht wird:
+@Component({
+	template: `
+    <h1>I am Shadow DOM!</h1>    
+  `;
+
+Light DOM: Dom , innerhalb der template der komponente: template: `
+@Component({
+    <some-component>
+      <h1>Hi! I am Light DOM!</h1>
+   </some-component>
+  `
 
 Html Attribute lassen sich mit Property binding nicht schreiben, dazu sind da: [attr.colspan]="33"
 
@@ -311,11 +324,14 @@ ASYNCPIPE: damit können wir Werte aus einem Observable oder Promise (wird nicht
  im Template: *ngIf="books$ | async as books; else loadingBooks"
 
 #######################################################################################################################################################################################	
+STYLE
 Style-Attibute setzen:
+
 [style.color]="getMyColor()": setzt man nur ein einziger Property mit standard property binding.  
 [style.max-width.px]="120": glecihe vie oben nur mit unit auch spezifiziert.
 [ngStyle]="map": setzt man mehrere  Style-Properties gleichzeitig, Direktive
 
+CLASS
 Class-Attribute setzen:
  [class]="myRedClass": dieses setzt ein einziger Class und überschreibt dabei alle existierende class Definitionen
  [class.bg-warning]="editing": setzt nur der angegebene class property nachdem der Ausdruck ausgewertet wurde. ( wenn rRückgabewert false ist dann wird style überhaupt nicht angewendet)
@@ -334,6 +350,7 @@ NG-TEMPLATE: Platzhalter, wird von Angular nicht gerendert. Kann aber mit Strukt
 	<div *ngIf="isValid; then thenTemplateName else elseTemplateName">
    		<ng-template #thenTemplateName>...
 		<ng-template #elseTemplateName>...
+		
 STRUKTURDIREKTIVEN können Elemente aus dem DOM entfernen. Macht es nun einen Unterschied, ob wir ein Element mit CSS-Eigenschaften unsichtbar machen oder es tatsächlich aus demDOM entfernen? 
 Beide Varianten sorgen dafür, dass ein Element im Browser nicht mehr sichtbar ist. Blenden wir Elemente jedoch lediglich aus, so sind sie tatsächlich noch vorhanden und werden verarbeitet.
 Es werden also auftretende Events behandelt, Bindings aktualisiert, und die Change Detection von Angular ist aktiv, um Änderungen in den Daten festzustellen. Bei größeren Datenmengen 
@@ -347,8 +364,35 @@ VIEW ENCAPSULATION: Styles werden einer Komponente zugeordnet und wirken damit a
 automatisch ein zusätzliches Attribut mit einem eindeutigen Bezeichner, d.h. der selector Element kriegt vom Angular einAttribute, die wiederum in den Unterelementen auch 
 gesetzt wird. Die vom Entwickler festgelegten Styles werden abgeändert, sodass sie nur für dieses Attribut wirken.
  
-ContentChild/Children: sind Decorators, die wir verwenden, um auf die projected content in dem DOM zugreifen. Projected content ist ein content, die ein Kind-Komponente von ihrer 
-Eltern-Komponente bekommt. 
+// https://www.tektutorialshub.com/angular/understanding-viewchild-viewchildren-querylist-in-angular/
+VIEWCHILD: (Shadow DOM) wird verwendet, um einen Referenz auf einem DOM-Element der komponente zu bekommen. VC liefert das erste passende Element zurück. Wird auf Kompoenenten-Property verwendet,
+hat 2 Argumente: Selector (string, Typescript Type, wie Komponente Klassenname oder Function), Konfigurationsobjekt: static -> gibt an ob es vor oder nach dem Changedetection aufgelöst wird;
+read: wenn selector definiert mehrere Elelemnte von verschiedenen Typen, dann mit read property können wir einen auswaehlen.
+Use cases:
+	-	Wir bekommen einen Referenz in der Eltern-Komponente auf die Kind-Komponente (und können Methoden auf dem child-comp aufrufen):
+		@ViewChild(ChildComponent, {static:true}) child: ChildComponent;
+		
+	-	Wir bekommen Zugriff auf ein HTML Element in der Template:
+		  <p #para>Some text</p>
+		   @ViewChild('para',{static:false}) para: ElementRef;
+
+VIEWCHILDREN: liefert eine Liste von Elemente als QueryList zurück, wird immer nach change detection aufgelöst, wird immer von Angular aktualisiert. QueryList.changes Property ist ein Observable
+was emittiert ein Erreignis wenn Angular die Liste manipuliert.
+ 
+ELEMENTREF: es ist ein Wrapper um die native DOM (HTML) Element, es hat nativeElement was ein Referenz ist auf das darunterstehende DOM Objekt. Um das DOM mit ElementRef zu manipulieren, 
+wir setzten ein Referenz auf das DOM Element: verwenden ein template reference variable auf das Element (#VariableName), und dann in der komponente wir verwenden @ViewChild um das referenzierte 
+Element zu injizieren: <div #hello>Hello Angular</div>   -> @ViewChild('hello', { static: false }) divHello: ElementRef; Mit naviteElements property können wird dann style/classes/prpoertys setzten.
+ 
+RENDERER2: ermöglicht uns, die DOM Elemente zu manipulieren, ohne diese direkt zugreifen. Es ist ein Abstraktionslayer zwischen DOm und Komponent-Kode. Sollte anstetten von ElementRef verwenden, weil
+Angular snychronisiert das Vie und Komponent durch das Template, data binding, change detection, und beim Verwenden von ElementRef all diese werden ausgelassen. 
+Renderer2 muss als Konstrukot-Property deklariert werden, und dann können wird damit Element erstellen, Styles/Classes/Propertys/Html Attribute zugeben/entfernen.
+ 
+ContentChild/Children:  
+
+
+######################################################################################################################################################################################
+
+
 
 
 

@@ -3,9 +3,11 @@ import { RouterModule, Routes} from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { StoreGuard } from "./authentication/store.guard";
 import { AuthComponent } from "./authentication/auth.component";
+import { ErrorComponent } from "./error/error.component";
 
 //Routendefinitionen
 const routes: Routes = [
+    {path: "error", component: ErrorComponent},
     {path: "auth", component: AuthComponent},
     {path: "home", component: HomeComponent , canActivate: [StoreGuard]},
     {path: "store", // ez lesz a route prefix-je pl "/store/home"

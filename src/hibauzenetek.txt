@@ -6,4 +6,6 @@
     
     https://stackoverflow.com/questions/41474011/what-causes-the-control-registeronchange-is-not-a-function-error
 
+2.   if ViewChild returns undefined - look for *ngIf or for any structural directives or ng-template above.
+
     
