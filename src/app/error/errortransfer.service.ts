@@ -16,6 +16,4 @@ export class ErrortransferService {
         this.message = msg;
     }
 
-
-
 }

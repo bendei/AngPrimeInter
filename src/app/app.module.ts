@@ -36,6 +36,9 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { SharedModule } from './shared/shared.module';
 import { ErrortransferService } from "./error/errortransfer.service";
 
+// pipes
+
+
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeHu, 'hu');
 registerLocaleData(localeRu, 'ru');
