@@ -11,14 +11,9 @@ export class ErrortransferService {
         return this.message;
     }
 
-    clearAll(): void {
-        this.message = null;
-    }
-
     setMessage(msg: string): void {
+        this.message = null;
         this.message = msg;
     }
-
-
 
 }

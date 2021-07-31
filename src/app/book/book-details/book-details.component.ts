@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Modes} from "../../shared/app-enums";
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import { BookRepository} from "../shared/book.repository";
 import { Book, BookSeller } from '../shared/book';
 import { BookValidator} from "../../validators/BookValidator";
 import { NGXLogger } from 'ngx-logger';
+import { RestDataSource } from 'src/app/shared/rest.datasource';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class BookDetailsComponent implements OnInit {
     {name: 'Git', selected: false}
   ];
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute, private fb: FormBuilder, private bookRepo: BookRepository, 
+  constructor(private router: Router, private activeRoute: ActivatedRoute, private fb: FormBuilder, private ds: RestDataSource, 
     private logger: NGXLogger) {
       this.modes = Number(activeRoute.snapshot.paramMap.get("mode"));
     }
@@ -44,7 +44,7 @@ export class BookDetailsComponent implements OnInit {
       if (this.modes === Modes.edit) {
           const id = this.activeRoute.snapshot.paramMap.get("id");
           // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
-          this.bookRepo.getBook(id).subscribe(data =>  { 
+          this.ds.getBook(id).subscribe(data =>  { 
               this.initForm(data); 
             })
       }  else {
@@ -169,11 +169,11 @@ export class BookDetailsComponent implements OnInit {
       };
 
       if(this.modes == Modes.edit) {
-          this.bookRepo.updateBook(mybook).subscribe(data => 
+          this.ds.updateBook(mybook).subscribe(data => 
             this.router.navigateByUrl("/book/list")
              );
       } else {
-          this.bookRepo.saveBook(mybook).subscribe(data => 
+          this.ds.saveBook(mybook).subscribe(data => 
             this.router.navigateByUrl("/book/list"))
       }
     }
@@ -200,7 +200,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   search(event) {
-    this.bookRepo.getCountries(event.query).subscribe(x => this.searchResults = x)
+    this.ds.getCountries(event.query).subscribe(x => this.searchResults = x)
   }
 
 }

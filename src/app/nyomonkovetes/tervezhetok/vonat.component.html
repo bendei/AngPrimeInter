@@ -25,7 +25,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-vonat>
         <tr>
-            <td>{{vonat.risAzonosito}}</td>
+            <td>{{vonat.risAzonosito | risAzonositoConverter}}</td>
             <td>{{vonat.tetel}}</td>
             <td>{{vonat.tovabbMod}} <br/> {{vonat.kozlekMod}}</td>
             <td>

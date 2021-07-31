@@ -25,9 +25,10 @@ export class RestDataSource {
     }
 
     get404StatusCode(): Observable<string> {
-        return this.http.get<string>(`${API}/kamu`).pipe(
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
-        );
+        return this.http.get<string>(`${API}/kamu`)
+        // .pipe(
+        //     catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+        // );
     }
    
     // wir (type)parametisieren das Observable, und geben an in welcher Form die Daten vom Datenstrom geliefert werden.
@@ -55,7 +56,7 @@ export class RestDataSource {
             ),
             // a catchError operator átad egy error objektumot a callbacként megadott functionnak: ezt mi loggolhatjuk tovább dobhatjuk stb.
             //catchError(error => of<any>('hahah'))                // catchError szintén egy Observable-t adi vissza, méghozzá Product[] tipusút
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
             );
     }
 
@@ -63,7 +64,7 @@ export class RestDataSource {
         return this.http.get<Book>(`${API}/books/${id}`).pipe(
             retry(3),
             map(book => BookFactory.convertBook(book)),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
@@ -72,21 +73,21 @@ export class RestDataSource {
             retry(3),
             map(rawBook => 
                 rawBook.map(book => BookFactory.convertBook(book))),
-                catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+               // catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
             );
     }
 
     saveBook(book: Book): Observable<Book> {
         return this.http.post<Book>(`${API}/books`, book).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     updateBook(book: Book): Observable<Book> {
         return this.http.put<Book>(`${API}/books/${book.id}`, book).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+           // catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
@@ -95,7 +96,7 @@ export class RestDataSource {
             responseType: "text", 
         }).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
@@ -110,7 +111,7 @@ export class RestDataSource {
             retry(3),
             map(rawBook => 
                 rawBook.map(book => BookFactory.convertBook(book))),
-                catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+                //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
             );
     }
 
@@ -124,63 +125,63 @@ export class RestDataSource {
     getCategories(): Observable<Category[]> {
         return this.http.get<Category[]>(`${API}/categories`).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     getProduct(id: number): Observable<Product> {
         return this.http.get<Product>(`${API}/products/${id}`).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     } 
 
     saveProduct(prod: Product): Observable<Product> {
         return this.http.post<Product>(`${API}/products`,prod).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     updateProduct(prod: Product): Observable<Product> {
         return this.http.put<Product>(`${API}/products/${prod.id}`, prod).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     deleteProduct(productID: number): Observable<any> {
         return this.http.delete<Product>(`${API}/products/${productID}`).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     getOrders(): Observable<Order[]> {
         return this.http.get<Order[]>(`${API}/orders`).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     markShippedOrder(order: Order): Observable<Order> {
         return this.http.put<Order>(`${API}/orders/` + order.id, order).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     deleteOrder(id: number): Observable<Order> {
         return this.http.delete<Order>(`${API}/orders/` + id).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
     saveOrder(order: Order): Observable<Order> {
         return this.http.post<Order>(`${API}/orders`, order).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
@@ -188,7 +189,7 @@ export class RestDataSource {
     getCountries(search: string): Observable<string[]> {
         return this.http.get<string[]>(`${API}/countries/${search}`).pipe(
             retry(3),
-            catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
         );
     }
 
@@ -201,7 +202,7 @@ export class RestDataSource {
                     this.auth_token = response.success ? response.token : null;
                     return response.success;    //ez true/false
                     }),
-                catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
+               // catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
             );
     }
 
