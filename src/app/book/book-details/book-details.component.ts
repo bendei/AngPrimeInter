@@ -6,7 +6,23 @@ import { Book, BookSeller } from '../shared/book';
 import { BookValidator} from "../../validators/BookValidator";
 import { NGXLogger } from 'ngx-logger';
 import { RestDataSource } from 'src/app/shared/rest.datasource';
+import { Observable, of } from 'rxjs';
 
+const mybook: Book =   {   id: '3333', 
+  isbn: '3333', 
+  title: "React 3", 
+  authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+  subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+  thumbnails: [{
+      url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+  description: 'Das bewährte und umfassende Praxisbuch zu React',
+  genres: ['IT', 'Programming', 'Docker'],
+  ebook: true,
+  printed: false,
+  availability: 'Available',
+  level: 'Beginner',
+  sellers:  []
+};
 
 @Component({
   selector: 'app-book-details',
@@ -18,6 +34,8 @@ export class BookDetailsComponent implements OnInit {
   ModesEnum = Modes;  // ez js module és nam angular module ezért nem kell egy ng modulban sem importálni
   modes: Modes = Modes.create;
   bookForm: FormGroup;
+
+  
 
   // autocomplete
   searchText: string;
@@ -44,13 +62,46 @@ export class BookDetailsComponent implements OnInit {
       if (this.modes === Modes.edit) {
           const id = this.activeRoute.snapshot.paramMap.get("id");
           // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
-          this.ds.getBook(id).subscribe(data =>  { 
-              this.initForm(data); 
+          this.ds.getBook('4444').subscribe(data =>  { 
+            console.table(data)
+            this.initForm(data); 
             })
+
+      //  let mybookObs: Observable<Book> = of(mybook);
+      //  mybookObs.subscribe(data =>  this.initForm(data));
+
       }  else {
         this.initForm();
       }
   }
+
+  // private initForm(book?: Book): void {
+  //   this.bookForm = this.fb.group({
+  //     id: [book?.isbn],
+  //     isbn: [{value: book?.isbn, disabled: this.modes == Modes.edit}],
+  //     title: [book?.title],
+  //     subtitle: [book?.subtitle],
+  //     published: [book?.published],
+  //     publishedDate: [book?.publishedDate],
+  //     rating: [book?.rating],
+  //     city: [book?.city],
+  //     //sellers: (book === undefined || book.sellers === undefined )? [] : this.fb.array(this.createSellerGroups(book?.sellers))
+  //     // vagy ugyanez 
+  //     sellers: this.fb.array( (!book || !book?.sellers) ? [] : this.createSellerArray(book.sellers) ), // array of FormGroups containing FormControll objects
+  //     authors: ( (!book || !book?.authors) ? [] : this.createAuthorsArray(book.authors)), //itt mivel nem gropuba hanem egyből FormControllert
+  //     // használok nem megy valamiért a FormBuilder.array, helyette manuálisan állitom össze!
+
+  //     // fix checkboxok
+  //     ebook: new FormControl( (!book || !book?.authors) ? false : book?.ebook),
+  //     printed: new FormControl((!book || !book?.authors) ? false : book?.printed),
+
+  //     // dinamikus checkboxok (API-bol)
+  //     genres: this.createGenreCechboxes(book?.genres),
+
+  //     // radio button
+  //     availability: [(!book || !book.availability) ? 'Available' : book.availability]
+  //   });
+  // }
 
   private initForm(book?: Book): void {
     this.bookForm = this.fb.group({

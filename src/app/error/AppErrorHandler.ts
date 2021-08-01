@@ -10,8 +10,10 @@ export class AppErrorHandler implements ErrorHandler {
         this.router = this.injector.get(Router);
     }
 
-    handleError(error: any): void {
+    handleError(error: Error): void {
         this.errortransferService.setMessage(error.message);
+        this.errortransferService.setName(error.name);
+        this.errortransferService.setStack(error.stack);
         this.router.navigate(['/error']);
     }
 

@@ -3,10 +3,10 @@ import { Book } from '../../book/shared/book';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Modes} from "../../shared/app-enums";
 import { of } from 'rxjs';
-import { BookRepository } from '../shared/book.repository';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BookDetailsComponent } from "../book-details/book-details.component";
 import { NGXLogger } from 'ngx-logger';
+import { RestDataSource } from 'src/app/shared/rest.datasource';
 
 describe('BookDetails component not fixture', () => {
     let router;
@@ -73,7 +73,7 @@ describe('BookDetails component not fixture', () => {
                             },
                         },
                         {
-                            provide: BookRepository,
+                            provide: RestDataSource,
                             useValue: bookRepository
                         },
                         {
@@ -90,7 +90,7 @@ describe('BookDetails component not fixture', () => {
         });
 
         component = TestBed.inject(BookDetailsComponent);
-        bookRepository = TestBed.inject(BookRepository);
+        bookRepository = TestBed.inject(RestDataSource);
         activatedRoute = TestBed.inject(ActivatedRoute);
         router = TestBed.inject(Router);
         logger = TestBed.inject(NGXLogger);

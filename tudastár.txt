@@ -147,15 +147,12 @@ C. git diff tavoli master
 3.	add remote: https://github.com/bendei/harom.git
 4. push to (kiválasztoma remote nevét)
 
-
 Meglévő angular projektet akarok a github-on egy új repoba tenni:
 0.	A github-on https://github.com/new oldalon létrehozunk egy új repot, ez mots egy üres repo amit meg akarok tölteni már létező tartalommal
 1.  A projektet tartalmazó mappában: git init, git config --global user.name "Bende István", git config --global user.email 
 3.  Megnyitom a mappát VS Code-ban
 4.	git remote ot adok hozzá: a url a github oldalán leszedett repo cime (https://github.com/bendei/AngularPrimeNG.git), neve meg legyen: remoteAngPrime
 5.	Push to  itt a remotot kiválasztom
-
-
 
 Vadi új projektet hozunk létre és azt tesszük fel a remote github-ra.
 0.	A github-on https://github.com/new oldalon létrehozunk egy új repot, ez mots egy üres repo amit meg akarok tölteni már létező tartalommal

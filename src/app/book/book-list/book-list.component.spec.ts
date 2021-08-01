@@ -1,10 +1,10 @@
 import { TestBed, inject, waitForAsync, ComponentFixture } from '@angular/core/testing';
-import { BookRepository } from "../shared/book.repository";
 import { BookListComponent } from "../book-list/book-list.component";
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Book } from '../shared/book';
 import { DebugElement } from '@angular/core';
 import {TESTBOOKS} from "../../testdata/data-books";
+import { RestDataSource } from 'src/app/shared/rest.datasource';
 
 describe('BookListComponent tests', () => {
 
@@ -24,7 +24,7 @@ describe('BookListComponent tests', () => {
         TestBed.configureTestingModule({
             providers: [
                 {
-                    provide: BookRepository,
+                    provide: RestDataSource,
                     useValue: bookRepoStub
                 },
                 BookListComponent
@@ -39,7 +39,9 @@ describe('BookListComponent tests', () => {
     }));
 
     it('get a list of all books', () => {
-            let konyvek: Book[] = component.books;
+            let booksObservable: Observable<Book[]> = of(Object.values(TESTBOOKS));
+            let konyvek: Book[];
+            booksObservable.subscribe(data => konyvek = data);
             expect(konyvek.length == 11).toBeTrue();
     });
 

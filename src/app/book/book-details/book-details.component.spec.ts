@@ -3,7 +3,6 @@ import { Book } from '../shared/book';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Modes} from "../../shared/app-enums";
 import { of } from 'rxjs';
-import { BookRepository } from '../shared/book.repository';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BookDetailsComponent } from "./book-details.component";
 import { NGXLogger } from 'ngx-logger';
@@ -14,6 +13,7 @@ import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';  
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { RestDataSource } from 'src/app/shared/rest.datasource';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeHu, 'hu');
@@ -23,7 +23,7 @@ describe('BookDetails component', () => {   // inline function
     let router: any;
     let activatedRoute: any;
     let formBuilder: FormBuilder;
-    let bookRepository: any;
+    let ds: any;
     let loggerSpy: any;
     let component: BookDetailsComponent;
     let fixture: ComponentFixture<BookDetailsComponent>;
@@ -53,7 +53,7 @@ describe('BookDetails component', () => {   // inline function
 
     beforeEach(waitForAsync(() => {
         // cretaing stubs for DI
-        bookRepository = {
+        ds = {
             getBook: (id: string) => of(book),  // Observable-t kell visszaadnunk!!
             getCountries: (cou: string) => {
                 const selection = countries.filter(co => co.toLowerCase().includes(cou.toLowerCase()));
@@ -92,8 +92,8 @@ describe('BookDetails component', () => {   // inline function
                             },
                         },
                         {
-                            provide: BookRepository,
-                            useValue: bookRepository
+                            provide: RestDataSource,
+                            useValue: ds
                         },
                         {
                             provide: Router,
@@ -109,7 +109,7 @@ describe('BookDetails component', () => {   // inline function
             fixture = TestBed.createComponent(BookDetailsComponent);
             el = fixture.debugElement;
             component = fixture.componentInstance;
-            bookRepository = TestBed.inject(BookRepository);
+            ds = TestBed.inject(RestDataSource);
             activatedRoute = TestBed.inject(ActivatedRoute);
             router = TestBed.inject(Router);
             loggerSpy = TestBed.inject(NGXLogger);
@@ -167,7 +167,7 @@ describe('BookDetails component', () => {   // inline function
         expect(component.searchResults[0]).toEqual("Alabama");
     });
 
-    it('deleting first seller row', () => {
+    fit('deleting first seller row', () => {
         fixture.detectChanges(); 
 
         // there must be 2 sellers, figyelem: sellersDiv-bol annyi van ahany seller soor a gui-n

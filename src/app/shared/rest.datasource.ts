@@ -12,7 +12,22 @@ import { Category } from "../shared/category";
 const PROTOCOL = "http";
 const PORT = 3500;
 const API = `${PROTOCOL}://localhost:${PORT}`;
-const RISURL: string = "http://localhost:59661/api/token";
+
+const mybook: Book =   {   id: '3333', 
+  isbn: '3333', 
+  title: "React 3", 
+  authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+  subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+  thumbnails: [{
+      url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+  description: 'Das bewährte und umfassende Praxisbuch zu React',
+  genres: ['IT', 'Programming', 'Docker'],
+  ebook: true,
+  printed: false,
+  availability: 'Available',
+  level: 'Beginner',
+  sellers:  []
+};
 
 @Injectable({
     providedIn: "root"
@@ -61,11 +76,12 @@ export class RestDataSource {
     }
 
     getBook(id: string): Observable<Book> {
-        return this.http.get<Book>(`${API}/books/${id}`).pipe(
-            retry(3),
-            map(book => BookFactory.convertBook(book)),
-            //catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
-        );
+        return this.http.get<Book>(`${API}/books/${id}`);
+    }
+
+    getLofasz(): Observable<Book> {
+        return of(mybook).pipe(  retry(3),
+        map(book => BookFactory.convertBook(book)));
     }
 
     getBooks(): Observable<Book[]> {
