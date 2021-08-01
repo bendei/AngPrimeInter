@@ -7,6 +7,8 @@ import { BookValidator} from "../../validators/BookValidator";
 import { NGXLogger } from 'ngx-logger';
 import { RestDataSource } from 'src/app/shared/rest.datasource';
 import { Observable, of } from 'rxjs';
+import { map, retry } from 'rxjs/operators';
+import { BookFactory } from '../shared/BookFactory';
 
 const mybook: Book =   {   id: '3333', 
   isbn: '3333', 
@@ -62,14 +64,13 @@ export class BookDetailsComponent implements OnInit {
       if (this.modes === Modes.edit) {
           const id = this.activeRoute.snapshot.paramMap.get("id");
           // a subscription ban kell a formgroupot inicializálni, mert meg kell várni a async REST hivás eredményét
-          this.ds.getBook('4444').subscribe(data =>  { 
-            console.table(data)
-            this.initForm(data); 
-            })
 
-      //  let mybookObs: Observable<Book> = of(mybook);
-      //  mybookObs.subscribe(data =>  this.initForm(data));
+        // this.ds.getBooks().subscribe(datas => {
+        //   this.initForm(datas[0]);
+        // });        
 
+       let mybookObs: Observable<Book> = of(mybook).pipe(  retry(3), map(book => BookFactory.convertBook(book)));
+        mybookObs.subscribe(data =>  this.initForm(data));
       }  else {
         this.initForm();
       }
