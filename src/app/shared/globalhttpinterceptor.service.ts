@@ -27,26 +27,34 @@ export class GlobalhttpinterceptorService implements HttpInterceptor {
               handled = true;
               break;
             case 404:     
-              this.errortransferService.setMessage(error.message);
+              this.setErrorDetails(error);
               this.router.navigateByUrl("/error");
               handled = true;
               break;
             default: 
-              this.errortransferService.setMessage(error.message);
+            this.setErrorDetails(error);
               this.router.navigateByUrl("/error");
               handled = true;
               break;
           }
         }
         else {
-          this.errortransferService.setMessage(error.message);
+          this.setErrorDetails(error);
           this.router.navigateByUrl("/error");
           handled = true;
         }
 
-        return throwError(error.message);
+        return throwError(error);
       })
     )
   }
   
+
+  private setErrorDetails(error: HttpErrorResponse): void {
+    this.errortransferService.setMessage(error.message);
+    this.errortransferService.setName(error.name);
+    this.errortransferService.setStatus(error.status.toString());
+    this.errortransferService.setStatusText(error.statusText);
+  }
+
 }

@@ -24,10 +24,7 @@ export class RestDataSource {
     }
 
     get404StatusCode(): Observable<string> {
-        return this.http.get<string>(`${API}/kamu`)
-        // .pipe(
-        //     catchError((err: Response) => throwError(` http status code: ${err.status} - ${err.statusText} - ${err.url}`) )
-        // );
+        return this.http.get<string>(`${API}/kamu`);//.pipe(catchError((err: Response) => throwError(err)));
     }
    
     // wir (type)parametisieren das Observable, und geben an in welcher Form die Daten vom Datenstrom geliefert werden.

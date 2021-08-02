@@ -11,6 +11,7 @@ export class AppErrorHandler implements ErrorHandler {
     }
 
     handleError(error: Error): void {
+        this.errortransferService.clearAll();
         this.errortransferService.setMessage(error.message);
         this.errortransferService.setName(error.name);
         this.errortransferService.setStack(error.stack);
