@@ -23,7 +23,10 @@ const mybook: Book =   {   id: '3333',
   printed: false,
   availability: 'Available',
   level: 'Beginner',
-  sellers:  []
+  sellers: [
+    {name: 'Bende seller', address: 'sáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
+    {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
+    ],
 };
 
 @Component({

@@ -30,31 +30,29 @@ describe('BookDetails component', () => {   // inline function
     let el: DebugElement;
 
     const countries = ["Afghanistan","Andorra","Alabama","Belgium","Bhutan","Belaruss"];
-    const book: Book = 
-        {  
-            id: '34324233', 
-            isbn: '34324233', 
-            sellers: [
-                {name: 'Bende seller', address: 'Csáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
-                {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
-                ],
-            title: "Angular 11", 
-            authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen'], 
-            published:  new Date(), subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices', rating: 5,
-            thumbnails: [{
-                url: 'https://ng-buch.de/angular-cover.jpg', title: 'Buchcover' }],
-            description: 'Lernen Sie Angular mit diesem Praxisbuch!',
-            genres: ['IT', 'Programming'],
-            ebook: false,
-            printed: false,
-            availability: 'Available'
-        }
-    ;
+    const mybook: Book =   {   id: '3333', 
+    isbn: '3333', 
+    title: "React 3", 
+    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+    thumbnails: [{
+        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+    description: 'Das bewährte und umfassende Praxisbuch zu React',
+    genres: ['IT', 'Programming', 'Docker'],
+    ebook: true,
+    printed: false,
+    availability: 'Available',
+    level: 'Beginner',
+    sellers: [
+        {name: 'Bende seller', address: 'sáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
+        {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
+        ],
+  };
 
     beforeEach(waitForAsync(() => {
         // cretaing stubs for DI
         ds = {
-            getBook: (id: string) => of(book),  // Observable-t kell visszaadnunk!!
+            getBook: (id: string) => of(mybook),  // Observable-t kell visszaadnunk!!
             getCountries: (cou: string) => {
                 const selection = countries.filter(co => co.toLowerCase().includes(cou.toLowerCase()));
                 return of(selection);  // Observable-t kell visszaadnunk!!
@@ -83,7 +81,7 @@ describe('BookDetails component', () => {   // inline function
                                             let result: string;
                                             switch(what) {
                                                 case "mode": {result = Modes.edit.toString(); break;}
-                                                case "id": {result = '34324233'}
+                                                case "id": {result = '3333'}
                                             }
                                             return result;
                                         },
@@ -133,8 +131,8 @@ describe('BookDetails component', () => {   // inline function
     it('places out 3 authors input', () => {
         fixture.detectChanges();      
         const arrAuthorsInputs = el.nativeElement.querySelector("#auhtorsDiv").querySelectorAll("input");
-        expect(arrAuthorsInputs.length).toBe(3);
-        expect(arrAuthorsInputs[0].value).toEqual("Ferdinand Malcher");
+        expect(arrAuthorsInputs.length).toBe(2);
+        expect(arrAuthorsInputs[0].value).toEqual("Oliver Zeigermann");
     });
 
     it('adds new author input to the authors input list with a "Bende" name and shows it on the gui', () => {
@@ -167,7 +165,7 @@ describe('BookDetails component', () => {   // inline function
         expect(component.searchResults[0]).toEqual("Alabama");
     });
 
-    fit('deleting first seller row', () => {
+    it('deleting first seller row', () => {
         fixture.detectChanges(); 
 
         // there must be 2 sellers, figyelem: sellersDiv-bol annyi van ahany seller soor a gui-n
@@ -236,6 +234,8 @@ describe('BookDetails component', () => {   // inline function
         ebookChkb.click();
         fixture.detectChanges(); 
 
+        ebookChkb.click();
+        fixture.detectChanges();
         const submitButton: HTMLButtonElement = el.nativeElement.querySelector("[type='submit']");
         submitButton.click();
         expect(component.bookForm.value.ebook).toBeTrue();
