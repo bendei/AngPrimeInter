@@ -18,13 +18,15 @@ ohne Tipisierung / Angabe der Klasse:
 INTERFACES dienen dazu, die Struktur eines Objekts grundsätzlich zu definieren.
 Optionale Eigenschaften werden durch ein Fragezeichen-Symbol gekennzeichnet.
 
-TEMPLATE-SYNTAX _> Angular erweiter html syntax mit folgenden Ausdrücken: interpolation {{componentProperty}}, template strings, sfae-navigator-operator (?), property binding, 
+TEMPLATE-SYNTAX _> Angular erweiter html syntax mit folgenden Ausdrücken: interpolation {{componentProperty}}, template strings, safe-navigator-operator (?), property binding, 
 	event binding,  2-way binding, #Elementreferenzen, Direktiven, *Strukturdirektiven, Attributdirektiven, Pipes
 
 TEMPLATE-STRINGS
 Mit einem normalen String in einfachen Anführungszeichen ist es nicht möglich, einen Text über mehrere Zeilen anzugeben. TEMPLATE-STRINGS im Code
 Backticks, keine zu nutzen. Anführungszeichen Ein Template-String wird mit schrägen `Hochkommata` (auch Accent grave oder Backtick) eingeleitet und beendet, nicht mit
-Anführungszeichen. Der String kann sich schließlich über mehrere Zeilen erstrecken und endet erst beim schließenden Backtick.
+Anführungszeichen. Der String kann sich schließlich über mehrere Zeilen erstrecken und endet erst beim schließenden Backtick. Template strings erlauben
+STRING INTERPOLATION: wir können Expressions (Ausdrücke) in das String einbetten.
+Interpolatin {{}} innherhalb von template string (backticks)
 
 ARROW FUNKTION
 Eine Arrow-Funktion ist eine Kurzschreibweise für eine normale function() in JavaScript. Auch die Bezeichnung Lambda-Ausdruck ist verbreitet.
@@ -34,21 +36,23 @@ eingespart werden: Lässt man die Klammern weg, wird das Ergebnis des rechtsseit
 Wir müssen also kein return-Statement verwenden.
 
 SPREAD OPERATOR
-Praktisch verwenden wir den Spread-Operator vor allem, um Objekte und Arrays zu klonen. const copy = { ...myObject, year: 2020 }; kopieren. »Klonen« wir also auf dieseWei
-seein Objekt, das eine Instanz einer Klasse ist, sowerden nur die Eigenschaften kopiert, nicht aber die klasseneigenen Methoden. Die inhaltliche Verbindung
+Praktisch verwenden wir den Spread-Operator vor allem, um Objekte und Arrays zu klonen. const copy = ( Gleichheitszeichen){ ...myObject, year: 2020 }; kopieren. »Klonen«
+ wir also auf diese Weise ein Objekt, das eine Instanz einer Klasse ist, so werden nur die Eigenschaften kopiert, nicht aber die klasseneigenen Methoden. Die inhaltliche Verbindung
 mit der Klasse geht verloren, und es wird lediglich eine flache Kopie (engl. SHALLOW COPY) erzeugt. Es wird stets nur die obere Ebene eines Objekts ko
 piert. Tiefere Zweige eines Objekts oder Arrays müssen wir zunächst mit der Spread-Syntax einzeln klonen und anschließend neu zusammenbauen. Wird
 diese Aufgabe zu kompliziert, sollten wir auf eine Bibliothek zurückgreifen, die eine Deep Copy erzeugt, sodass wir das Objekt gefahrlos verändern können.
 Oder lodash cloneDeep methode verwenden.
 
 REST OPERATOR: sollte man eine variirbare anzahl von Argumente in eine Funktion eingeben, so verwendet man (...) Rest operator, dessen Wert man als array verwenden kann.
+schaut gleich aus wie spread operator.
 
 DESTRUKUTRIERENDE ZUWEISUNG
 Destrukturierende Zuweisungen: Wenn wir einzelne Eigenschaften eines Objekts extrahieren und in Variablen schreiben möchten, so müssen wir die Variablen zuerst an
 legen und dann mit den Werten aus dem Objekt befüllen. Mit der Destrukturierung lässt sich dieser Code auf eine Zeile verkürzen: Die Variablen werden automatisch angelegt und mit 
-den gleichnamigen Eigen schaften aus dem Objekt befüllt.
+den gleichnamigen Eigenschaften aus dem Objekt befüllt.
 Wenn wir nicht alle Property eines Objekt brauchen, dann können wir die Properties extrahieren und in Variablen schreiben:
-let {objPropertyName1: newProp1, objPropertyName2: newProp2}
+let {objPropertyName1: newProp1, objPropertyName2: newProp2} = ObjektInstanzdenwirdestrukturieren;
+let { neve } = pista;	-> wenn wir den gleichen Variablennamen erhalten wollen.
 
 DECORATOR
 Es ist eine Funktion, Mit Decorators können wir Klassen, Methoden und Eigenschaften dekorieren und damit Metadaten hinzufügen. Man erkennt einen Decorator stets am @-Zeichen 
@@ -60,10 +64,58 @@ Dabei wertet TypeScript den Ausdruck Schritt für Schritt aus und bricht ab, sob
 
 NULLSIH COALESCING
  Nullish Coalescing: Es erlaubt die einfache Zuweisung von Rückfallwerten, für den Fall, dass eine Variable den Wert null oder undefined hat
- let bar = foo ?? 'backup'; // Ergebnis: 0
+ let bar = foo ?? 'backup';
  
 in einer Template können wir den selector (host) element mikt den folgenden css selector zugreifen :host ; und mit :host(.focus) können wir sogar ein focus CSS-Klasse zuweisen.
+
+INTERSECTION TYPE:
+Mit itersection Typ kombinieren wir 2 oder mehrere type in einem. Der resultierender Typ wird alle Propertys aller Typen beinhalten.
+interface Person {  name: string;  age: number;}
+interface Student {  studentCode: string;  division: string}
+  
+let student: Student & Person= {
+    studentCode:"1",
+    division:"10",
+    name:"Rahul",
+    age:20
+}
+
+customer extends person and hat code() Method.
+function getCode(obj: Person) {
+   if (obj instanceof Customer) {	// diese Verwndung nennt man "TYPE GUARD"
+    obj.code();
+  } else if (obj instanceof SalesPerson) {
+    obj.code();
+  }
  
+ INSTANCEOF:
+ instanceOf liefert den Typ von Objeckt Typen zurück
+ typeof liefert den Typ von primitiv Typen zurück; wenn der Typ Person ist, dann liefert es object zurück und nicht Person
+ als Type Guard:  if (typeof money == "string")
+ 
+ ENUM TYPEN: 
+	string enums: enum VehcileType {Car="Car",...
+	numeric enums: enum VehcileType { Car, // Typescript weist automatisch numerische Werte zu. startend mit 0;  oder:  Car=2,
+	hetero enums: enum VehcileType { Car="C", Plane=1, ..
+wenn ein enum const ist, dann wird es nicht transpiled , sondern werden die Werte direkt befüllt in transpiled code.
+
+COMMA OPERATOR: es bewertet die Operand von links nach rechts:
+	let x = 1;
+	let y = 10;	 
+	x = (x++, y++, x+y)	-> x == 13
+	
+VARIABLE SCOPES in TypeScript (mit LET keyword):
+	- Global scope: definiert außerhalb von Funktion/Klasse oder code block; erreichbar von überall.
+	- Function / class scope: definiert in einer Funktion / Klasse; errichbar dann in der Funktion oder in der Klasse ( class-scoped sind erriechbar in der class-method auch).
+	- Local (= block) scope: deklariert in einem code-block. Code block ist mit {} geschweiften Klammern begrenzt, zB. if/try/catch/while/for
+	
+VAR keyword ist eine Ausnahme: nur global und function scope, d.h. deklariert in einem block so wird es scoped in the enclosing function.
+
+CONST: muss beim Deklaration gleci ein initial Wert haben. Scopes: global, block.
+
+In Angular Klasseneigenschaften (class property) sind standardmäßig class scoped, dürfen nicht mit let deklariert werden, ebensowenig dürfen sie mit const auch nicht  deklariert w.
+Const keyword kann man in Klassenmethoden und außerhalb der Klasse verwenden. 
+
 #######################################################################################################################################################################################
 Complete Angular Tutorial For Beginners
 	https://www.tektutorialshub.com/angular-tutorial/#component-communication
@@ -79,14 +131,14 @@ wir den zu übergebenden Wert von der Host-Komponente, die wir mit dem  @Input()
  DOM Property in Komponente auslesen: @Input
 
 Jeder Knoten im DOM_Baum ist ein javascript Objekt, die Propertys und Methoden hat, deshalb können wir belibige Eigenschaften(property) in ein DOM-Element schreiben. 
-DOM-Eigenschaften haben aber keine Auswirkung auf HTML-Quelltext, , wogegen HTML Attribute werden im Queltext notiert und sind immer als Text da, sie aendern sich waehrend der 
-Laufzeit nicht, diese propertys schreiben aber den Wert den gelichnamigen DOm-proertys, die sich über js Objekt aendern lassen. Es gibt DOM properties die nur auf dem javascript 
-Objekt existieren ( textConetnt, innerHTML) und es  gibt html Attribute die keine auswirkung auf js Objekt haben.
+DOM-Eigenschaften haben aber keine Auswirkung auf HTML-Quelltext (auf HTML Attribute), wogegen HTML Attribute werden im Queltext notiert und sind immer als Text da, 
+sie aendern sich waehrend der Laufzeit nicht, diese propertys schreiben aber den Wert den gelichnamigen DOm-proertys, die sich über js Objekt aendern lassen.
+ Es gibt DOM properties die nur auf dem javascript Objekt existieren ( textConetnt, innerHTML) und es  gibt html Attribute die keine auswirkung auf js Objekt haben.
 
 DOM Element Property binding: [property]="expr" eckigen Klammern / Anführungszeichen
-html Attribute: <img src="angular.png" title="Angular">, diese lassen ich nicht veraenderm , sie sing al Text in HTML da.
+html Attribute: <img src="angular.png" title="Angular">, diese lassen ich nicht veraenderm , sie sins als plain Text in HTML da.
 
-Shadow DOM: das innere DOm der Komponente d.h template html selbst, was vom Angular aufgebaut/gelőscht wird:
+Shadow DOM: das innere DOm der Komponente d.h template html selbst, was vom Angular aufgebaut/gelőscht wird: (deswegen ist es shadow DOM gennant)
 @Component({
 	template: `
     <h1>I am Shadow DOM!</h1>    
@@ -130,23 +182,39 @@ constructor(@Inject(MY_TOKEN) token: string) {
 
 #######################################################################################################################################################################################
 Module
-Module sind die gröbsten Bausteine einer Angular-Anwendung. Eine Anwendung besteht aus Modulen. 
-Direktiven – in logische Gruppen und stellen die Teile nach außen zur Verfügung Module können außerdem Provider in der Anwendung registrieren, die dann im Injector zur Verfügung 
-stehen. Ein Modul mit all seinen Teilen sollte immer in einem eigenen Ordner organisiert werden. Bestandteile eines Modules sollten einer einzigen Module gehören,
- oder in shared Module unterbringen. Verschidene Funktionalitaeten sollten eigen Feature-Modules haben, jedes Module kann
-eigene Routenkonfigurtion module haben. Deklarierte Bestandteile sind nur innerhalb des Moduls verfügbar. Module können Bestandteile aus anderen Modulen importieren.
+Module sind die gröbsten Bausteine einer Angular-Anwendung. Eine Anwendung besteht aus Modulen, in logische Gruppen und stellen die Teile nach außen zur Verfügung Module können 
+außerdem Provider in der Anwendung registrieren, die dann im Injector zur Verfügung  stehen. Ein Modul mit all seinen Teilen sollte immer in einem eigenen Ordner organisiert werden. 
+Bestandteile eines Modules sollten einer einzigen Module gehören,  oder in shared Module unterbringen. Verschidene Funktionalitaeten sollten eigen Feature-Modules haben, 
+jedes Module kann eigene Routenkonfigurtion module haben. Deklarierte Bestandteile sind nur innerhalb des Moduls verfügbar. Module können Bestandteile aus anderen Modulen importieren.
  Dafür wird die Eigenschaft imports verwendet.  Das zentrale Root-Modul ist der Einstiegspunkt der Anwendung. Für die Darstellung im Browser importiert das Root-Modul 
  das BrowserModule. Kind-Module müssen stattdessen das CommonModule einbinden Es wird immer AppModule genannt. Im Root-Modul werden die Routen mit RouterModule.forRoot() registriert,
  in allen anderen Modulen wird RouterModule.forChild() verwendet.
+
+Root Routing Module Definition:
+@NgModule({
+    imports: [RouterModule.forRoot(routes)]	-> dieses erstellt ein Module, konfiguriert mit dem Pfaden
+})
+export class AppRoutingModule {
+
+Child routing Module Definition:
+@NgModule({
+    imports: [RouterModule.forChild(routes)]
+})
+export class BookRoutingModule {
+
+Lazy lodaing child Module im root routing module, Lazy loading modules: Anstatt alle Module in ein großes Bundle zu packen, werden einzelne Bundles angelegt, die erst zur Laufzeit
+ vom Server geladen werden. Alles, was wir brauchen, ist die loadChildren Eigenschaft in unseren Routenkonfiguratione loadChildren.:
+{path: "store", // ez lesz a route prefix-je pl "/store/home"
+        //  <!-- a children routok componentjeit ide tölti be: <router-outlet></router-outlet> "admin", lásd: admin module path main 
+        loadChildren: () => import("./store/store-routing.module").then(m => m.StoreRoutingModule)
+        , canActivate: [StoreGuard]},
+
 
 	declarations : gibt alle Komponenten, Direktiven und Pipes an, die Bestandteile dieses Moduls sind
 	imports:  importiert andere Module mit ihren Bestandteilen in dieses Modul
 	exports: exportiert deklarierte Bestandteile und importierte Module aus diesem Modul
 	providers: registriert Provider für Services, Werte und Funktionen (Dependency Injection), sollte stattdessen Injectable decorator verwenden
 	bootstrap: gibt im Root-Modul die Komponente an, die durch das Bootstrapping geladen wird. Achtung: Array!
-	
-Lazy loading modules: Anstatt alle Module in ein großes Bundle zu packen, werden einzelne Bundles angelegt, die erst zur Laufzeit vom Server geladen werden. Alles, was wir brauchen, 
-ist die loadChildren Eigenschaft in unseren Routenkonfiguratione loadChildren. 
 
 Ein Guard ist eine Funktion, die entscheidet, ob ein Navigationsschritt ausgeführt werden darf oder nicht. Diese Entscheidung wird durch den Rückgabewert der Guard-Funktion 
 ausgedrückt. Guards werden immer als Eigenschaft einer Route notiert. Die zugehörige Methode canActivate() erhält ein Argument vom Typ ActivatedRouteSnapshot.
@@ -154,6 +222,7 @@ ausgedrückt. Guards werden immer als Eigenschaft einer Route notiert. Die zugeh
 
 #######################################################################################################################################################################################
 Komponente
+
 Eine Komponente besteht aus einer TypeScript-Klasse, die mit einem Template verknüpft wird. Die Klasse wird immer mit dem Decorator @Component() eingeleitet, 
  Template-URL: Das Template liegt in einer eigenständigen HTMLDatei, die in der Komponente referenziert wird (templateUrl).Inline Template: Das Template wird als (mehrzeiliger)
  String im Quelltext der Komponente angegeben (template). Angular zeigt hier einen neuen Weg auf und ordnet die Styles direkt
@@ -161,8 +230,7 @@ den Komponenten zu. Diese direkte Verknüpfung von Styles und Komponenten sorgt 
 jeweiligen Komponente gültig sind. Styles  von zwei voneinander unabhängigen Komponenten können sich damit nicht gegenseitig beeinflussen, (Styles URL / Inline styles).
  muss Angular die Komponente allerdings erst kennenlernen. Die reine Existenz einer Komponentendatei reicht nicht aus. Stattdessen müssen wir alle Komponenten der Anwendung 
  im zentralen AppModule registrieren( oder im feature-module) .(declarations)
- Komponenten und Direktiven durchlaufen einen festen Lebenszyklus (engl. lifecycle). Ein solcher Zyklus beginnt immer damit, dass die Diyrektive bzw. 
- Komponente initialisiert wird. Im weiteren Verlauf können sich die Eigenschaften von Direktiven bzw. Komponenten verändern. Dabei werden verschiedene Status durchlaufen. 
+ Komponenten und Direktiven durchlaufen einen festen Lebenszyklus (engl. lifecycle). Dabei werden verschiedene Status durchlaufen. 
  Schlussendlich endet der Lebenszyklus mit der Zerstörung der Komponente (engl. destroy), wenn die Route gewechselt wird oder die Komponente mit einer Strukturdirektive
 wie ngIf aus dem DOM ausgebaut wird. Dieses gilt für Komponente und Direktive auch: 
 
@@ -170,9 +238,11 @@ Lebenszyklus einer Komponente / Directive:
 	1.	Angular instanziert die Komponente, wobei der Konstruktor aufgerufen und ihre Abhaengigkeiten injiziert werden. 
 	2.	Change detection startet: Angular prüft und setzt/aktualisiert die input Propertys (@Input) => die Komponente wird inizialisiert.
 		https://www.tektutorialshub.com/angular/angular-ngonchanges-life-cycle-hook/
-	3.	Onchanges: laeuft ab jeweils sich ein Input-Property aendert. (wird nicht aufgerufen wenn input property ein array/Object ist, weil change detection verwendet === 
-		strict equality operator zum Erkennen Aenderung in input propertys. Für pirimitive Typen geht dass, für Objekten wird aber die Referenzen verglichen die gleich sind, 
-		so wird Onchanges nicht aufgerufen.
+	3.	Onchanges: Diese Methode wird aufgerufen, sobald ein Input-Property durch ein Property Binding gesetzt oder verändert wird. Als Argument erhält die Methode
+		ein Objekt vom Typ SimpleChange, in dem die veränderten Propertys und ihr aktueller und vorheriger Wert angegeben sind.
+		(wird nicht aufgerufen wenn input property ein array/Object ist, weil change detection verwendet === 
+		  strict equality operator zum Erkennen Aenderung in input propertys. Für pirimitive Typen geht dass, für Objekten wird aber die Referenzen verglichen die gleich sind, 
+		  so wird Onchanges nicht aufgerufen.
 				Lösungen:
 					1.	Erstellen ein neues objekt mit den Werten des Alten
 					2.	Lagert man die Logik in das Docheck() hinaus.
@@ -180,7 +250,8 @@ Lebenszyklus einer Komponente / Directive:
 	5.	Docheck: wird immer by change detection aufgerufen, funktioniert mit array/Objekt-Typen auch.
 	6.  AfterContentInit: gerufen nur einmal nachdem der content inizialisiert und in die Komponente projected ist.
 	7.	AfterContentChecked: gleich wie oben, aber immer wenn change detection ablauft
-	8.	AfterViewInit: nachdem Komponente-View und ihre child views inizialisiert sind. Kann zum extra Initialisierungslogik. 
+	8.	AfterViewInit: nachdem Komponente-View und ihre child views inizialisiert sind. Kann zum extra Initialisierungslogik.  Erst ab dieser Stufe im Lebenszyklus
+		können wir mit @ViewChild() zuverlässig auf Elemente in der View zugreifen
 	9.	AfterViewChecked: 
 	10. Ondestroy: Komponente wird aus dem DOM ausgebaut.
  
@@ -218,9 +289,10 @@ Der ANGULAR-ROUTER interagiert mit der HTML5 History API und verwendet URL-Pfade
 		[RouterModule.forRoot(routes)],
 	- Komponente anzeigen: <router-outlet name="main"> ist ein Platzhalter das vom Router dynamisch durch geladene Komponente ersetzt wird, zeigt geroutete Komponente an, und mit dem 
 		name attribute können wir mehrere router-outlet in der Anwendung verwenden.
-		was eine Single-Page-Applikation ausmacht: Die Anwendung wird einmalig geladen, und beim Wechsel der Route wird nur jeweils die zu ladende Komponente ausgetauscht. 
+		was eine Single-Page-Applikation ausmacht: Die Anwendung wird einmalig geladen, und beim Wechsel der Route wird nur jeweils die zu ladende Komponente ausgetauscht und der
+		DOM des Kompoenents aus/eingebaut.
 		Beim Klick auf einen normalen Link wird die gesamte Seite neu geladen. Die Anwendung wird also beendet, und dieselbe Anwendung wird unter der neuen Adresse neu geladen und gestartet.
-		Das Attribut darf href also für Links auf interne Angular-Routen nicht verwendet werden, nur für externe.
+		Das Attribut darf 'href' also für Links auf interne Angular-Routen nicht verwendet werden, nur für externe.
 
 ROUTENPARAMETER:  ':id',{ path:'mypath/component: MyComponent } => <a routerLink="/myPath/42">Link auf 42</a> , Zum Auslesen von Parametern bietet der Router die Klasse 
 ActivatedRouteSnapshot, die Auskunft über die gerade aktivierte Route und den  Zustand des Routers gibt.
@@ -266,6 +338,10 @@ Beispiel: cold Ob in hot Ob. umwandeln, damit ein einziger Http-Request ausgefü
 	httpShared$.subscribe(e => console.log(e));
 	httpShared$.subscribe(e => console.log(e));
 	
+Erstellen eines Observables (maunell):
+  let mybookObs: Observable<Book> = of(mybook);	
+  .. wobei außerhalb der Klassendefinition das mybook ist:  const mybook: Book =   {   id: '3333', ... sellers:  []};
+	
 #######################################################################################################################################################################################
 Fehlerbehebung
 Sollte im Service stattfinden. catchError() Operator , dem wir eine Funktion übergeben , die das Fehlerobjekt als Argument bekommt und immer ein neues Observable zurückgibt.
@@ -292,7 +368,7 @@ durch ein FormControl repräsentiert. Eine Menge von FormControls in einem Objek
 	Jedes FormControl, FormGroup und FormArray besitzt dafür zwei besondere Propertys: valueChanges und statusChanges. Dahinter verstecken sich Observables, die sich immer dann melden, 
 wenn sich der Formularwert ändert (valueChanges) oder der Formularzustand (status-Changes). Wie jedes Observable können wir diese Änderungen abonnieren und weiterverarbeiten.
 ( this.myForm.valueChanges.subscribe(groupValue => console.log(groupValue)); )
-( this.myForm.valueChanges.subscribe(groupValue => console.log(groupValue)); )
+( this.myForm.get("username").valueChanges.subscribe(groupValue => console.log(groupValue)); )
 
 	TYPE ASSERTION: mit dem Schlüsselwort "as" machen wir Objekt-Type casting: this.bookForm.get('authors') as FormArray;
 Custom Validator: als statische Methode oder als Service implementieren. Die Validierungsfunktion erhält als Argument ein AbstractControl (BasisKlasse für FormControll..etc) und als 
@@ -309,7 +385,7 @@ File Struktur:
 		-	projects: In einem Angular-Projekt existiert auf oberster Ebene immer ein sogenannter Workspace. Dieser wird beim Aufruf über  ng new  erzeugt. Das workspace kann aber
 			mehrere Projekte und Bibliotheken beinhalten, diese werden wiederum in "project" Beraich konfiguruiert. ( Monorepo workspace) .
 			Schemantics: ein Code-Generator in Angular CLI, mit dem wir zb componente generieren können aus dem command line.
-		-	architect: für die Konfiguration von Angular-CLIKommandos wie zum Beispiel ng test / build / serve / configurations ( production= Diese beinhaltet die Optionen
+		-	architect: für die Konfiguration von Angular-CLIKommandos wie zum Beispiel ng test / build / serve / test / configurations ( production= Diese beinhaltet die Optionen
 			für das Bauen einer Produktivversion Ihrer Anwendung  / dev) ( mit Konfigurations-Objekten)
 
 	package.json: Konfigurationsdatei, die die Abhaengigkeiten des Projekts definiert. Mit npm werden Pakete in node_modules Verzeichnis installiert. 
@@ -354,29 +430,17 @@ allerdings unmöglich, die Methodensignatur genau anzugeben: Rest-Syntax -> tran
 	
 
 #######################################################################################################################################################################################	
-ATTRIBUTE DIRECTIVE:
 
-STYLE
-Style-Attibute setzen:
-
-[style.color]="getMyColor()": setzt man nur ein einziger Property mit standard property binding.  
-[style.max-width.px]="120": glecihe vie oben nur mit unit auch spezifiziert.
-[ngStyle]="map": setzt man mehrere  Style-Properties gleichzeitig, Direktive
-
-CLASS
-Class-Attribute setzen:
- [class]="myRedClass": dieses setzt ein einziger Class und überschreibt dabei alle existierende class Definitionen
- [class.bg-warning]="editing": setzt nur der angegebene class property nachdem der Ausdruck ausgewertet wurde. ( wenn rRückgabewert false ist dann wird style überhaupt nicht angewendet)
- [ngClass]="map": setzt man mehrere CSS-Klassen mit einem map Objekt, Direktive
  
 ######################################################################################################################################################################################	
 Wir müssen die Applikation stets in allen benötigten Sprachen kompilieren. Soll die Anwendung z. B. zehn Sprachen »sprechen«, so müssen wir mit dem vorhandenen Tooling jeweils
 zehn einzelne Anwendungen kompilieren und bereitstellen. Zur dynamischer Sprachwechsel in der Anwendung habe ich ngx-translate package verwendet. 
 
 ######################################################################################################################################################################################	
-CONTENT PROJECTION: zwischen den Selektor Elementen der Template können wir beliebige html Inhalt angeben. Dieses nennen wir "Content" die aber im normalfall nicht angezeigt wird. 
-Wir können aber den Inhalt zugreifen und an eine Komponente-Template übergeben -> content projection / tranclusion, indem wir die <ng-content> Platzhalter verwenden. Wir können sogar 
-mehrere Inhalte an mehreren beliebigen Stellen im child-template übergeben -> multi-slot Projection, zum Auswaehlen wird css selector verwendet. <ng-content select=".myClass">
+CONTENT PROJECTION: zwischen den Selektor Elementen (Host Elementen) der Template können wir beliebige html Inhalt angeben. Dieses nennen wir "Content" die aber im normalfall nicht
+ angezeigt wird. Wir können aber den Inhalt zugreifen und an eine Komponente-Template übergeben -> content projection / tranclusion, indem wir die <ng-content> Platzhalter verwenden. 
+ Wir können sogar mehrere Inhalte an mehreren beliebigen Stellen im child-template übergeben -> multi-slot Projection, zum Auswaehlen wird css selector verwendet.
+ <ng-content select=".myClass">
 
 NG-TEMPLATE: Platzhalter, wird von Angular nicht gerendert. Kann aber mit Strukturdirektive angezeigt werden. 
 	Kann angezeigt werden:
@@ -396,17 +460,28 @@ entfernen? Beide Varianten sorgen dafür, dass ein Element im Browser nicht mehr
  tatsächlich nicht vorhanden und muss auch nicht gerendert werden.
 
 NG-CONTAINER: Dieses Element erzeugt kein DOM-Element, sondern wird direkt durch seinen Inhalt ersetzt. Der Container wird hauptsächlich verwendet, um darauf eine Direktive
- wie ngFor oder ngIf anzuwenden.
+ wie ngFor oder ngIf anzuwenden. Oder zur Verschachtelung von Direktiven:
+	<ng-container *ngIf="isValid">
+		<div *ngFor="let e of items">...</div>
+	</ng-container>
  
-VIEW ENCAPSULATION: Styles werden einer Komponente zugeordnet und wirken damit auch nur auf die Inhalte dieser Komponente (Shadow DOM). Jedes DOM-Element in einer Komponente erhält 
+VIEW ENCAPSULATION: Styles werden einer Komponente zugeordnet und wirken damit nur auf die Inhalte dieser Komponente (Shadow DOM). Jedes DOM-Element in einer Komponente erhält 
 automatisch ein zusätzliches Attribut mit einem eindeutigen Bezeichner, d.h. der selector Element kriegt vom Angular einAttribute, die wiederum in den Unterelementen auch 
 gesetzt wird. Die vom Entwickler festgelegten Styles werden abgeändert, sodass sie nur für dieses Attribut wirken.
  
 // https://www.tektutorialshub.com/angular/understanding-viewchild-viewchildren-querylist-in-angular/
-VIEWCHILD: (View bezieht sich auf das Template) (Shadow DOM) wird verwendet, um einen Referenz auf einem DOM-Element des Komponents zu bekommen. VC liefert das erste passende Element
- zurück. Wird auf Kompoenenten-Property verwendet, hat 2 Argumente: Selector (string, Typescript Type, wie Komponente Klassenname oder Function), Konfigurationsobjekt: 
+VIEWCHILD (Decorator): (View bezieht sich auf das Template) (Shadow DOM) wird verwendet, um einen Referenz etnweder auf eigenes DOM-Element des Komponents heraus zu bekommen. 
+	zB. @ViewChild("header") headerRef: ElementRef; änderst sich der 
+	
+	oder wen der selector ein Typescript Type ist, was eigentlich ein Child-Komponent ist:
+	
+	@ViewChild(BookListComponent) child: BookListComponent;
+	
+VC liefert das erste passende Element zurück.
+ Wird auf Kompoenenten-Property verwendet, hat 2 Argumente: Selector (string, Typescript Type, wie Komponente Klassenname oder Function), Konfigurationsobjekt: 
 	static -> Es definiertiert, wann im Lebenszyklus der Komponente die Query ausgewertet wird.
-			  Eine statische Query wird einmalig beim Start der Komponente durchlaufen, mit "true" wird immer aufgelöst wenn der Wert sich aendert.
+				True: aufgelöst wenn der View inizialisiert ist.
+			    False: aufgelöst beim jeder change detection , sollte verwendet werden wenn child renderiert dynamically.
     read   -> wenn selector definiert mehrere Elelemnte von
 			  verschiedenen Typen, dann mit read property können wir einen auswaehlen.
 Use cases:
@@ -420,7 +495,13 @@ Use cases:
 VIEWCHILDREN: liefert eine Liste von Elemente als QueryList zurück, wird immer nach change detection aufgelöst, wird immer von Angular aktualisiert. QueryList.changes Property ist
 	ein Observable was emittiert ein Erreignis wenn Angular die Liste manipuliert. Weder VC noch VCS funktioniert wenn Child-Komponente mit Strukturdirektiven erstellt sind!!
 
-TEMPLATE REFERENCE VARIABLE
+TEMPLATE VARIABLE: mit diesen können wir Daten in einem Teil des Template in einem anderem Teil des Templates nutzen. Man deklariert Template Variable mit #.
+mit tv können Folgenden referenziert werden: 
+	-	DOM Element
+	-	Directive
+	-	ElementRef
+	- 	TemplateRef
+	
 ELEMENTREF: es ist ein Wrapper um die native DOM (HTML) Element, es hat nativeElement was ein Referenz ist auf das darunterstehende DOM Objekt. Um das DOM mit ElementRef zu
  manipulieren, wir setzten ein Referenz auf das DOM Element: verwenden ein TEMPLATE REFERENCE VARIABLE auf das Element (#VariableName), und dann in der komponente wir verwenden 
  @ViewChild um das referenzierte Element zu injizieren: <div #hello>Hello Angular</div>   -> @ViewChild('hello', { static: false }) divHello: ElementRef; Mit naviteElements 
@@ -429,25 +510,26 @@ ELEMENTREF: es ist ein Wrapper um die native DOM (HTML) Element, es hat nativeEl
 RENDERER2: ermöglicht uns, die DOM Elemente zu manipulieren, ohne diese direkt zugreifen. Es ist ein Abstraktionslayer zwischen DOm und Komponent-Kode. Sollte anstetten von
  ElementRef verwenden, weil Angular snychronisiert das View und Komponent durch das Template, data binding, change detection, und beim Verwenden von ElementRef all diese werden 
  ausgelassen. Renderer2 muss als Konstrukor-Property deklariert werden, und dann können wird damit Element erstellen, Styles/Classes/Propertys/Html Attribute zugeben/entfernen.
- 
+  
 CONTENTCHILD: (Content bezieht sich auf das projected Content)  ein Referenz auf die Projected Content in dem DOM zu bekommen. (Projected Content ist ein html Inhalt, 
-	das eine Komponente vom parent component erhaelt. Um diesen Referenz zu bekommen wir verwenden @ContentChild() Dekorator auf ein Klasse-Property, dessen Argument ist ein 
-	template Variable von ElementRef Typ. Hat auch static und read  Optionen.
+	das eine Komponente vom parent component erhaelt. Um einen Referenz auf das projected COntent in dem Child-Kompoenent zu bekommen wir verwenden @ContentChild(selector) Dekorator 
+	auf ein Klasse-Property, dessen Argument ist ein template Variable von ElementRef Typ. Hat auch static und read  Optionen.
 
 ######################################################################################################################################################################################
 
-KOMPONENTE-KOMMUNIKAZION UND DATENAUSTAUSCH/ÜBERGABE
+KOMMUNIKATION ZWISCHEN KOMPONENTEN UND DATENAUSTAUSCH/ÜBERGABE
 
 A. Komponente haben paretn-child Beziehung:
-	-	Von Eltern zu Kind-Komponente: Verwendung von @Input Dekorator
-	-	Vom Kind zu Eltern: @Output Dekorator
-	-	Verwendung von lokalen Variable um auf die Kind-Komponente zugreifen:
-		<child #childTemplateRef></child> in der Parent-Komponente
-		und it Interpolation auf der Proerty der Komponente zugreifen {{childTemplateRef.propertyInDerChildKomponente}} (mit change detection sogar)
+	1.	Von Eltern zu Kind-Komponente: Verwendung von @Input Dekorator
+	2.	Vom Kind zu Eltern: @Output Dekorator
+	3.	Verwendung von lokalen Variable (TemplateRef) um auf die Kind-Komponente zugreifen:
+		<child #childTemplateRef></child> in der Parent-Komponente , in der Child_Komponente selector
+		und mit Interpolation auf der Proerty der ChildKomponente zugreifen {{childTemplateRef.propertyInDerChildKomponente}} (mit change detection sogar)
+	4.	Mit @ViewChild bekommen wir ein Referenz in dem Parent-Komponent auf die Child-Komponent und so haben wir Zugriff auf seine Properties.
 		
 B.	Es gibt keine Beziehung zwischen den komponenten:
-	-	mit Services: Datenaustausch zwischen sogar mehreren Komponeten.
-	-	Mit Observable: erstellt man ein Service und ein Observable darin, das ein Ereignis wird emittiert sobald es zur Verfügung seht oder sich aendert. In der komponenten können
+	1.	mit Services: Datenaustausch zwischen sogar mehreren Komponeten.
+	2.	Mit Observable: erstellt man ein Service und ein Observable darin, das ein Ereignis wird emittiert sobald es zur Verfügung seht oder sich aendert. In der komponenten können
 		wir dann daran abbonieren. https://www.tektutorialshub.com/angular/angular-component-communication-sharing-data/#listens-to-child-event
 		
 ######################################################################################################################################################################################
@@ -455,7 +537,7 @@ B.	Es gibt keine Beziehung zwischen den komponenten:
 BOOTSTRAPPING ANGULAR:
 	Wir bauen die Anwendung  entweder mit ng serve (speichert die kompilierte Anwendung nicht auf der Festplatte, sondern speichert es in der Memory und startet dann der Server)
 	oder mit ng build. Der kompiler erstellt folgende script-Dateien:
-		-	runtime.js: Webpack runtime files
+		-	runtime.js: Webpack runtime files (module loader)
 		-	polyfills.js: browser support für aeltere Browsers
 		-	main.js: den Bootstrap-Prozess anzustossen und die Anwendung zu starten.
 	Angular kommt mit dem Webpack bundler, der scannt die Anwendung für js Dateien und bündelt sie in js bunndles.
@@ -521,7 +603,8 @@ Wenn wir an ein Attribut binden wollen, müssen wir den Attribut namen immer in 
 		selector: '[myDirective]'
 	})
 	
-	in der Template, das binding die DIrektive an das DOM-Element:
+	in der Template, das binding die Direktive an das DOM-Element (Host-Element):
+	
 	<div myDirective>Angular</div> ...Attribut-Schreibweise, nur für Übergabe von string literals
 	<div [myDirective]>Lorem ipsum</div> ...Property-Schreibweise, für Übergabe von Ausdrücken
 	<div *myDirective>Foobar</div> ... Strukturdirektive-Schreibweise, für Übergabe von Ausdrücken ...all dise 3 sind identisch
@@ -531,16 +614,18 @@ Wertübergabe von Host-Element in die Direktive:
 	<div myDirective="string literal">Angular</div> ...Attribut-Schreibweise, nur für Übergabe von string literals
 	<div [myDirective]="Ausdruck">Lorem ipsum</div> ...Property-Schreibweise, für Übergabe von Ausdrücken
 	<div *myDirective="Ausdruck">Foobar</div> ... Strukturdirektive-Schreibweise, für Übergabe von Ausdrücken ...all dise 3 sind identisch
+Die Daten mit @Input in der Direktive ausgelsesen.
 
 ...oder, Werte übergeben mit belibigen Propertys:
 
 	<div myDirective="adat" anotherProperty="adat" ...oder durch ein belibiges Property
-	In beiden Faellen werden die Daten mit @Input in der Direktive ausgelsesen.
-	
-AttibuteDirektive ändert nur ihre Host-Element ( es ist die entgegengesetzte Richtung wie beim mgClass oder ngStyle), 2 Zugriffsmöglichkeiten darauf:
-	-	@HostBinding
+		
+ATTIBUTEDIREKTIVE ändert nur ihre Host-Element ( es ist die entgegengesetzte Richtung wie beim [mgClass] oder [ngStyle]), 
+Wir können aus der Direktive-Klasse auf das Host-Element zugreifen:
+	-	@HostBinding 
 	-	ElementRef.
-	Als Bezeichner für das Binding wird der Name der Eigenschaft verwendet. 
+	-	@HostListener
+	Als Bezeichner für das Binding wird der Name der Eigenschaft/Property verwendet. 
 	Also hier setzten wir die Eigenschaft/Property des Host-Elements aus der Direktive hinaus.
 
 	@HostBinding() class = 'active';
@@ -554,10 +639,156 @@ AttibuteDirektive ändert nur ihre Host-Element ( es ist die entgegengesetzte Ri
 	// CSS-Eigenschaft 'color' auf 'red' setzen
 	@HostBinding('style.color') get foo() { return 'red'; }
 
-	Binding erlauben aber keine direkten Zugriff auf das DOM-Element. daür ist die ELementRef
+	Binding erlauben aber keine direkten Zugriff auf das DOM-Element. daür ist die ELementRef (durch konstrukto Propoerty Referenz auf dem Host-Element)
 	
-Häufig verwendet man Attributdirektiven, um auf Ereignisse zu reagieren, die auf dem Host-Element auftreten. Diese Events lassen sich durch den Decorator @HostListener() abfangen, 
-sodass wir in der Attributdirektive darauf reagieren können.
+Häufig verwendet man Attributdirektiven, um auf Ereignisse zu reagieren, die auf dem Host-Element auftreten. Diese Events lassen sich durch den Decorator @HostListener(mouseenter)
+ abfangen, sodass wir in der Attributdirektive darauf reagieren können.
+ 
+STRUKTURDIREKTIVE: Strukturdirektiven sind immer dann sinnvoll, wenn Elemente in Abhängigkeit von bestimmten Faktoren ein- und ausgeblendet werden sollen. 
+Die Möglichkeiten sind sehr vielfältig: Denken Sie beispielsweise an Feature-Toggles, zeitliche Verzögerung oder Sichtbarkeit abhängig von Berechtigungen.
+Strukturdirektiven werden immer mit dem Stern-Symbol (*) einge- Kurz- und Langformleitet.Ist dessen Wert wahr, wird das Element in den DOM-Baum eingefügt,
+ andernfalls wird es entfernt. Die Syntax mit dem Stern *ngIf wird umgewandelt in ein <ng-template>, das die Attributdirektive [ngIf] trägt. In diesem
+Template-Element befindet sich das eigentliche HTML-Element, auf dem vorher die Strukturdirektive zu finden war.
+
+	<!-- Kurzform -->
+	<p *ngIf="myValue">Ein Text</p>
+
+	<!-- Langform -->
+	<ng-template [ngIf]="myValue">
+		<p>Ein Text</p>
+	</ng-template>
+	
+	Jedes Element besitzt ein Container View <ng-template> darauf Zugriff Mit ViewContainerRef, worin der Template eingebettet ist, darauf Zugriff mit TemplateRef. (<p>)
+	
+ATTRIBUTE DIRECTIVE:
+
+STYLE
+Style-Attibute setzen:
+
+[style.color]="getMyColor()": setzt man nur ein einziger Property mit standard property binding.  
+[style.max-width.px]="120": glecihe vie oben nur mit unit auch spezifiziert.
+[ngStyle]="map": setzt man mehrere  Style-Properties gleichzeitig, Direktive
+
+CLASS
+Class-Attribute setzen:
+ [class]="myRedClass": dieses setzt ein einziger Class und überschreibt dabei alle existierende class Definitionen
+ [class.bg-warning]="editing": setzt nur der angegebene class property nachdem der Ausdruck ausgewertet wurde. ( wenn rRückgabewert false ist dann wird style überhaupt nicht angewendet)
+ [ngClass]="map": setzt man mehrere CSS-Klassen mit einem map Objekt, Direktive	
+
+######################################################################################################################################################################################
+
+https://www.tektutorialshub.com/angular/angular-dependency-injection/
+https://www.tektutorialshub.com/angular/how-dependency-injection-resolution-works-in-angular/
+
+Angular DI Framework:
+	CONSUMER: der. die Abhängigkeit deklariert.
+	
+	DEPENDENCY: das Service, das wir als Abhängigkeit verwenden.
+	
+	PROVIDER: Bauanleitung nennt man Provider.mit diesen registrieren wir Dependencies (Klasse, Funktion, Werte), Providers sind durch TOKEN registriert, es beschreibt
+			wie ein Object für den Token erstellt wird.	(Bauplan , Token = Identifizierung eines Bauplans, dieses ist der Kontruktorparameter)
+			
+			Damit DI über Konstrukor funktioniert,  muss angular wissen welche Klassen zur Verfügung stehen. Es soll ein Bauanletiung geben, wonach DI ein Instanz erzeugt, diese 
+			
+			Configuring Providers:
+				
+				providers: [ProductService] ist Kurzform für: providers :[{ provide: ProductService, useClass: ProductService }] wobei provide is der Token 
+						   (Injector verwendet es um ein Provider in der providers array zu finden).
+				
+			provide: (=Konstruktor-Parameter)
+				Typen von Tone:type, string , InjectionToken.
+				- type: oben
+				- string Token:	
+									{provide:'PRODUCT_SERVICE', useClass: ProductService }, 
+									{provide:'USE_FAKE', useValue: true },   
+									{provide:'APIURL', useValue: 'http://SomeEndPoint.com/api' },  
+								Verwendung:  constructor(@Inject('PRODUCTSERVICE') private prdService:ProductService
+				- InjectionToken: zum Vermeiden dass 2 Entwickler die gleiche Token verwendet.			
+*
+			provider: 
+			-	Class Provider : useClass = wenn Abhängigkeit ein Klasse ist.
+			-	Value Provider: useValue = wenn es ein einfacher Wert ist.
+				zB: providers :[ {provide:'USE_FAKE', useValue: true}] ->  constructor(  @Inject('USE_FAKE') public useFake: string
+				sogar Funktion kann auch angegeben werden.
+			-	Factory Provider: useFactory -> den Rückgabewert einer Funktion, zB. anhängig von einem Wert sollen wir entweder servce1 oder srvice2 Verwenden.
+			-	Aliased Class Provider: useExisting -> Verwendung von einen alten Provider anstelle eines neuen.				
+				
+	INJECTOR: instanziert eine Abhängigkeit und injiziert sie in das Service/Komponent. 
+			  Injector verwendet das Token, den wir als Konstruktor-Parameter deklarieren, um ein Provider zu  indentifizieren, was eigentlich eine Verkopplung von Token zu einer
+			  Abhängigkeit ist. Das Injector muss aber wissen, welche Klasse instanziert werden muss für diese Abhängigkeit.
+			  
+
+https://www.tektutorialshub.com/angular/how-dependency-injection-resolution-works-in-angular/
+	Auflösung der Abhängigkeit: (= der Instanz einer Abhängigkeit ist auf dem level wo das Provider registriert ist = das ist der scope der Service, innerhalb ser Komponent/Module
+			Baumes)
+			  Injector sucht mit diesem Token (=Konstruktor-Parameter) nach einem Provider in der provider array (wir sprechen hier über Provider, weil wir registrieren
+			  dependecies mit providers  in der module/directive/component). Findet ein Provider, dann schauet es nach ob ein Instanz der Abhängigkeit schon vorhanden ist.
+			  Wenn existiert dann injiziert es diesen Instanz in das  Komponent, wenn noch nicht dann erstellt eines und injiziert es danach. 
+			  			  
+			Wenn kein passender Provider gefunden wird, dann wird die Suche in den Parent Injectors weitergehen. wird dann das Provider gefunden, dann wird dem Provider dem 
+			ursprünglichen Injector gegeben . Wird kein Provider gefunden, dann geht die Suche in der ModuleBaum weiter (erst in seinem eigenem Module).
+			Wird überhaupt kein Provider gefunden, so wird ein	"No provider for service" error geworfen. Markieren wir die Konstruktor-Parameter mit @Optional() 
+			dann wird kein error geworfen sondern bekommt man null (und können wir mit ? schergehen). Injectoren werden zerstört, wenn Angular Module/Directive etc. entfernt.
+			
+			Wenn zB ich 2 Kompoenente habe, die die gleiche Abhängigkeit teilen sollte , dann könnte ich es auf parent Kompoenent level registrieren.
+
+Services sind singletons nur innerhalb der scope wo sie registriert sind.
+
+"Singleton" nennen wir ein Service, wenn es nur ein einziges Instanz in der ganzen app gibt. Wir folgendermaßen erstellt:
+	-	Verwendung von "root" Option in der providedIn Property: dieses mach singleton unabhängig von eagerly/lazy loaded modules. preferred way
+	-	Deklarieren in der Provider array des @NgModule, ist es root oder eagerly loaded module, dann wird es ein Anwendung-Singleton.
+		Ist es jedoch ein lazy loaded module, dann ist der Service nur innerhalb dieses Module verfügbar, nicht aber außerhalb.
+	(richtigen app-wide Singleton deklarieren wir in Modules nicht in Elementen(Komponente etc))
+	,
+	providedIn=any:  lazy modules haben ihre eigene Insatnz; gäben wir "root" an , würde das heißen,
+	das lazy loaded modules auch würden mit den gleichen service Instanz arbeiten-> wir wollen aber ein neues Instanz für je lazy module haben; das ermöglicht "any".
+	(ist es ein eagerly module, dann hat es keinen Effekt, weil sie immer den gleichen Instanz mit dem root module teilen)
+	providedIn=platfrom . gleiche Insatnz wird in allen Applikation verteilt.
+
+	
+Angular erstellt jeweils einen Instanz von Injector und dazu jeweils ein Provider für alle Componente/Directive, rootModule,  für alle lazy loaded Modules.
+Aber nicht für eagerly loaded Module, sie teilen die Injector mit dem  des rootModules . Angular erstellt damit ein Baum von Injector als parent-child Beziehung. 
+Die Dependencies registrieren wir mit den Providers in der providers: [] metadata des Injectors.
+
+Angular kreiert 2 Injector_Baume: ModuleInjector Baum und Element Injector Baum( für Komponente, Direktive etc.)
+Wenn die Anwendung startet, Angular ladet das root Module und erstellt ein RootModule Injector dafür und macht es ein Teil des ModuleInjector Baumes. Root module ladet die 
+AppComponent, die ihr eigenes Injector bekommt. Dieses wird das root des ElementInjector Baumes. Alle andere Komponente gehören unter diese root component an, mit all ihren eigenen
+child komponenten. Dabei erstellt Angular jeweils ein Injector für diue jeweilige Komponente/Directive etc, den Baumsrtruktur des Komponenten nachahmned. Alle Abhängigkeiten werden mit
+Providers registriert; jeder injector hat ein Provider (= providers meatdata in den @NgModule, @Component, @ Directive). 
+
+Wo man die Abhängigkeit registriert, bestimmt das scope derer. zB:
+- Abhängigkeit registriert mit dem RootModule ist angehängt an das root provider (=provider des root modules, verfügbar überall). Abhängigkeit registriert in einem feature
+Module ist verfügbar in disem Module und in den Kindermodulen.
+- Abhängigkeit registriert mit der Kompoenente ist angehängt an das Komponent provider und ist verfügbar für diese Komponente , plus ihre child-Komponente.
+
+Auflösung der Abhaengigkeiten einer Komponent:
+Angular versucht den Instanz der Abhängigkeit erst der Injector der jeweiligen komponente finden. Wenn es nicht findet, dann geht es eine level oben und sucht den Instanz
+in der Injector der Eltern-Komponente. Findet es nicht einmal in der Rootkomponent's Injector, dann wechselt es auf das Modulinjector Hierarchie und versucht es dort zu finden.
+@Self() Dekorator instruirt den Angular, dass es nur in der Lokalinjector sucht. @SkipSelf instruiert um in der Eltern oder oberhalb zu suchen. Diese sind 
+Konstruktor-Parameter Dekoratoren.
+
+ 
+######################################################################################################################################################################################
+
+Angular CLI: aufgerufen mit "ng" keyword, installiert mit npm install -g @angular/cli@latest
+Wenn man diese Kommandos im root Verzeichnis durchführt.
+
+generate (g) Kommando:
+-	ng g component Hello: macht folgendes:
+		-	Erstellt Hello Mappe unter dem src/app.
+		-	Erstellt HelloÍComponent mit css, spec und template Dateien unter der Hello Verzeichnis.
+		-	Importiert HelloComponent in das root Module und gibt es zu "declaration" array
+		-	CSS selector verwendet die Format app-<name>. i.e app-hello
+	Mit den Optionen:
+			--flat:  Hello Verzeichnis wird nicht erstellt, nur unter dem src/app
+			--flat idebe/hello: erstellt Komponent unter dem idebe Verzeichnis
+			--prefix=myapp hello: css selector wird myapp-hello anstatt app-hello
+			--selector=igen --force hello: gibt selector Name nur "igen" ohne prefix
+			--module=book: registriert Komponent in dem book Module(ng g component --module=book --flat idebe/Hello -> erstellt ein K. in dem idebe Verzeichnis und 
+																	registriert es in dem book Module)
+		ng g module	hello --routing=true: generiert Hello Module und dazu ein noch das hello-routing.module.ts und registriert es mit forChild(routes)
+		
+			
 
 	
 
