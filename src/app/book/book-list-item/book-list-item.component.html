@@ -1,4 +1,4 @@
-<div class=" p-p-1" [ngStyle]="bookStyleMap">
+<div class=" p-p-1" [ngStyle]="bookStyleMap" higlightBook>
     
   <h5 [style.text-decoration]="'underline'">{{book.title | titlecase}}</h5>
 
@@ -16,10 +16,11 @@
         <br/>
         <br/>
        
-        <!--content projection, wobei das select attribute das vom host projezierte content definiert, hier gibt man an, was wohin projezirt wird -->
+        <!--content projection, wobei das select attribute das vom host projezierte content definiert, hier gibt man an,
+             was wohin projezirt wird -->
         
         <ng-content select="h4"></ng-content>
-        <ng-content select=".imgDiv"></ng-content>
+        <ng-content select="imgDiv"></ng-content>
         <ng-content select=".book-description"></ng-content>
 
         <ng-container [ngSwitch]="book.level">

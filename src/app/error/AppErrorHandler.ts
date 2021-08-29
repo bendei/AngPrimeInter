@@ -11,6 +11,8 @@ export class AppErrorHandler implements ErrorHandler {
     }
 
     handleError(error: Error): void {
+        // loggiert zurück an das server
+
         this.errortransferService.clearAll();
         this.errortransferService.setMessage(error.message);
         this.errortransferService.setName(error.name);

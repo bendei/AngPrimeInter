@@ -40,9 +40,9 @@
 
             <div>ez is content projection de selector nélküli</div>
 
-            <div class="imgDiv" title="content-projection with <ng-content>">
+            <imgDiv title="content-projection with <ng-content>">
                 <img width="100" *ngIf="item.thumbnails else noImage " [src]="item.thumbnails[0].url" loading="lazy">
-            </div>
+            </imgDiv>
 
             <!-- by default nem visible a ng-template, csak ha mashonnan hasznaljuk. Hat Zugriff auf die Variablen der ausseren Kontext,
             und kann man es bei ihrem template reference erreichen von ngIf directive  -->

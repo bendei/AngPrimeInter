@@ -7,6 +7,5 @@ import { StoreGuard } from './store.guard';
 @NgModule({
   imports: [SharedModule],
   declarations: [AuthComponent],
-  providers: [AuthService, StoreGuard]
 })
 export class AuthenticationModule { }

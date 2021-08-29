@@ -50,10 +50,12 @@ export class BookListComponent implements OnInit, AfterViewInit {
     this.child.increment();
   }
 
+  // unbehandeltes Error wird von unserem ErrorHandler Klasse empfangen
   throwError1(): void {
     this.createError();
   }
 
+  // wir behandeln hier das Error
   throwError2(): void {
     try {
       this.createError();

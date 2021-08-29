@@ -57,7 +57,8 @@ registerLocaleData(localeRu, 'ru');
     LoggerModule.forRoot({serverLoggingUrl: 'http://localhost:3500/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
   ],
   providers: [StoreGuard, ErrortransferService,
-    {provide: ErrorHandler, useClass: AppErrorHandler},  // custom error handling
+    {provide: ErrorHandler, useClass: AppErrorHandler},  // custom error handling, eigentlich überschreiben wir hier das Angular's default
+    //error handler für nicht behandlelte Errors 
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}, // token interceptior
     {provide: HTTP_INTERCEPTORS, useClass: GlobalhttpinterceptorService, multi: true} 
      
