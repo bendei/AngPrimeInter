@@ -1,0 +1,42 @@
+Angula  app telepitése IIS-re:
+
+https://www.c-sharpcorner.com/article/deply-of-a-angular-application-on-iis/
+https://indepth.dev/posts/1239/deploy-an-angular-application-to-iis
+http://sundeepkamath.in/posts/hosting-angular-application-in-iis-server/
+https://angular.io/guide/deployment
+
+
+A default webapp a iistart.html és iistart.png a webrootban, ha ezek megvannak akkor a telnet localhost 80 sikeres, ha töröljük akkor sikertelen,
+mert nincsen a port mögött semmi. Az IIS Management consoleban a 
+
+
+Az IIS a C:\inetpub\wwwroot mappában lévő webapokat futtaja
+
+1. ng build --configuration production 
+2. c:\inetpub\webroot mappábam létrehozunk egy külön mappát a webapp tartalmának = AngPrime és ebbe másoljuk át a ang application teljes tartalmát.
+2. x. A windows keresőbe beírjuk a IIS-t és megnyitjuk a IIS management consolet
+3. Az IIS management consoljában:
+	1.	Right click on the Sites / Helyek: Add web sites / Webhely hozzáadása
+		Site name: pistisite
+		Fizikai elérési út: AngPrime
+		Kötés / Binding: Tipus: https, IP cím: összes ki nem osztott vagy esetleg amit felkínál
+		Port: 80
+		Állomásnév / hostname: 
+	2. Klikk a pistisiten: Alkalmazás hozzáadása ->
+		Alias: pisti
+		Alkalmazáskészlet / Application pool: pistisite
+		Fizikai elérési út / Physical path: AngPrime
+	
+Teszteljük a IIS Management consolban: jobb oldali sávban: Böngészés :80 port.
+
+Lehetséges hibák:
+
+1. A webapp html oldalán ez jelenik meg: HTTP Error 401.3 - Unauthorized
+You do not have permission to view this directory or page because of the access control list (ACL) configuration or encryption settings for this resource on the Web server.
+
+Megoldása: management consolon a bal oldalon: 
+	1.	jobb klikk pistisiten: Hitelesités / Authentication iconra duplaklikk -> Névtelen hitelesítés / Anonymus auth kiválaszt -> jobb klikk és a alkalmazáskészlet identitása radiot
+		kiválasztjuk
+
+2.a Ha nem engedi a webroot-ba másolni, akkor fájlkezelőben jobb egér a webroot-on. Hozzáférés megadása -> adott személyek -> IIS_IUSR: Irás/Olvasás
+

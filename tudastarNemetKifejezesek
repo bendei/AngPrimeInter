@@ -1,0 +1,119 @@
+im Browser lauffähig
+in JavaScript umgewandelt
+zur Entwick- Typisierung
+lungszeit erkannt
+automatische Vervollständigung
+if-Verzweigung
+for-Schleife
+Objekte und Arrays destrukturieren
+Wenn wir einzelne Eigenschaften eines Objekts extrahieren und in Object Destructuring Variablen schreiben möchten, so müssen wir die Variablen zuerst anlegen
+	und dann mit den Werten aus dem Objekt befüllen
+Daten abzurufen, hinzuzufügen
+eventgetriebenen Aufgabe
+benutzerdefinierten
+Dieses Observable müssen wir immer dort auflösen, wo wir die Daten benötigen. Dieser Ort ist nicht der Service, sondern die Komponente
+architektonische Entscheidung
+Konfigurationsdatei
+Wir weisen das Objekt einer neuen Variable copy zu und ändern die Eigenschaft year
+Der Operator map() transformiert die Werte eines Datenstroms, indem eine Funktion auf jedes Element angewendet wird
+greifen auf ein Ressource zu
+das Observable abbonieren
+aussen Werte - külső értékek
+wird nur ein einziger HTTP_Request ausgeführt
+Subscriptions abbmelden
+Komponent aufrufen/beenden
+Interface einbinden - mikor az osztány neve mellet az interfészt használatát deklaráljuk
+etwas auf der COnsole ausgeben
+Fehler behandeln
+Alle Elemente einer Liste auf ein Ergebnis reduzieren
+das Komponent einbinden
+ein Interceptor für alle HTTP-Abfragen und -Antworten ausgeführt wird und damit an globaler Stelle Entscheidungen und Umwandlungen vornehmen kann.
+eine Instanz 
+anhand dessen wir das Feld später identifizieren
+s Formular
+Bestandteile einer Komponent werden gerendert
+an eine Bedingung geknüpft
+Ausdruck = expression
+Um CSS-Klassen auf ein Element anzuwenden
+Daten an Komponenten übermitteln
+Listenansicht
+anderem Daten in eine Komponente hineingeben und dort verarbeiten
+e Komponente(n)
+eine Komponente an ein DOM-Element binden ( amikor a <book-list> et definiálunk a BookListComponent template decorator propertijében)
+in dieser Komponente das Event fooEvent triggern und aus der Komponente herausgeben
+im Gültigkeitsbereich des Fensters
+beim Laden der Anwendung
+Zustaende in einem Enum ablegen
+Im Template der AppComponent binden wir nun die beiden Kindkomponenten ein
+Im Template der Buchliste fügen wir ein Event Binding für den Klick auf ein Buch hinzu
+Aenderts sich die Daten (Product[], wird das Binding automatisch aktualisiert
+Typeparameter in siptem Klammr : get<Products[]>
+r Typ
+eine Regel brechen
+d Methode 
+wechselbare Ansichten
+wartbar
+Befehle ausführen
+unterteilen die Bestandteile einer ANwendung: egy app részeit 
+Die Metadaten werden mit dem Decorator @NgModule() an die Klasse angehängt
+Damit die Typen verfügbar sind, müssen sie vorher importiert werden.
+Stagnation
+ein Service in der Anwendung bekannt gemacht werden kann
+»Einrücken mit Leerzeichen oder Tab?«
+Eine Funktion oder Klasse, die eine Funktionalität für eine andere Funktion oder Klasse bereitstellt, wollen wir als »Service« bezeichnen
+Zugriffsmodifizierer - access modifier
+zugehörige Property automatisch angelegt und zugewiesen
+Jede Komponente muss in einem Modul unter declarations eingetragen werden, damit sie verwendet werden kann
+Abhaenigkeit : dependency
+Damit die Komponenten den Service über den Konstruktor anfordern können
+boolescher Wert
+Wir weisen einem URL-Pfad eine zu ladende Komponente zu.
+Wir binden das Routing in unsere Anwendung ein.
+spezischeren Routen stets über den allgemeineren stehen
+die aufgerufene URL
+Dateisystem : fájlrendszer
+in der URL Werte übergeben
+innerhalb dieser Komponente den übergebenen Parameter abrufen und verarbeiten
+logische Bereiche mit Unterseiten und Untermenüs
+relativer Pfad
+der Schalter --routing
+sie unterteilen die Bestandteile einer Anwendung
+Routendefinitionen : const routes: Routes = [
+in unsere neuen Module verschoben
+im Module deklarieren
+vom server abrufen
+vom Server geladen, wenn eine der Routen angefragt wird
+Seitenleiste
+ein Interceptor für alle HTTP-Abfragen und -Antworten ausgeführt wird und damit an globaler Stelle Entscheidungen und Umwandlungen vornehmen kann. Mithilfe von Interceptoren können wir zum
+	Beispiel zusätzliche HTTP-Header setzen oder Funktionen ausführen, ohne sie für jeden HTTP-Aufruf separat implementieren zu müssen
+Diese FormGroup legen wir in einem Property der Komponentenklasse ab.
+Änderungen an den Formularwerten überwachen und mit Aktionen darauf reagieren.
+r Code
+legen wir das Modell mit leeren Startwerten an
+binden die Methoden an das click-Event
+Eigenschaft - property
+s Kommando - command
+Bauen - build
+greifen wir über den Klassennamen auf die statische Methode zu
+Anwendung bauen
+Die Fehlermeldung klärt uns über das Dilemma auf
+produktive Konfigurationen
+das Kompilat tatsächlich mehrfach in verschiedenen Verzeichnissen abspeichern und z. B. über unterschiedliche Domains oder unterschiedliche öffentliche Verzeichnisse anbieten
+in der ViewChild zumZugriff Komponentenklasse Zugriff auf diese Elementreferenz
+gerenderte View
+ Ich bekomme es nicht hin, dass das dort irgenderwas drin steht. Egyszerűen nem jutok el ódáig, hogy megjelenjem ott valami.
+standardmaessig - by default
+das Element
+e Referenz
+by default = standarmä$ig
+Gleichheitszeichen egyenlőségjel
+
+
+
+
+
+
+
+ 
+
+
