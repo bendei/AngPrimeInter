@@ -40,8 +40,6 @@ export class BookDetailsComponent implements OnInit {
   modes: Modes = Modes.create;
   bookForm: FormGroup;
 
-  
-
   // autocomplete
   searchText: string;
   searchResults: string[];

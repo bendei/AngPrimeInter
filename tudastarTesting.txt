@@ -12,6 +12,46 @@
  az angol Angular könyvben 253 oldal
  https://www.w3schools.com/cssref/css_selectors.asp
 
+Die Angular CLI hat bereits Jasmine installiert und konfiguriert. Jasmine hat eine Syntax im Stil des Behavior Driven Development
+(BDD). Man schreibt dabei Tests in natürlicher Sprache auf. Dies geschieht durch einfache Strings. 
+
+Jasmin stellt folgende Methoden zu Verfügung:
+- describe: definiert eine Sammlung von Spezifikationen ( es ist ein Test Suite). Diese Methode ist ein außere Methode, erste Argumnent
+            beschreibt mit Worten was getestet wird ( Komponent name tc), 2. Argumnent ist eine Funktion die alle spec ( Tests)
+            beinhaltet. 
+- it: es ist die Spezifikation (=Test), 1. Argumnent ist eine kurze Beschreibung der Spezifikation, 2. Arg ist eine Funktion, die 
+      die Spezifikation selbst implementiert. Hat immer ein oder mehrere Bedingungen expect()die geprüft werden. 
+- expect: 
+- afterEach / beforeEach: wird nach / vor jeder Spezifikation ausgeführt.
+- afterAll / beforeAll: wird nur einaml vor / nach allen Spezifikationen ausgeführt.
+
+Diese tests werden im Test-Runner Karma ausgeführt. Karma führt die Unit Test aus, verwendet dafür ein Browser und einen eigenen Webserver. 
+
+TestBed: wenn component hat Abhängigkeiten, oder der View sollte auch im Testen mitbezogen.
+TestBed.configureTestingModule empfängt ein Konfigurationsobjekt mit declarations, imports, providers property Metadatas
+TestBed emuliert NgModule ( AppModule), über das wir die Umgebung konfigurieren und inizialisieren. 
+  TestBed.configureTestingModule({
+            declarations: [BookDetailsComponent], 
+            imports: [ReactiveFormsModule, SharedModule],
+            providers: ...
+              })
+        .compileComponents().then( () => {
+            fixture = TestBed.createComponent(BookDetailsComponent);
+            el = fixture.debugElement;
+            component = fixture.componentInstance;
+            ds = TestBed.inject(RestDataSource);
+            activatedRoute = TestBed.inject(ActivatedRoute);
+            router = TestBed.inject(Router);
+            loggerSpy = TestBed.inject(NGXLogger);
+            formBuilder = TestBed.inject(FormBuilder);
+    
+            component.ngOnInit();
+        });
+
+ beforeEach(waitForAsync(() ... Mithilfe von async() erstellen wir eine Zone, die mit der Ausführung des nächsten Blocks so lange wartet, bis alle asynchronen Aufgaben der Zone abgeschlossen sind.
+  Dies ist sehr hilfreich, um Tests mit asynchronem Code übersichtlicher zu gestalten. Im konkreten Fall benötigt compileComponents() ein wenig Zeit, um die Komponenten bereitzustellen, 
+  was dank async() aber kaum auffällt
+  
 
  https://angular.io/guide/testing-components-scenarios
  https://www.portiva.nl/portiblog/blogs-cat/3-levels-of-css-selectors-to-select-all-elements

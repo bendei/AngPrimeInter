@@ -30,23 +30,23 @@ describe('BookDetails component', () => {   // inline function
     let el: DebugElement;
 
     const countries = ["Afghanistan","Andorra","Alabama","Belgium","Bhutan","Belaruss"];
-    const mybook: Book =   {   id: '3333', 
-    isbn: '3333', 
-    title: "React 3", 
-    authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
-    subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
-    thumbnails: [{
-        url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
-    description: 'Das bewährte und umfassende Praxisbuch zu React',
-    genres: ['IT', 'Programming', 'Docker'],
-    ebook: true,
-    printed: false,
-    availability: 'Available',
-    level: 'Beginner',
-    sellers: [
-        {name: 'Bende seller', address: 'sáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
-        {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
-        ],
+    const mybook: Book =   {    id: '3333', 
+                                isbn: '3333', 
+                                title: "React 3", 
+                                authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
+                                subtitle: 'Grundlagen, fortgeschrittene Themen, Praxistipps', rating: 4,
+                                thumbnails: [{
+                                    url: 'https://ng-buch.de/react-cover.jpg', title: 'Buchcover' }],
+                                description: 'Das bewährte und umfassende Praxisbuch zu React',
+                                genres: ['IT', 'Programming', 'Docker'],
+                                ebook: true,
+                                printed: false,
+                                availability: 'Available',
+                                level: 'Beginner',
+                                sellers: [
+                                    {name: 'Bende seller', address: 'sáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
+                                    {name: 'Sasform Agrotechnika Kft.', address: 'Felsőszéktó 86', quantity: 12000, age: 40, birthYear: 1981}
+                                    ],
   };
 
     beforeEach(waitForAsync(() => {
