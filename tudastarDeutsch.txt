@@ -421,13 +421,19 @@ ASYNCPIPE: damit können wir Werte aus einem Observable oder Promise (wird nicht
  der Klasse, sodass wir aus dem Template darauf zugreifen können. (im Normalfall wird haben wir keine Property von Observable type, sondern eine Property für dieDen Rest erledigt die
  erhaltene Werten.  Pipe für uns: Sie erstellt eine Subscription und liefert die empfangenen Werte direkt
  ins Template. Wird mehrmals  in der Template verwendet so wird erneuet ein Request gesendet ( wenn man nicht share() Operator verwendet)
- books$: Observable<Book[]>; ngOnInit() { this.books$ = this.repo.getBooks();..
- im Template: *ngIf="books$ | async as books; else loadingBooks"
 
+ 
+ let books$: Observable<Book[]>; 
+ 
+ ngOnInit() { 
+	this.books$ = this.repo.getBooks();	// subscribe nicht notwendig
+	}
+	
+ im Template: *ngIf="books$ | async as books; else loadingBooks"
+ 
 EIGENE PIPES ENTWICKELN: Eine Pipe besteht im Wesentlichen aus einer Klasse mit nur einer Methode transform(). Diese Methode nimmt einen Wert value und optional eine beliebige 
 Anzahl Argumente entgegen und liefert den transformierten Wert zurück. Man sollte das Interface PipeTransform verwendet werden. Soll die Pipe eine unbestimmte Zahl von Argumenten erhalten, ist es
 allerdings unmöglich, die Methodensignatur genau anzugeben: Rest-Syntax -> transform(value: unknown, ...args: unknown[]): unknown
-	
 
 #######################################################################################################################################################################################	
 

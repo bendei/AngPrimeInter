@@ -33,8 +33,8 @@ export class BookListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //setTimeout( () => {this.repo.getBooks().subscribe(data => this.books = data)}, 1400);
     // this.repo.getBooks().subscribe(data => this.books = data);
-    this.books$ = this.ds.getBooks().pipe(share());
-    this.books$.subscribe(x => this.thereAreBooks = true);
+    this.books$ = this.ds.getBooks();//.pipe(share());
+   // this.books$.subscribe(x => this.thereAreBooks = true);
   }
       
   ngAfterViewInit() {
