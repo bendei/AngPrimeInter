@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
 import { BookFactory } from '../shared/BookFactory';
 
-const mybook: Book =   {   id: '3333', 
+const mybook: Book =   {   id: 3333, 
   isbn: '3333', 
   title: "React 3", 
   authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -70,8 +70,8 @@ export class BookDetailsComponent implements OnInit {
         //   this.initForm(datas[0]);
         // });        
 
-       let mybookObs: Observable<Book> = of(mybook).pipe(  retry(3), map(book => BookFactory.convertBook(book)));
-        mybookObs.subscribe(data =>  this.initForm(data));
+         let mybookObs: Observable<Book> = of(mybook).pipe(  retry(3), map(book => BookFactory.convertBook(book)));
+         mybookObs.subscribe(data =>  this.initForm(data));
       }  else {
         this.initForm();
       }

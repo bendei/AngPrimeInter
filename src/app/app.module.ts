@@ -35,6 +35,8 @@ import { GlobalhttpinterceptorService } from "../app/shared/globalhttpintercepto
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { SharedModule } from './shared/shared.module';
 import { ErrortransferService } from "./error/errortransfer.service";
+import { GyakorlasComponent } from './gyakorlas/gyakorlas.component';
+import { ResponsereadernterceptorService } from "../app/shared/responsereaderinterceptor.service";
 
 // pipes
 
@@ -47,7 +49,8 @@ registerLocaleData(localeRu, 'ru');
   declarations: [
     AppComponent,
     HomeComponent,
-    ErrorComponent
+    ErrorComponent,
+    GyakorlasComponent
   ],
   imports: [
     BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,
@@ -60,7 +63,8 @@ registerLocaleData(localeRu, 'ru');
     {provide: ErrorHandler, useClass: AppErrorHandler},  // custom error handling, eigentlich überschreiben wir hier das Angular's default
     //error handler für nicht behandlelte Errors 
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}, // token interceptior
-    {provide: HTTP_INTERCEPTORS, useClass: GlobalhttpinterceptorService, multi: true} 
+    {provide: HTTP_INTERCEPTORS, useClass: GlobalhttpinterceptorService, multi: true} ,
+   // {provide: HTTP_INTERCEPTORS, useClass: ResponsereadernterceptorService, multi: true}
      
     ],
   bootstrap: [AppComponent]

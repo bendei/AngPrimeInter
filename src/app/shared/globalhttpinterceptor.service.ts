@@ -31,6 +31,10 @@ export class GlobalhttpinterceptorService implements HttpInterceptor {
               this.router.navigateByUrl("/error");
               handled = true;
               break;
+            case 303:     
+            
+              handled = true;
+              break;
             default: 
             this.setErrorDetails(error);
               this.router.navigateByUrl("/error");

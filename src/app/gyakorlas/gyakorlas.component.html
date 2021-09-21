@@ -1,0 +1,33 @@
+<p>gyakorlas works!</p>
+
+<button pButton type="button" class="p-button-outlined p-mr-1" id="putBook"  [style.max-width.px]="180"  (click)="putBook()" translate>
+    Küldj el egy PUT Book-ot
+</button>
+
+<div #responseFromPutBook></div>
+
+<form [formGroup]="bookForm2" novalidate (ngSubmit)="submitForm()">  <!--a form elemet kivulre kell rakrni kulonben nem lesz correct a form layout !! -->
+    <div class="p-fluid p-formgrid p-grid p-ml-2 p-mr-2">
+       
+        <div class="p-field p-col-6">
+            <label translate>book-details.id</label>
+            <input pInputText  class="form-control" formControlName="id" type="number" #idInput>
+        </div>
+
+        <div class="p-field p-col-6">
+            <label translate>book-details.title</label>
+            <input pInputText  class="form-control" formControlName="title">
+        </div>
+
+        <div class="p-field p-col-6">
+            <label translate>book-details.isbn</label>
+            <input pInputText  class="form-control" formControlName="isbn">
+        </div>
+
+        <div class="p-field p-col-6">
+            <label translate>book-details.rating</label>
+            <input pInputText  class="form-control" formControlName="rating" type="number">
+        </div>
+
+    </div>
+</form>

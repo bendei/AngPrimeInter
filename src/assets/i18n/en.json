@@ -27,6 +27,7 @@
     "book-details.available": "Available",
     "book-details.notavailable": "Not available",
     "book-details.preordered": "Preordered",
+    "book-details.id": "id",
 
     "book-list.create_book": "Create new book",
     "book-list.click_on_viewchild": "Click on this to increment counter on child-component using ViewChild",
@@ -77,6 +78,7 @@
     "menu.input_output": "Input output",
     "menu.nyomonkovetes": "Followups",
     "menu.search": "Search",
+    "menu.gyakorlas": "Practicing",
 
     "error.required_length": "Required length:",
 

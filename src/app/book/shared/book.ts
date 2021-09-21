@@ -1,11 +1,11 @@
 import { Thumbnail } from "./thumbnail";
 
 export interface Book {
-    id: string;
+    id?: number;
     isbn: string;
     title: string;
-    authors: string[];
-    sellers: BookSeller[];
+    authors?: string[];
+    sellers?: BookSeller[];
     published?: Date;
     publishedDate?: Date;
     publishedTime?: Date;
@@ -14,11 +14,12 @@ export interface Book {
     thumbnails?: Thumbnail[];
     description?: string;
     city?: string;
-    genres: string[];
+    genres?: string[];
     ebook?: boolean;
     printed?: boolean;
     availability?: string;
     level?: string;
+    pageSize?: number;
 }
 
 export interface BookSeller {

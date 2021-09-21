@@ -1,7 +1,7 @@
 
 export const TESTBOOKS: any =   {  
     '34324233': {
-                id: '34324233', 
+                id: 34324233, 
                 isbn: '34324233', 
                 sellers: [
                     {name: 'Bende seller', address: 'sáky u 7a', quantity: 33000, age: 49, birthYear: 1972},
@@ -19,7 +19,7 @@ export const TESTBOOKS: any =   {
                 availability: 'Available'
     },
     '554543654': {
-        id: '554543654', 
+        id: 554543654, 
         isbn: '554543654', 
         title: "React", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -33,7 +33,7 @@ export const TESTBOOKS: any =   {
         availability: 'Available'
     },
     '1111': {
-        id: '1111', 
+        id: 1111, 
         isbn: '1111', 
         title: "React 1", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -47,7 +47,7 @@ export const TESTBOOKS: any =   {
         availability: 'Available'
     },
     '2222': {
-        id: '2222', 
+        id: 2222, 
         isbn: '2222', 
         title: "React 2", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -61,7 +61,7 @@ export const TESTBOOKS: any =   {
         availability: 'Available'
         },
     '3333': { 
-        id: '3333', 
+        id: 3333, 
         isbn: '3333', 
         title: "React 3", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -75,7 +75,7 @@ export const TESTBOOKS: any =   {
         availability: 'Available'
         },
     '4444':{
-        id: '4444', 
+        id: 4444, 
         isbn: '4444', 
         title: "React 4", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -90,7 +90,7 @@ export const TESTBOOKS: any =   {
         },
     '5555':
     {   
-        id: '5555', 
+        id: 5555, 
         isbn: '5555', 
         title: "React 5", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -105,7 +105,7 @@ export const TESTBOOKS: any =   {
         },
     '6666':
     {
-       id: '6666', 
+       id: 6666, 
         isbn: '6666', 
         title: "React 6", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -120,7 +120,7 @@ export const TESTBOOKS: any =   {
         },
     '7777':
     {
-        id: '7777', 
+        id: 7777, 
         isbn: '7777', 
         title: "React 7", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -135,7 +135,7 @@ export const TESTBOOKS: any =   {
         },
     '8888':
     {
-        id: '8888', 
+        id: 8888, 
         isbn: '8888', 
         title: "React 8", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
@@ -150,7 +150,7 @@ export const TESTBOOKS: any =   {
         },
     '9999':
     {
-        id: '9999', 
+        id: 9999, 
         isbn: '9999', 
         title: "React 9", 
         authors: ['Oliver Zeigermann', 'Nils Hartmann'], 
