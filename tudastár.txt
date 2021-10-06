@@ -161,7 +161,7 @@ Vadi új projektet hozunk létre és azt tesszük fel a remote github-ra.
 3.	git inicializálása: git init, git config --global user.name "Bende István", git config --global user.email
 4.	VS Codeban: remote hozzáadása: https://github.com/bendei/hero.git, nve legyen: remotehero
 
-
+Ez egy próba commit a githubról direkt
 
 
 
