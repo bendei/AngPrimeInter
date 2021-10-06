@@ -8,7 +8,34 @@
 	vim editor: 
 		quit vim - :q
 		save and quit - :wq
-		
+
+
+0.	Comparing 2 branches: git diff main mindenfele
+
+0.A.
+	
+	git pull
+
+0.B. Rebasing: 
+	A rebase is what you do when you combine a commit or series of commits to a new commit. It is similar to merging in that it moves changes from one branch to another.
+	Rebasing allows you to rewrite the history of a Git repository. When you run a rebase operation, it merges the entire history of two branches into one.
+
+	 "mindenfele" branch against "master" branch, azaz a master branch időközben az estelegesen remote originből pull-ozott változtatásait át akarom
+	venni a "mindenféle" feature branchembe, hogy amikor majd aztán a mrege-gel ne legyen nagyon eltávolodva a kétféle branch.
+
+	git pull 					// on master branch, we update our local master with the remote repo
+	git checkout mindenfele		// changing to feature branch
+	git rebase   				// Incorporating commits of master into feature branch, mergeing histroy of master into feature
+		options: 
+			-i : starts an interactive rebase
+			-continue: restart rebasing after merging confilcts
+			-abort: stop rebasing and reset HEAD to the original branch
+			upstream: branch against wo rebase our feature branch, by default the configured upstream of the curent branch
+
+	Sometimes following error comes: "There is no tracking information for the current branch":
+	upstream az main local branchem
+	Solution:
+				set up an up
 
 1.	 Egy üres foldert hozunk létre ahová a remote repo-t a gthubról le akarjuk húzni, majd ebbe a folderbe állva:
 		git init  -> inicializálja a git-et
