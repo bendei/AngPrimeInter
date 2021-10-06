@@ -1,3 +1,19 @@
+	Az Egit plugin nem tud alapból kapcsolódni a github accountomhoz, hiába adom meg neki a correktet:
+istvan_bende@yahoo.com	Patika72
+
+Megoldás: a github oldalán Personal Access Tokent generáltattam le és ezt használom az Eclipse-ben a password helyett:
+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
+
+1. account github
+personal Access Toke fr github: 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
+github:	istvan_bende@yahoo.com	/ pw= Patika72			 bendei72	
+
+2. account on github:
+bendeistvaneger@gmail.com username: egerke72	pw: Kakukk1972.
+personal access token: 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
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	
 	https://www.atlassian.com/git/tutorials/syncing/git-push
 	
 	jó kis cikkek: https://blog.angular-university.io
