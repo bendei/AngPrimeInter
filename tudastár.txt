@@ -28,16 +28,14 @@ personal access token: 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
 
 0.	Comparing 2 branches: git diff main mindenfele
 
-0.A.
-	
-	git pull
-
-0.B. Rebasing: 
+0.A. Rebasing: 
 	A rebase is what you do when you combine a commit or series of commits to a new commit. It is similar to merging in that it moves changes from one branch to another.
 	Rebasing allows you to rewrite the history of a Git repository. When you run a rebase operation, it merges the entire history of two branches into one.
 
 	 "mindenfele" branch against "master" branch, azaz a master branch időközben az estelegesen remote originből pull-ozott változtatásait át akarom
 	venni a "mindenféle" feature branchembe, hogy amikor majd aztán a mrege-gel ne legyen nagyon eltávolodva a kétféle branch.
+
+	git rebase master mindenfele
 
 	git pull 					// on master branch, we update our local master with the remote repo
 	git checkout mindenfele		// changing to feature branch
