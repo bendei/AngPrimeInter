@@ -75,8 +75,7 @@ export class GyakorlasComponent implements OnInit {
             this.setFormValues(y as Book);
           } else {
             this.bookForm2.reset();
-          }
-         
+          }         
         }
       );    
   }
@@ -91,7 +90,6 @@ export class GyakorlasComponent implements OnInit {
         isbn: [''],
         title: [''],
         pageSize: [''],
-     //   subtitle: [book?.subtitle],
         rating: [''],
       });
   }

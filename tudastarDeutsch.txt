@@ -358,7 +358,10 @@ durch ein FormControl repräsentiert. Eine Menge von FormControls in einem Objek
       id: [book?.isbn],
       isbn: [{value: book?.isbn, disabled: this.modes == Modes.edit}, Validators.minLength(3)], ...
 	Mit setValue() können wir die Werte des gesammten Formulars neu setzten. Mit patchValue() einzelne Felder: bookForm.patchValue({username: 'pisti'});
-	
+	we are also checking for the dirty & touched. Because we do not want the application to display the error when the form is displayed for the first time. 
+	dirty: A control is dirty if the user has changed the value in the UI.
+	touched: A control is touched if the user has triggered a blur event on it.
+
 	Jedes FormControl, FormGroup und FormArray besitzt dafür zwei besondere Propertys: valueChanges und statusChanges. Dahinter verstecken sich Observables, die sich immer dann melden, 
 wenn sich der Formularwert ändert (valueChanges) oder der Formularzustand (status-Changes). Wie jedes Observable können wir diese Änderungen abonnieren und weiterverarbeiten.
 ( this.myForm.valueChanges.subscribe(groupValue => console.log(groupValue)); )
@@ -517,6 +520,9 @@ ELEMENTREF: es ist ein Wrapper um die native DOM (HTML) Element, es hat nativeEl
 RENDERER2: ermöglicht uns, die DOM Elemente zu manipulieren, ohne diese direkt zugreifen. Es ist ein Abstraktionslayer zwischen DOm und Komponent-Kode. Sollte anstetten von
  ElementRef verwenden, weil Angular snychronisiert das View und Komponent durch das Template, data binding, change detection, und beim Verwenden von ElementRef all diese werden 
  ausgelassen. Renderer2 muss als Konstrukor-Property deklariert werden, und dann können wird damit Element erstellen, Styles/Classes/Propertys/Html Attribute zugeben/entfernen.
+ 
+  const innerText = this.renderer.createText('book-list.caption');  // text justr created, not yet added to the DOM
+  this.renderer.appendChild(this.booklistheader.nativeElement, innerText);  // adding it to existing element
   
 CONTENTCHILD: (Content bezieht sich auf das projected Content)  ein Referenz auf die Projected Content in dem DOM zu bekommen. (Projected Content ist ein html Inhalt, 
 	das eine Komponente vom parent component erhaelt. Um einen Referenz auf das projected COntent in dem Child-Kompoenent zu bekommen wir verwenden @ContentChild(selector) Dekorator 
@@ -741,17 +747,24 @@ https://www.tektutorialshub.com/angular/how-dependency-injection-resolution-work
 
 Services sind singletons nur innerhalb der scope wo sie registriert sind.
 
+Tree-shakable providers:
+
 "Singleton" nennen wir ein Service, wenn es nur ein einziges Instanz in der ganzen app gibt. Wir folgendermaßen erstellt:
-	-	Verwendung von "root" Option in der providedIn Property: dieses mach singleton unabhängig von eagerly/lazy loaded modules. preferred way
+	"providedIn: root": Verwendung von "root" Option in der providedIn Property: dieses mach singleton unabhängig von eagerly/lazy loaded modules. preferred way
 	-	Deklarieren in der Provider array des @NgModule, ist es root oder eagerly loaded module, dann wird es ein Anwendung-Singleton.
 		Ist es jedoch ein lazy loaded module, dann ist der Service nur innerhalb dieses Module verfügbar, nicht aber außerhalb.
 	(richtigen app-wide Singleton deklarieren wir in Modules nicht in Elementen(Komponente etc))
-	,
-	providedIn=any:  lazy modules haben ihre eigene Insatnz; gäben wir "root" an , würde das heißen,
+
+	"providedIn: any":  lazy modules haben ihre eigene Insatnz; gäben wir "root" an , würde das heißen,
 	das lazy loaded modules auch würden mit den gleichen service Instanz arbeiten-> wir wollen aber ein neues Instanz für je lazy module haben; das ermöglicht "any".
 	(ist es ein eagerly module, dann hat es keinen Effekt, weil sie immer den gleichen Instanz mit dem root module teilen)
 	providedIn=platfrom . gleiche Insatnz wird in allen Applikation verteilt.
 
+	Ansonsten wir können alle schon in den Modulen verwendeten Einstellungen im TS providers verwenden; zb: wir wollen ein service in DepinjModule declarieren:
+		@Injectable({}
+				providedIn: DepinjModule,
+				useClass: DepinjModule // hier unnötig, weitere Optionen useExisting, useValue
+			})
 	
 Angular erstellt jeweils einen Instanz von Injector und dazu jeweils ein Provider für alle Componente/Directive, rootModule,  für alle lazy loaded Modules.
 Aber nicht für eagerly loaded Module, sie teilen die Injector mit dem  des rootModules . Angular erstellt damit ein Baum von Injector als parent-child Beziehung. 
@@ -800,6 +813,50 @@ Authentication:
 JWT Authentication: digital signed JSON payload, das username und Ablaufdatum enthält. Dieser Typ von Token ist das Bearer Token. 
 Wenn der User einloggt und und der Server sendet der Token zurück, dann wird dieser Token in einem global-scoped Service gespeichert und bei jeden Request in dem http header:
  Authorization: Bearer<TokenString> verschickt. Das zu verwirklichen wurde ein Interceptor service implementiert.
+
+######################################################################################################################################################################################
+
+ViewProvider
+
+https://debugmode.net/2020/06/24/when-to-use-viewproviders-in-angular-simplified/
+ähnlich dem provider metadata Property, aber bei disem werden die Abhängigkeiten nur für das View zur Verfügung gestellt, nicht aber für die projizirte content.
+
+######################################################################################################################################################################################
+
+Interceptorok felhasználási területei:
+https://medium.com/angular-in-depth/top-10-ways-to-use-interceptors-in-angular-db450f8a62d6
+
+######################################################################################################################################################################################
+
+RxJS Operators:
+
+https://javascript.plainenglish.io/most-frequently-used-rxjs-operators-with-use-cases-7645639317fc
+Higher order RxJS Operator: anstetten von mapping mit herkömmlichen map() Operator ein Wert x in ein Wert y, diese operatoren mappen einen Wert in ein Observable; so das Ergebnis ist 
+	ein higher-odrder Observable, wofür wir ebenso abbonieren können.
+
+Zb: user editiert form Felder und bei jedem Aenderung wird ein backend Aufruf stattfinden, um den neuen Wert im DB zu speichern: hier wird jedes mal wenn etwas eingetragen wird,
+ ein neues Observable erstellt und dafür abboniert, dann http request versandt. Wenn user schnell tippt, dann werden mehrere Observables erstellt , welche wird dann durchgeführt 
+ und welche wird suspendiert etc?:
+
+concatMap: save Operations werden sekvenziell , nacheinander durchgeführt, wenn 2. wird schneller als das 1. durchgeführt, dann 2. wird warten. Reihenfolge der Observables resultlieferung
+			ist konstant. Zeitlichen Reihenfolge.
+
+mergeMap: hier werden Observables nicht sequentiell durchgeführt, sondern für allen wird abboniert und wie sie durchgeführt werden, so werden ihre Werte gleich genommen, ohne auf ein
+	vorige Observable zu warten. Zeitlich paralelle Reihenfolge der Durchführung.
+
+switchMap:  Während 1. Observable liefert Werte zurück, 2. Observable startet auch Werte zu liefern -> 1. Observable wird unsubscribiert, mit der Folge dass ihre weitere Werte nicht in das 
+	außere Observable genommen wird. Also, wenn ein spßterer Observable Werte liefert, dann frühere wird unsubscribiert. Gut für autocomplete.
+
+https://blog.angular-university.io/rxjs-higher-order-mapping/
+
+
+######################################################################################################################################################################################
+https://www.tektutorialshub.com/angular/valuechanges-in-angular-forms/
+
+Angular stellt RxJS  FormEvent Methode zu Verfügung, um ein Observable aus DOM Errignisse zu machen. Zb: Wir haben ein FormControll input und wir wollen auf keyup Erreignisse abbonieren, 
+(so server calls starten) damit wir ein autocomplete implementieren. 
+
+fromEvent(this.idInput.nativeElement,'keyup').subscribe(res => console.log(res));
 
 ######################################################################################################################################################################################
 
