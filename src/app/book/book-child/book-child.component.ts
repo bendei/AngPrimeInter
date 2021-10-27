@@ -27,4 +27,6 @@ export class BookChildComponent implements OnInit {
     this.singleBook.isbn = "newISBN";
   }
 
+ 
+
 }

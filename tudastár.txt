@@ -18,7 +18,7 @@ personal access token: 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
 	
 	jó kis cikkek: https://blog.angular-university.io
 	
-	uupstream branchrol:
+	uupstream branchrol: 
 	https://devconnected.com/how-to-set-upstream-branch-on-git/
 	
 	vim editor: 
@@ -35,6 +35,16 @@ personal access token: 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
 	 "mindenfele" branch against "master" branch, azaz a master branch időközben az estelegesen remote originből pull-ozott változtatásait át akarom
 	venni a "mindenféle" feature branchembe, hogy amikor majd aztán a mrege-gel ne legyen nagyon eltávolodva a kétféle branch.
 
+	git rebase [<upstream>] [<branch>] 
+
+	-- rebasing "mindenfele branch" against "master branch"
+		or the same just defindes differetnly:
+	-- rebasing master onto mindenfele
+
+	ha a feature brancen állok:
+	git rebase master
+
+	ha masterben állok:
 	git rebase master mindenfele
 
 	git pull 					// on master branch, we update our local master with the remote repo

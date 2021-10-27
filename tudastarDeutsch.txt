@@ -61,6 +61,8 @@ zu Beginn des Namens.
 OPTIONAL CHAINING
 Optional Chaining ermöglicht einen sicheren Zugriff auf verschachtelte Objekte, bei denen ein Teil des Objekts potenziell null oder undefined zurückliefert. if (foo?.bar?.baz)
 Dabei wertet TypeScript den Ausdruck Schritt für Schritt aus und bricht ab, sobald ein Objekt-Property null oder undefined liefert.
+user?name -> wird nicht ausgewertet wenn user ist null, wirft aber Error wenn user ist undefined
+user?.doMyMethod?()
 
 NULLSIH COALESCING
  Nullish Coalescing: Es erlaubt die einfache Zuweisung von Rückfallwerten, für den Fall, dass eine Variable den Wert null oder undefined hat
@@ -157,7 +159,11 @@ EVENT BINDING damit können wir Ereignisse auf einem DOm Element abfangen und ve
 Diese Ereignisse sind entweder native DOM-Events oder werden innerhalb einer Komponente getriggert und diese auf einem Element abfangen und verarbeiten. In der Klasse legen wir
 EventEmitter deshalb eine Eigenschaft an und initialisieren sie mit einem so fooEvent genannten EventEmitter. Dieses Objekt brauchen wir, um ein Ereignis auszulösen. 
 Mit dem Typparameter in spitzen Klammern geben wir an, von welchem Typ der zurückgegebene Payload ist. @Output() fooEvent = new EventEmitter<any>();
+myMethod(...): void {
+	this.fooEvent.emit(payload);
+}
 Auf dem DOM-Element können wir jetzt mit einem Event Binding das Ereignis abfangen und eine Handler-Methode aufrufen fooEvent.
+<..... (fooEvent)="doitIfFooEventÍfired()"
 
 #######################################################################################################################################################################################
 SERVICE	
@@ -172,7 +178,7 @@ Ein Service ist eine Klasse, die mit @Injectable() dekoriert ist. Ein service ka
 
 Beim builk js files werden in bundles verpackt, allen Teile die benötigt sind, werden nicht in bubdles eingebaut = Tree-Shaking; Abhängigkeit verwendet wird oder nicht, 
 läuft das Build-Tool durch den gesamten Baum von Imports. Wenn ein Service existiert, aber niemals von einer Komponente angefordert wird, so ist er trotzdem weiterhin
- im Modul unter providers referenziert. Der Bundler kann also nicht herausfinden, ob der Service niemals verwendet wird – und er wird mit in das Bundle übernommen, 
+ im Modul unter providers referenziert. Der Bundler kann (Angular CLI) also nicht herausfinden, ob der Service niemals verwendet wird – und er wird mit in das Bundle übernommen, 
  => tree shakableder service wird nicht explicit im Module registriert, sondert meldet sich selbst provider: @Injectable({providedIn: in welches Module 
 der Provider eingertagen wird.
 
@@ -342,6 +348,29 @@ Beispiel: cold Ob in hot Ob. umwandeln, damit ein einziger Http-Request ausgefü
 Erstellen eines Observables (maunell):
   let mybookObs: Observable<Book> = of(mybook);	
   .. wobei außerhalb der Klassendefinition das mybook ist:  const mybook: Book =   {   id: '3333', ... sellers:  []};
+
+  
+RxJS Operators:
+
+https://javascript.plainenglish.io/most-frequently-used-rxjs-operators-with-use-cases-7645639317fc
+Higher order RxJS Operator: anstetten von mapping mit herkömmlichen map() Operator ein Wert x in ein Wert y, diese operatoren mappen einen Wert in ein Observable; so das Ergebnis ist 
+	ein higher-odrder Observable, wofür wir ebenso abbonieren können.
+
+Zb: user editiert form Felder und bei jedem Aenderung wird ein backend Aufruf stattfinden, um den neuen Wert im DB zu speichern: hier wird jedes mal wenn etwas eingetragen wird,
+ ein neues Observable erstellt und dafür abboniert, dann http request versandt. Wenn user schnell tippt, dann werden mehrere Observables erstellt , welche wird dann durchgeführt 
+ und welche wird suspendiert etc?:
+
+concatMap: save Operations werden sekvenziell , nacheinander durchgeführt, wenn 2. wird schneller als das 1. durchgeführt, dann 2. wird warten. Reihenfolge der Observables resultlieferung
+			ist konstant. Zeitlichen Reihenfolge.
+
+mergeMap: hier werden Observables nicht sequentiell durchgeführt, sondern für allen wird abboniert und wie sie durchgeführt werden, so werden ihre Werte gleich genommen, ohne auf ein
+	vorige Observable zu warten. Zeitlich paralelle Reihenfolge der Durchführung.
+
+switchMap:  Während 1. Observable liefert Werte zurück, 2. Observable startet auch Werte zu liefern -> 1. Observable wird unsubscribiert, mit der Folge dass ihre weitere Werte nicht in das 
+	außere Observable genommen wird. Also, wenn ein späterer Observable Werte liefert, dann frühere wird unsubscribiert. Gut für autocomplete.
+
+https://blog.angular-university.io/rxjs-higher-order-mapping/
+
 	
 #######################################################################################################################################################################################
 
@@ -357,6 +386,7 @@ durch ein FormControl repräsentiert. Eine Menge von FormControls in einem Objek
 	this.bookForm = this.fb.group({
       id: [book?.isbn],
       isbn: [{value: book?.isbn, disabled: this.modes == Modes.edit}, Validators.minLength(3)], ...
+
 	Mit setValue() können wir die Werte des gesammten Formulars neu setzten. Mit patchValue() einzelne Felder: bookForm.patchValue({username: 'pisti'});
 	we are also checking for the dirty & touched. Because we do not want the application to display the error when the form is displayed for the first time. 
 	dirty: A control is dirty if the user has changed the value in the UI.
@@ -389,7 +419,7 @@ File Struktur:
 		-	projects: In einem Angular-Projekt existiert auf oberster Ebene immer ein sogenannter Workspace. Dieser wird beim Aufruf über  ng new  erzeugt. Das workspace kann aber
 			mehrere Projekte und Bibliotheken beinhalten, diese werden wiederum in "project" Beraich konfiguruiert. ( Monorepo workspace) .
 			Schemantics: ein Code-Generator in Angular CLI, mit dem wir zb componente generieren können aus dem command line.
-		-	architect: für die Konfiguration von Angular-CLIKommandos wie zum Beispiel ng test / build / serve / test / configurations ( production= Diese beinhaltet die Optionen
+		-	architect: für die Konfiguration von Angular-CLIKommandos wie zum Beispiel ng test / build / serve / configurations ( production= Diese beinhaltet die Optionen
 			für das Bauen einer Produktivversion Ihrer Anwendung  / dev) ( mit Konfigurations-Objekten)
 
 	package.json: Konfigurationsdatei, die die Abhaengigkeiten des Projekts definiert. Mit npm werden Pakete in node_modules Verzeichnis installiert. 
@@ -435,7 +465,7 @@ ASYNCPIPE: damit können wir Werte aus einem Observable oder Promise (wird nicht
  im Template: *ngIf="books$ | async as books; else loadingBooks"
 
 EIGENE PIPES ENTWICKELN: Eine Pipe besteht im Wesentlichen aus einer Klasse mit nur einer Methode transform(). Diese Methode nimmt einen Wert value und optional eine beliebige 
-Anzahl Argumente entgegen und liefert den transformierten Wert zurück. Man sollte das Interface PipeTransform verwendet werden. Soll die Pipe eine unbestimmte Zahl von Argumenten erhalten, ist es
+Anzahl Argumente entgegen und liefert den transformierten Wert zurück. Man sollte das Interface PipeTransform verwend. Soll die Pipe eine unbestimmte Zahl von Argumenten erhalten, ist es
 allerdings unmöglich, die Methodensignatur genau anzugeben: Rest-Syntax -> transform(value: unknown, ...args: unknown[]): unknown
 	
 
@@ -448,11 +478,11 @@ zehn einzelne Anwendungen kompilieren und bereitstellen. Zur dynamischer Sprachw
 
 ######################################################################################################################################################################################	
 CONTENT PROJECTION: zwischen den Selektor Elementen (Host Elementen) der Template können wir beliebige html Inhalt angeben. Dieses nennen wir "Content" die aber im normalfall nicht
- angezeigt wird. Wir können aber den Inhalt zugreifen und an eine Komponente-Template übergeben -> content projection / tranclusion, indem wir die <ng-content> Platzhalter verwenden. 
+ angezeigt wird. Wir können aber den Inhalt zugreifen und an eine child Komponente-Template übergeben -> content projection / tranclusion, indem wir die <ng-content> Platzhalter verwenden. 
  Wir können sogar mehrere Inhalte an mehreren beliebigen Stellen im child-template übergeben -> multi-slot Projection, zum Auswaehlen wird css selector verwendet.
- <ng-content select=".myClass">
+ <ng-content select=".myClass"> Selector kann ein thml tag name, css class name sein.
 
-NG-TEMPLATE: Platzhalter, wird von Angular nicht gerendert. Kann aber mit Strukturdirektive angezeigt werden. 
+NG-TEMPLATE: Platzhalter (placeholder), wird von Angular nicht gerendert. Kann aber mit Strukturdirektive referenziert und  angezeigt werden. 
 	Kann angezeigt werden:
 		1.	Mit TemplateRef Variable:
 			<ng-template #thenTemplateRefVariable>... using TemplateRef Variable
@@ -480,12 +510,12 @@ automatisch ein zusätzliches Attribut mit einem eindeutigen Bezeichner, d.h. de
 gesetzt wird. Die vom Entwickler festgelegten Styles werden abgeändert, sodass sie nur für dieses Attribut wirken.
  
 // https://www.tektutorialshub.com/angular/understanding-viewchild-viewchildren-querylist-in-angular/
-VIEWCHILD (Decorator): (View bezieht sich auf das Template) (Shadow DOM) wird verwendet, um einen Referenz etnweder auf eigenes DOM-Element des Komponents heraus zu bekommen. 
-	zB. @ViewChild("header") headerRef: ElementRef; änderst sich der 
+VIEWCHILD (Decorator): (View bezieht sich auf das Template) (Shadow DOM) wird verwendet, um einen Referenz etnweder auf eigenes DOM-Element des Komponents heraus zu bekommen, 
+		zB. @ViewChild("header") headerRef: ElementRef; änderst sich der 
 	
-	oder wen der selector ein Typescript Type ist, was eigentlich ein Child-Komponent ist:
+	oder wenn der selector ein Typescript Type ist, was eigentlich ein Child-Komponent ist:
 	
-	@ViewChild(BookListComponent) child: BookListComponent;
+		@ViewChild(BookListComponent) child: BookListComponent;
 	
 VC liefert das erste passende Element zurück.
  Wird auf Kompoenenten-Property verwendet, hat 2 Argumente: Selector (string, Typescript Type, wie Komponente Klassenname oder Function), Konfigurationsobjekt: 
@@ -538,7 +568,7 @@ A. Komponente haben paretn-child Beziehung:
 	3.	Verwendung von lokalen Variable (TemplateRef) um auf die Kind-Komponente zugreifen:
 		<child #childTemplateRef></child> in der Parent-Komponente , in der Child_Komponente selector
 		und mit Interpolation auf der Proerty der ChildKomponente zugreifen {{childTemplateRef.propertyInDerChildKomponente}} (mit change detection sogar)
-	4.	Mit @ViewChild bekommen wir ein Referenz in dem Parent-Komponent auf die Child-Komponent und so haben wir Zugriff auf seine Properties.
+	4.	Mit @ViewChild bekommen wir ein Referenz aus  dem Parent-Komponent heraus auf die Child-Komponent und so haben wir Zugriff auf seine Properties.
 		
 B.	Es gibt keine Beziehung zwischen den komponenten:
 	1.	mit Services: Datenaustausch zwischen sogar mehreren Komponeten.
@@ -633,7 +663,7 @@ Die Daten mit @Input in der Direktive ausgelsesen.
 
 	<div myDirective="adat" anotherProperty="adat" ...oder durch ein belibiges Property
 		
-ATTIBUTEDIREKTIVE ändert nur ihre Host-Element ( es ist die entgegengesetzte Richtung wie beim [mgClass] oder [ngStyle]), 
+ATTIBUTEDIREKTIVE : Wertübergabe von der Klasse in das host element. ( es ist die entgegengesetzte Richtung wie beim [mgClass] oder [ngStyle]), 
 Wir können aus der Direktive-Klasse auf das Host-Element zugreifen:
 	-	@HostBinding 
 	-	ElementRef.
@@ -655,7 +685,7 @@ Wir können aus der Direktive-Klasse auf das Host-Element zugreifen:
 	Binding erlauben aber keine direkten Zugriff auf das DOM-Element. daür ist die ELementRef (durch konstrukto Propoerty Referenz auf dem Host-Element)
 	
 Häufig verwendet man Attributdirektiven, um auf Ereignisse zu reagieren, die auf dem Host-Element auftreten. Diese Events lassen sich durch den Decorator @HostListener(mouseenter)
- abfangen, sodass wir in der Attributdirektive darauf reagieren können.
+ abfangen, sodass wir in der Attributdirektive darauf reagieren können. Wir annotieren damit eine Methode.
  
 STRUKTURDIREKTIVE: Strukturdirektiven sind immer dann sinnvoll, wenn Elemente in Abhängigkeit von bestimmten Faktoren ein- und ausgeblendet werden sollen. 
 Die Möglichkeiten sind sehr vielfältig: Denken Sie beispielsweise an Feature-Toggles, zeitliche Verzögerung oder Sichtbarkeit abhängig von Berechtigungen.
@@ -784,9 +814,14 @@ Module ist verfügbar in disem Module und in den Kindermodulen.
 Auflösung der Abhaengigkeiten einer Komponent:
 Angular versucht den Instanz der Abhängigkeit erst der Injector der jeweiligen komponente finden. Wenn es nicht findet, dann geht es eine level oben und sucht den Instanz
 in der Injector der Eltern-Komponente. Findet es nicht einmal in der Rootkomponent's Injector, dann wechselt es auf das Modulinjector Hierarchie und versucht es dort zu finden.
+
 @Self() Dekorator instruirt den Angular, dass es nur in der Lokalinjector sucht. @SkipSelf instruiert um in der Eltern oder oberhalb zu suchen. Diese sind 
 Konstruktor-Parameter Dekoratoren.
  
+@Optional: wird kein Exception geworfen wennn kein Provider gefunden wird, aber das Kompoenent soll prüfen, ob es null ist.
+
+@SkipSelf: Consumer deklariert eine Abhängigkeit auf eigener Ebene, wir sollen aber anstelle von diesem die Parents Provider verwenden.
+
 ######################################################################################################################################################################################
 
 Angular CLI: aufgerufen mit "ng" keyword, installiert mit npm install -g @angular/cli@latest
@@ -827,27 +862,6 @@ Interceptorok felhasználási területei:
 https://medium.com/angular-in-depth/top-10-ways-to-use-interceptors-in-angular-db450f8a62d6
 
 ######################################################################################################################################################################################
-
-RxJS Operators:
-
-https://javascript.plainenglish.io/most-frequently-used-rxjs-operators-with-use-cases-7645639317fc
-Higher order RxJS Operator: anstetten von mapping mit herkömmlichen map() Operator ein Wert x in ein Wert y, diese operatoren mappen einen Wert in ein Observable; so das Ergebnis ist 
-	ein higher-odrder Observable, wofür wir ebenso abbonieren können.
-
-Zb: user editiert form Felder und bei jedem Aenderung wird ein backend Aufruf stattfinden, um den neuen Wert im DB zu speichern: hier wird jedes mal wenn etwas eingetragen wird,
- ein neues Observable erstellt und dafür abboniert, dann http request versandt. Wenn user schnell tippt, dann werden mehrere Observables erstellt , welche wird dann durchgeführt 
- und welche wird suspendiert etc?:
-
-concatMap: save Operations werden sekvenziell , nacheinander durchgeführt, wenn 2. wird schneller als das 1. durchgeführt, dann 2. wird warten. Reihenfolge der Observables resultlieferung
-			ist konstant. Zeitlichen Reihenfolge.
-
-mergeMap: hier werden Observables nicht sequentiell durchgeführt, sondern für allen wird abboniert und wie sie durchgeführt werden, so werden ihre Werte gleich genommen, ohne auf ein
-	vorige Observable zu warten. Zeitlich paralelle Reihenfolge der Durchführung.
-
-switchMap:  Während 1. Observable liefert Werte zurück, 2. Observable startet auch Werte zu liefern -> 1. Observable wird unsubscribiert, mit der Folge dass ihre weitere Werte nicht in das 
-	außere Observable genommen wird. Also, wenn ein spßterer Observable Werte liefert, dann frühere wird unsubscribiert. Gut für autocomplete.
-
-https://blog.angular-university.io/rxjs-higher-order-mapping/
 
 
 ######################################################################################################################################################################################
