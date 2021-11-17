@@ -37,6 +37,7 @@ import { SharedModule } from './shared/shared.module';
 import { ErrortransferService } from "./error/errortransfer.service";
 import { GyakorlasComponent } from './gyakorlas/gyakorlas.component';
 import { ResponsereadernterceptorService } from "../app/shared/responsereaderinterceptor.service";
+import { ProbaModule } from "../app/proba/proba.module";
 
 // pipes
 
@@ -50,13 +51,13 @@ registerLocaleData(localeRu, 'ru');
     AppComponent,
     HomeComponent,
     ErrorComponent,
-    GyakorlasComponent
+    GyakorlasComponent,
   ],
   imports: [
     BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,
     AuthenticationModule, SharedModule,
     AppRoutingModule, 
-    StoreModule, BookModule, InputOutputModule, NyomonkovetesModule,
+    StoreModule, BookModule, InputOutputModule, NyomonkovetesModule, ProbaModule,
     LoggerModule.forRoot({serverLoggingUrl: 'http://localhost:3500/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
   ],
   providers: [StoreGuard, ErrortransferService,

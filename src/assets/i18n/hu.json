@@ -78,6 +78,7 @@
     "menu.search": "Keresés",
     "menu.gyakorlas": "Gyakorlás",
     "menu.diproba": "DI próba",
+    "menu.proba": "Proba",
 
     "error.required_length": "Minimális hossz:",
     "error.book_title": "A címnek tartalmaznia kell az Angular vagy React szót",

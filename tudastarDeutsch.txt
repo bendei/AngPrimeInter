@@ -127,8 +127,8 @@ PROPERTY BINDING: mit Komponenten kommunizieren
 Wir können  Komponente veschachteln und dise können mineinander kommunizieren mittel property binding: über der Komponente selectors html tag mit attribute-binding setzten
 wir den zu übergebenden Wert von der Host-Komponente, die wir mit dem  @Input()  Decorator in der Chid-Komponente auslesen können.
  Aendert sich die Daaten, wird das binding automatisch aktualisiert. jedes Element im DOM-Baum hat Propertys die sich schreiben lassen. 
- [property]="expression"  (ohne eckigen Klammern  wirh rechte Seite als string literar und nicht als expression ausgewertet). Wir können belibige Properties in einem 
- DOM Element schreiben. 
+ [property]="expression"  (ohne eckigen Klammern  wirh rechte Seite als string literar und nicht als expression ausgewertet= Attribute Schreibweise)).
+  Wir können belibige Properties in einem  DOM Element schreiben. 
  
  DOM Property in Komponente auslesen: @Input
 
@@ -254,11 +254,15 @@ Lebenszyklus einer Komponente / Directive:
 					2.	Lagert man die Logik in das Docheck() hinaus.
 	4.	Oninit: signalisiert, dass die Komponente fertig ist, Initialisierunglogik sollte hier kommen, lauft nur einmal ab.
 	5.	Docheck: wird immer by change detection aufgerufen, funktioniert mit array/Objekt-Typen auch.
-	6.  AfterContentInit: gerufen nur einmal nachdem der content inizialisiert und in die Komponente projected ist.
-	7.	AfterContentChecked: gleich wie oben, aber immer wenn change detection ablauft
-	8.	AfterViewInit: nachdem Komponente-View und ihre child views inizialisiert sind. Kann zum extra Initialisierungslogik.  Erst ab dieser Stufe im Lebenszyklus
-		können wir mit @ViewChild() zuverlässig auf Elemente in der View zugreifen
-	9.	AfterViewChecked: 
+	6.  AfterContentInit: Content ist hier ein external content injiziert durch ein parent component. 
+		gerufen nur einmal nachdem der content inizialisiert und change det abgelaufen ist.in die Komponente projected ist. (Content Projection!),
+		  You really don't need to worry about 	it if you're not messing around with templates or <ng-content>. Here @ContentChild and 
+		  @ContentChildren will be resolved.
+	7.	AfterContentChecked: gleich wie oben, aber immer wenn change detection ablauft, Angular aktualisiert properties decorated ,it @ContentChild.
+	8.	AfterViewInit: View ist der Template eines Komponents.  nachdem Komponente-View und ihre child views inizialisiert sind. Kann zum extra Initialisierungslogik. 
+		 Erst ab dieser Stufe im Lebenszyklus können wir mit @ViewChild() zuverlässig auf Elemente in der View zugreifen. Angular compiles all views to JS files, not html - the framework manages templates
+		 in code and has a rendering engine to interact with the DOM. At this hook @ViewChild and @ViewChildren will be resolved (aktualisiert)-- child compo
+	9.	AfterViewChecked: laeft nach change detection ab
 	10. Ondestroy: Komponente wird aus dem DOM ausgebaut.
  
 	Im Generell: Init hooks: wenn view/content ist inizialisiert zum ersten Male. Dieses passiert 1. change detection cycle, gleich nach Instanzierung der Komponente. 
@@ -414,19 +418,24 @@ NODE.JS ist eine Laufzeitumgebung  für JavaScript. Karma, ESLint, JSHint, TypeS
 NPM: Pakete verwalten, können JavaScript, CSS, HTML und mehr beinhalten.
 
 File Struktur:
-	angular.json: hier befinden sich einige Optionen, die das Verhalten von Angular CLI und seine Kommandos steuern. Dieser Datei besteht aus Bereichen, zB.
+	angular.json: Konfigurationsdatei für workspace,  hier befinden sich einige Optionen, die das Verhalten von Angular CLI und seine Kommandos steuern. Dieser Datei besteht aus Bereichen, zB.
 		-	version
 		-	projects: In einem Angular-Projekt existiert auf oberster Ebene immer ein sogenannter Workspace. Dieser wird beim Aufruf über  ng new  erzeugt. Das workspace kann aber
 			mehrere Projekte und Bibliotheken beinhalten, diese werden wiederum in "project" Beraich konfiguruiert. ( Monorepo workspace) .
 			Schemantics: ein Code-Generator in Angular CLI, mit dem wir zb componente generieren können aus dem command line.
-		-	architect: für die Konfiguration von Angular-CLIKommandos wie zum Beispiel ng test / build / serve / configurations ( production= Diese beinhaltet die Optionen
+		-	architect: für die Konfiguration von Angular-CLI Kommandos wie zum Beispiel ng test / build / serve / configurations ( production= Diese beinhaltet die Optionen
+			+ serve:  Konfiguration für Starten eine Appl für Entwicklung
+			+ build: Konf. für Kompilieren und Verpackung
+			+ Production optimization
+			+ Test Konfigurationen
+
 			für das Bauen einer Produktivversion Ihrer Anwendung  / dev) ( mit Konfigurations-Objekten)
 
-	package.json: Konfigurationsdatei, die die Abhaengigkeiten des Projekts definiert. Mit npm werden Pakete in node_modules Verzeichnis installiert. 
+	package.json: Hauptkonfigurationsdatei, wird beim Erstellen des Projekt erst generiert.  die die Abhaengigkeiten des Projekts definiert. Mit npm werden Pakete in node_modules Verzeichnis installiert. 
 		-	name, version
 		-	dependencies: alle Abhaengigkeiten, die die Anwendung beim Laufen braucht.
 		-	devDependencies: -||- die nur bei der Entwickulng braucht.
-		-	scripts: Skripte, die man über npm ausführen kann. (zB: "json" -> npm run json 
+		-	hier kann man scripts konfigurieren: Skripte, die man über npm ausführen kann. (zB: "json" -> npm run json 
 		
 	package.lock.json: beinhaltet Abhangigkeiten wie package.json, aber mit dem exakten Versionsnummer.
 	
@@ -604,8 +613,8 @@ Zwei Typen von Errorbehandlungen:
 		-  im Service abgefangen werden mit der CatchError Operator, worin man es gleich behandelt oder mit throwError weiterwirft. In diesem Fall werden Errors
 			in der komponenten behandelt:
 			let observer = {
-							  next: (response: any) => console.log("next:", response),
-							  error: (err: any) => this.errorObject = err
+						  next: (response: any) => console.log("next:", response),
+						  error: (err: any) => this.errorObject = err
 							 }
 			this.restDS.get404StatusCode().subscribe( observer );
 			
@@ -638,7 +647,9 @@ DIREKTIVEN sind Klassen, die einem DOM-Element eine zusätzliche Logik zuordnen.
 	ATTRIBUTDIREKTIVEN werden eingesetzt, um das Aussehen oder das Verhalten eines DOM-Elements zu verändern / steuern. Man nennt sie Attributdirektiven, weil die Verdrahtung 
 zwischen DOM-Element und dessen Direktiven/Komponentenklasse durch ein HTML-Attribut erfolgt, und nur auf das Element selbst auswirken.  z.B. [ngClass]
 	
-	STRUKTURDIREKTIVEN hingegen verändern die Struktur des DOM-Baums,indem sie Elemente hinzufügen oder entfernen. Die Metadaten werden als Objekt in den Decorator hineingegeben. 
+	STRUKTURDIREKTIVEN hingegen ändern die Struktur des DOM-Baums,indem sie Elemente hinzufügen oder entfernen. Die Metadaten werden als Objekt in den Decorator hineingegeben. 
+ https://www.tektutorialshub.com/angular/angular-ngonchanges-life-cycle-hook/_ 
+ 
 	
 ATTRIBUTDIREKTIVEN
 Wenn wir an ein Attribut binden wollen, müssen wir den Attribut namen immer in eckigen Klammern notieren, denn das ist der Weg, Attributnamen mit CSS-Selektoren zu matchen.
@@ -733,13 +744,13 @@ Angular DI Framework:
 			
 			Damit DI über Konstrukor funktioniert,  muss angular wissen welche Klassen zur Verfügung stehen. Es soll ein Bauanletiung geben, wonach DI ein Instanz erzeugt, diese 
 			
-			Configuring Providers:
+			Configuring Providers mit Konfigurationsobjekte {provide, useClass/useValue}:
 				
 				providers: [ProductService] ist Kurzform für: providers :[{ provide: ProductService, useClass: ProductService }] wobei provide is der Token 
 						   (Injector verwendet es um ein Provider in der providers array zu finden).
 				
 			provide: (=Konstruktor-Parameter)
-				Typen von Tone:type, string , InjectionToken.
+				Typen von Tokens:  class type, string , InjectionToken.
 				- type: oben
 				- string Token:	
 									{provide:'PRODUCT_SERVICE', useClass: ProductService }, 
@@ -782,7 +793,9 @@ Tree-shakable providers:
 "Singleton" nennen wir ein Service, wenn es nur ein einziges Instanz in der ganzen app gibt. Wir folgendermaßen erstellt:
 	"providedIn: root": Verwendung von "root" Option in der providedIn Property: dieses mach singleton unabhängig von eagerly/lazy loaded modules. preferred way
 	-	Deklarieren in der Provider array des @NgModule, ist es root oder eagerly loaded module, dann wird es ein Anwendung-Singleton.
-		Ist es jedoch ein lazy loaded module, dann ist der Service nur innerhalb dieses Module verfügbar, nicht aber außerhalb.
+	
+	!!!!!
+	Ist es jedoch ein lazy loaded module, dann ist der Service nur innerhalb dieses Module verfügbar, nicht aber außerhalb.
 	(richtigen app-wide Singleton deklarieren wir in Modules nicht in Elementen(Komponente etc))
 
 	"providedIn: any":  lazy modules haben ihre eigene Insatnz; gäben wir "root" an , würde das heißen,
@@ -797,6 +810,7 @@ Tree-shakable providers:
 			})
 	
 Angular erstellt jeweils einen Instanz von Injector und dazu jeweils ein Provider für alle Componente/Directive, rootModule,  für alle lazy loaded Modules.
+Wenn providers Metadata array is empty damm Angular erstelt ein einen leeren Injector, Injectors werden zerstört wenn Komponent wird zertört. 
 Aber nicht für eagerly loaded Module, sie teilen die Injector mit dem  des rootModules . Angular erstellt damit ein Baum von Injector als parent-child Beziehung. 
 Die Dependencies registrieren wir mit den Providers in der providers: [] metadata des Injectors.
 

@@ -31,7 +31,7 @@ const primeModules = [InputTextModule, ButtonModule, TableModule, CalendarModule
         deps: [HttpClient]
     }
   })],
-  exports: [...modulesToExport, ...primeModules,  TranslateModule]
+  exports: [...modulesToExport, ...primeModules,  TranslateModule]  // spread operator for copying arrays (and objects)
 })
 export class SharedModule { }
 

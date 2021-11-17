@@ -6,6 +6,7 @@ import { AuthComponent } from "./authentication/auth.component";
 import { ErrorComponent } from "./error/error.component";
 import {GyakorlasComponent } from "../app/gyakorlas/gyakorlas.component";
 import { DepinjprobaComponent } from "./depinjproba/depinjproba.component";
+import { ProbaComponent } from "./proba/proba.component";
 
 //Routendefinitionen
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
     {path: "nyomonkovetes",
       loadChildren: () => import("./nyomonkovetes/shared/nyomonkovetes-routing.module").then(i => i.NyomonkovetesRoutingModule)
     },
-    
+    {path: "proba", component: ProbaComponent}, 
     // !!! a ** pathnak kell legutoljára jönnie különben az alatta levő path nem mux
     {path: "**", redirectTo: "home"}  // um die Navigation zu nicht bekannten URLs aubzufangen
    
