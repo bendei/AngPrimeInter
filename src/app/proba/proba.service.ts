@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { ProbaComponent } from './proba.component';
+import { ProbaModule } from './proba.module';
 
-
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProbaService {
 
   nevem: string = "bende";

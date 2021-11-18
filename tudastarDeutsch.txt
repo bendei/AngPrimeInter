@@ -836,6 +836,8 @@ Konstruktor-Parameter Dekoratoren.
 
 @SkipSelf: Consumer deklariert eine Abhängigkeit auf eigener Ebene, wir sollen aber anstelle von diesem die Parents Provider verwenden.
 
+Wenn ein Komponent hat providers metadata: [mySerivce], dann jeder Instanz der Komponent hat sein eigenes Service Instanz. (Service instanz nur mit @Injectable(empty) )
+
 ######################################################################################################################################################################################
 
 Angular CLI: aufgerufen mit "ng" keyword, installiert mit npm install -g @angular/cli@latest

@@ -5,7 +5,6 @@ import { StoreGuard } from "./authentication/store.guard";
 import { AuthComponent } from "./authentication/auth.component";
 import { ErrorComponent } from "./error/error.component";
 import {GyakorlasComponent } from "../app/gyakorlas/gyakorlas.component";
-import { DepinjprobaComponent } from "./depinjproba/depinjproba.component";
 import { ProbaComponent } from "./proba/proba.component";
 
 //Routendefinitionen
@@ -14,7 +13,6 @@ const routes: Routes = [
     {path: "auth", component: AuthComponent},
     {path: "home", component: HomeComponent , canActivate: [StoreGuard]},
     {path: "gyakorlas/main", component: GyakorlasComponent},
-    {path: "depinjproba", component: DepinjprobaComponent},
     {path: "store", // ez lesz a route prefix-je pl "/store/home"
         //  <!-- a children routok componentjeit ide tölti be: <router-outlet></router-outlet> "admin", lásd: admin module path main 
         loadChildren: () => import("./store/store-routing.module").then(m => m.StoreRoutingModule)
