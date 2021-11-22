@@ -220,6 +220,8 @@ export class BookDetailsComponent implements OnInit {
         authors,
         genres: this.getSelectedGenreNames(genres)
       };
+      console.log("ezt az:", this.bookForm.get("published").value);
+      console.table(mybook);
 
       if(this.modes == Modes.edit) {
           this.ds.updateBook(mybook).subscribe(data => 

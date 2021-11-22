@@ -19,6 +19,8 @@ import { BookModule} from "../app/book/book.module";
 import { NyomonkovetesModule } from "../app/nyomonkovetes/shared/nyomonkovetes.module";
 import { InputOutputModule} from "./inputOutput/shared/inputOutput.module";
 import { ButtonModule} from "primeng/button";
+import { DepModule } from '../app/dep/dep.module';
+import { DatetimeModule } from '../app/datetime/datetime.module';
 
 // comps
 import { AppComponent } from './app.component';
@@ -38,6 +40,7 @@ import { ErrortransferService } from "./error/errortransfer.service";
 import { GyakorlasComponent } from './gyakorlas/gyakorlas.component';
 import { ProbaModule } from "../app/proba/proba.module";
 
+
 // pipes
 
 
@@ -50,13 +53,13 @@ registerLocaleData(localeRu, 'ru');
     AppComponent,
     HomeComponent,
     ErrorComponent,
-    GyakorlasComponent,
+    GyakorlasComponent
   ],
   imports: [
     BrowserModule, RouterModule, ReactiveFormsModule, ButtonModule,
     AuthenticationModule, SharedModule,
     AppRoutingModule, 
-    StoreModule, BookModule, InputOutputModule, NyomonkovetesModule, ProbaModule,
+    StoreModule, BookModule, InputOutputModule, NyomonkovetesModule, ProbaModule, DepModule, DatetimeModule,
     LoggerModule.forRoot({serverLoggingUrl: 'http://localhost:3500/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
   ],
   providers: [StoreGuard, ErrortransferService,
